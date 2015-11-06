@@ -20,13 +20,17 @@ public class MazeController {
 	int MAZE_LENGTH = 200;
 	int MAZE_WIDTH = 200;
 
+	int rows = 200;
+	int cols = 200; // TODO!!!!!!
+
 	public MazeController(MainView mainView) {
-		this.mazeModel = new Maze(this.MAZE_LENGTH, this.MAZE_WIDTH);
-		this.mazeView = new MazeView();
-		mainView.add(this.mazeView);
+		mazeModel = new Maze(MAZE_LENGTH, MAZE_WIDTH);
+		mazeView = new MazeView(rows, cols);
+		mainView.add(mazeView);
 		mainView.view();
 
-		this.player = new PlayerController(this);
+		player = new PlayerController(this);
+		setUpTimer();
 	}
 
 	/** start Gameplay */
@@ -35,17 +39,17 @@ public class MazeController {
 	}
 
 	private void setUpTimer() {
-		this.timer = new Timer();
-		this.timer.schedule(new TimerTask() {
+		timer = new Timer();
+		timer.schedule(new TimerTask() {
 
 			@Override
 			public void run() {
 				// follow the mouse
-				Point mp = MazeController.this.mazeView.getMousePosition();
+				Point mp = mazeView.getMousePosition();
 				if (mp == null)
 					return;
 
-				Point pp = MazeController.this.player.getPos();
+				Point pp = player.getPos();
 
 				int dx = 0;
 				int dy = 0;
@@ -68,7 +72,7 @@ public class MazeController {
 				if (dx == 0 && dy == 0)
 					return;
 
-				MazeController.this.player.move(dx, dy);
+				player.move(dx, dy);
 			}
 		}, 0, 50);
 	}

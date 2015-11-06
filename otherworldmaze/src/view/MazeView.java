@@ -1,8 +1,8 @@
 package view;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 
 import javax.swing.JPanel;
 
@@ -20,15 +20,21 @@ public class MazeView extends JPanel {
 
 	private Color bg;
 
-	public MazeView() {
+	private int rows;
+	private int cols;
+
+	public MazeView(int rows, int cols) {
+		this.rows = rows;
+		this.cols = cols;
+
 		initView();
 	}
 
 	public void initView() {
-		this.setLayout(new BorderLayout());
+		this.setLayout(new GridLayout(rows, cols));
 		// this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-		this.setPreferredSize(new Dimension(this.GAME_W, this.GAME_H));
-		this.setBackground(this.BG_COLOR);
+		this.setPreferredSize(new Dimension(GAME_W, GAME_H));
+		this.setBackground(BG_COLOR);
 	}
 
 	public void addPlayer(PlayerView player) {
