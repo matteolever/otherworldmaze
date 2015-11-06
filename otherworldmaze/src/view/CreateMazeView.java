@@ -1,6 +1,8 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
@@ -21,15 +23,27 @@ public class CreateMazeView extends JPanel {
 		this.setLayout(new BorderLayout());
 		this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-		this.editPanel = new JPanel(new BoxLayout(this.editPanel, BoxLayout.Y_AXIS));
-		this.previewMaze = new MazeView();
+		// new FlowLayout(FlowLayout.LEADING)
+		editPanel = new JPanel();
+		editPanel.setLayout(new BoxLayout(editPanel, BoxLayout.LINE_AXIS));
+		previewMaze = new MazeView();
 
 		JPanel obstaclePanel = new JPanel(new GridLayout(4, 2));
+		obstaclePanel.setBorder(BorderFactory.createLineBorder(Color.RED));
+		JLabel obstaclesLabel = new JLabel("Obstacles");
+		obstaclePanel.add(obstaclesLabel);
 
-		JLabel obstacle;
+		JPanel doorsPanel = new JPanel(new FlowLayout());
+		doorsPanel.setBorder(BorderFactory.createLineBorder(Color.BLUE));
+		JLabel doorsLabel = new JLabel("Doors and Keys");
+		doorsLabel.setHorizontalAlignment(FlowLayout.LEFT);
+		doorsPanel.add(doorsLabel, FlowLayout.LEFT);
 
-		this.add(this.editPanel, BorderLayout.WEST);
-		this.add(this.previewMaze, BorderLayout.EAST);
+		editPanel.add(obstaclePanel);
+		editPanel.add(doorsLabel);
+
+		this.add(editPanel);
+		this.add(previewMaze, BorderLayout.EAST);
 
 	}
 
