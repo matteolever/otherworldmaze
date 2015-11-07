@@ -7,7 +7,7 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 
 public class PlayerView extends Component {
-	
+
 	private int x;
 	private int y;
 
@@ -15,15 +15,17 @@ public class PlayerView extends Component {
 	 * a player needs to belong to a maze which needs to be given as an argument
 	 * when creating the playerview
 	 * 
-	 * @param mazeView the maze to which the player belongs
+	 * @param mazeView
+	 *            the maze to which the player belongs
 	 */
-	public PlayerView(int x, int y, MazeView mazeView) {
-		this.x=x;
-		this.y=y;
-		mazeView.addPlayer(this);
-		//this.setLocation(x, y);
+	public PlayerView(int x, int y) {
+		this.x = x;
+		this.y = y;
+
+		// this.setLocation(x, y);
 	}
 
+	@Override
 	public void paint(Graphics graphics) {
 		Graphics2D g = (Graphics2D) graphics;
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);

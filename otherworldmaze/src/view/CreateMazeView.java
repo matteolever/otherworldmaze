@@ -40,7 +40,6 @@ public class CreateMazeView extends JPanel {
 	Timer timer;
 
 	private int selected;
-	private boolean showSelection = false;
 
 	public CreateMazeView() {
 		timer = new Timer(100, mouseTracker);
@@ -164,6 +163,10 @@ public class CreateMazeView extends JPanel {
 		}
 	}
 
+	/**
+	 * should plant an obstacle and call the createMazeController to create an
+	 * actual model of that
+	 */
 	private MouseAdapter obstacleListener = new MouseAdapter() {
 		@Override
 		public void mouseClicked(MouseEvent e) {
@@ -196,7 +199,6 @@ public class CreateMazeView extends JPanel {
 		@Override
 		public void mouseExited(MouseEvent e) {
 			System.out.println("exit");
-			showSelection = false;
 
 			if (obstaclePreview != null) {
 				// if (previewMaze.isAncestorOf(obstacleView))
@@ -213,7 +215,6 @@ public class CreateMazeView extends JPanel {
 
 			if (obstaclePreview != null) {
 				// the selected item follows the mouse
-				showSelection = true;
 				timer.start();
 				obstaclePreview.setVisible(true);
 				previewMaze.add(obstaclePreview);

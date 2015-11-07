@@ -35,18 +35,18 @@ public class ObstacleView extends Component {
 		String src = "";
 		switch (type) {
 		case FOREST:
-			src = "/Users/verena/git/otherworldmaze/otherworldmaze/src/view/forest.png";
+			src = "appdata/forest.png";
 			break;
 		case MOUNTAIN:
-			src = "/Users/verena/git/otherworldmaze/otherworldmaze/src/view/mountains.png";
+			src = "appdata/mountains.png";
 			break;
 
 		case VILLAGE:
-			src = "/Users/verena/git/otherworldmaze/otherworldmaze/src/view/village.png";
+			src = "appdata/village.png";
 			break;
 
 		default:
-			src = "/Users/verena/git/otherworldmaze/otherworldmaze/src/view/forest.png";
+			src = "appdata/forest.png";
 			break;
 		}
 

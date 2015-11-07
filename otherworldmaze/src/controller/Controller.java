@@ -38,7 +38,7 @@ public class Controller {
 	public void startEdit() {
 		this.mainView.remove(this.startView);
 
-		CreateMazeContoller editMaze = new CreateMazeContoller(this.mainView);
+		CreateMazeConrtoller editMaze = new CreateMazeConrtoller(this.mainView);
 	}
 
 	/** initialize the edit mode */

@@ -19,20 +19,9 @@ public class MainView extends JFrame {
 	}
 
 	public void initView() {
-		this.pane = getContentPane();
-		this.pane.setLayout(new BoxLayout(this.pane, BoxLayout.LINE_AXIS));
-
+		pane = getContentPane();
+		pane.setLayout(new BoxLayout(pane, BoxLayout.LINE_AXIS));
 	}
-
-	// public MazeView createMazeView(){
-	//
-	// MazeView mazeView = new MazeView();
-	// ui = mazeView.initView();
-	//
-	// pane.add(ui);
-	//
-	// return mazeView;
-	// }
 
 	public void view() {
 		this.setVisible(true);
