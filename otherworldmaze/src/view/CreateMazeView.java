@@ -3,7 +3,6 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -151,7 +150,7 @@ public class CreateMazeView extends JPanel {
 	public ObstacleView createObstacle(int type) {
 		obstaclePreview = new ObstacleView(type);
 		// TODO set the correct size
-		obstaclePreview.setPreferredSize(new Dimension(100, 129));
+		// obstaclePreview.setPreferredSize(new Dimension(100, 129));
 		obstaclePreview.setBounds(0, 0, 100, 129);
 		return obstaclePreview;
 
