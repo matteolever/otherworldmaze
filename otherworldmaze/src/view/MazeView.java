@@ -39,11 +39,33 @@ public class MazeView extends JPanel {
 
 	}
 
-	public void fillEmptyGrid() {
+	public void createEmptyGrid() {
 		for (int row = 0; row < rows; row++) {
 			for (int col = 0; col < cols; col++) {
 				CellView cellView = new CellView(CellEnum.EMPTY);
+				this.add(cellView);
+				System.out.print(" x ");
 			}
+			System.out.println("");
+		}
+		
+	}
+	
+	/**
+	 * creates a MazeView with the values given as a parameter.
+	 * @param grid the gird with which the values are 
+	 */
+	public void createFilledGrid(int[][] grid){
+		for (int row = 0; row < grid.length; row++) {
+			for (int col = 0; col < grid[0].length; col++) {
+				//TODO; how can I get the Enum when I only know the number of the type?
+			
+				CellView cellView = new CellView(grid[row][col]); 
+				this.add(cellView);
+				
+				System.out.print(" x ");
+			}
+			System.out.println("");
 		}
 	}
 

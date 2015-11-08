@@ -43,5 +43,22 @@ public enum CellEnum {
 	public String getSrc(int type) {
 		return src;
 	}
+	
+//	public CellEnum getEnum(int type){
+//		switch (type) {
+//		case FOREST.getType():
+//			return CellEnum.FOREST;
+//		
+//		case FOREST.getType():
+//			return CellEnum.FOREST;
+//
+//		case FOREST.getType():
+//			return CellEnum.FOREST;
+//
+//		default:
+//			src = CellEnum.FOREST.getSrc();
+//			break;
+//		return null;
+//	}
 
 }

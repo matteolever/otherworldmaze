@@ -28,14 +28,19 @@ public class CreateMazeView extends JPanel {
 	private final float HEADING_FONT = 14.0f;
 	private final float FONT = 11.0f;
 
-	private ObstacleView[] obstacles;
-	private ObstacleView obstaclePreview = null;
+	/**
+	 * create a cellView for each cell option, to be able to use this as a
+	 * preview when hovering over the preview panel
+	 */
+	private CellView[] cellOptions;
+	private CellView cellPreview = null;
 
 	private JPanel editPanel;
+	private JPanel obstaclePanel;
 	private MazeView previewMaze;
 
-	int rows = 200; // TODO
-	int cols = 200; // TODO
+	int rows = 10; // TODO
+	int cols = 10; // TODO
 
 	Timer timer;
 
@@ -44,9 +49,10 @@ public class CreateMazeView extends JPanel {
 	public CreateMazeView() {
 		timer = new Timer(100, mouseTracker);
 
-		obstacles = new ObstacleView[4];
-		for (int i = 0; i < obstacles.length; i++) {
-			obstacles[i] = createObstacle(i);
+		//create an object for each type as a preview
+		cellOptions = new CellView[CellEnum.values().length];
+		for (CellEnum c : CellEnum.values()) {
+			cellOptions[c.getType()] = createObjectPreview(c.getType());
 		}
 
 		initView();
@@ -60,6 +66,7 @@ public class CreateMazeView extends JPanel {
 		editPanel = new JPanel();
 		editPanel.setLayout(new BoxLayout(editPanel, BoxLayout.PAGE_AXIS));
 		previewMaze = new MazeView(rows, cols);
+		previewMaze.createEmptyGrid();
 		// previewMaze.setLayout(null);
 		previewMaze.addMouseListener(mazeListener);
 
@@ -121,12 +128,14 @@ public class CreateMazeView extends JPanel {
 		createFont(doorsLabel, true);
 
 		JLabel doorLabel = new JLabel("Door");
+		doorLabel.setName(String.valueOf(CellEnum.DOOR.getType()));
 		createFont(doorLabel, false);
 		ImageIcon icon = new ImageIcon("imgs/forest.png");
 		doorLabel.setIcon(icon);
 		// doorLabel.addMouseListener();
 
 		JLabel keyLabel = new JLabel("Key");
+		keyLabel.setName(String.valueOf(CellEnum.KEY.getType()));
 		createFont(keyLabel, false);
 		ImageIcon keyIcon = new ImageIcon("imgs/forest.png");
 		keyLabel.setIcon(keyIcon);
@@ -146,12 +155,12 @@ public class CreateMazeView extends JPanel {
 			label.setFont(label.getFont().deriveFont(Font.PLAIN, FONT));
 	}
 
-	public ObstacleView createObstacle(int type) {
-		obstaclePreview = new ObstacleView(type);
+	public CellView createObjectPreview(int cellType) {
+		cellPreview = new CellView(cellType);
 		// TODO set the correct size
 		// obstaclePreview.setPreferredSize(new Dimension(100, 129));
-		obstaclePreview.setBounds(0, 0, 100, 129);
-		return obstaclePreview;
+		cellPreview.setBounds(0, 0, 100, 129);
+		return cellPreview;
 
 	}
 
@@ -172,7 +181,7 @@ public class CreateMazeView extends JPanel {
 		public void mouseClicked(MouseEvent e) {
 			JLabel c = (JLabel) e.getSource();
 			selected = Integer.parseInt(c.getName());
-			obstaclePreview = obstacles[Integer.parseInt(((Component) e.getSource()).getName())];
+			cellPreview = cellOptions[Integer.parseInt(((Component) e.getSource()).getName())];
 
 			deselectAll();
 			c.setBackground(Color.GREEN);
@@ -184,14 +193,24 @@ public class CreateMazeView extends JPanel {
 
 	private MouseAdapter mazeListener = new MouseAdapter() {
 		@Override
+		/**
+		 * when the user clicks, the object should will be added to the cell he clicked into
+		 */
 		public void mouseClicked(MouseEvent e) {
-			System.out.println("selected " + ((Component) e.getSource()).getName());
+			System.out.println("selected in click " + cellPreview.getCellType().toString());
 
-			if (obstaclePreview != null) {
-				// create the component that is selected
-				ObstacleView o = createObstacle(selected);
-				o.setLocation(getMousePosition());
-				previewMaze.add(o, 0);
+			if (cellPreview != null) {
+				
+				
+//				// create the component that is selected
+//				CellView cell = createObjectPreview(selected);
+//				cell.setLocation(getMousePosition());
+//				previewMaze.add(cell, 0);
+				
+//				GridLayout layout = (GridLayout) previewMaze.getLayout();
+				CellView c = (CellView) previewMaze.getComponentAt(previewMaze.getMousePosition());
+				c.setType(cellPreview.getCellType().getType());
+				
 				repaint();
 			}
 		}
@@ -200,10 +219,10 @@ public class CreateMazeView extends JPanel {
 		public void mouseExited(MouseEvent e) {
 			System.out.println("exit");
 
-			if (obstaclePreview != null) {
+			if (cellPreview != null) {
 				// if (previewMaze.isAncestorOf(obstacleView))
-				obstaclePreview.setVisible(false);
-				previewMaze.remove(obstaclePreview);
+				cellPreview.setVisible(false);
+				previewMaze.remove(cellPreview);
 
 				timer.stop();
 			}
@@ -213,11 +232,11 @@ public class CreateMazeView extends JPanel {
 		public void mouseEntered(MouseEvent e) {
 			System.out.println("enter");
 
-			if (obstaclePreview != null) {
+			if (cellPreview != null) {
 				// the selected item follows the mouse
 				timer.start();
-				obstaclePreview.setVisible(true);
-				previewMaze.add(obstaclePreview);
+				cellPreview.setVisible(true);
+				previewMaze.add(cellPreview);
 			}
 		}
 
@@ -227,14 +246,14 @@ public class CreateMazeView extends JPanel {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (obstaclePreview != null) {
-				obstaclePreview.setLocation(previewMaze.getMousePosition());
+			if (cellPreview != null) {
+				cellPreview.setLocation(previewMaze.getMousePosition());
 				repaint();
 			}
 			GridLayout l = (GridLayout) previewMaze.getLayout();
 
 		}
 	};
-	private JPanel obstaclePanel;
+	
 
 }
