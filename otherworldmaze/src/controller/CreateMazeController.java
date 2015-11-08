@@ -1,6 +1,5 @@
 package controller;
 
-import model.Obstacle;
 import view.CreateMazeView;
 import view.MainView;
 
@@ -25,9 +24,13 @@ public class CreateMazeController {
 	}
 
 	public void createObstactle(int type, int x, int y) {
-		Obstacle obstacle = new Obstacle();
+	//	Obstacle obstacle = new Obstacle();
 		// TODO: we have to actually create the obstacle...
 
+	}
+	
+	public void createFilledMaze(){
+		
 	}
 
 }

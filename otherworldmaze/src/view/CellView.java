@@ -27,6 +27,9 @@ public class CellView extends JPanel {
 	 */
 	private CellEnum cellType;
 	
+	/**
+	 * the image of the cell
+	 */
 	private BufferedImage img = null;
 
 	/**

@@ -21,14 +21,17 @@ public class MazeView extends JPanel {
 
 	private Color bg;
 
-	private int rows;
-	private int cols;
+	private int rows =10;
+	private int cols=10;
 
-	public MazeView(int rows, int cols) {
-		this.rows = rows;
-		this.cols = cols;
-
+	public MazeView() {
 		initView();
+		createEmptyGrid();
+	}
+	
+	public MazeView(int[][] intGrid) {
+		initView();
+		createFilledGrid(intGrid);
 	}
 
 	public void initView() {

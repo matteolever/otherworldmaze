@@ -23,15 +23,25 @@ public class MazeController {
 
 	int rows = 200;
 	int cols = 200; // TODO!!!!!! implement and do NOT set static
-
-	public MazeController(MainView mainView) {
-		mazeModel = new Maze(rows, cols);
-		mazeView = new MazeView(rows, cols);
+//
+//	public MazeController(MainView mainView) {
+//		init(mainView);
+//	}
+	
+	public MazeController(MainView mainView, int[][] intGrid){
+		init(mainView);
+		mazeModel = new Maze(intGrid);
+		
+		mazeView = new MazeView();
 		mainView.add(mazeView);
 		mainView.view();
 
 		player = new PlayerController(this);
 		setUpTimer();
+	}
+	
+	public void init(MainView mainView){
+
 	}
 
 	/** start Gameplay */

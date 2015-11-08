@@ -26,8 +26,8 @@ public class Controller {
 	public void startMaze() {
 		this.mainView.remove(this.startView);
 
-		// createMaze
-		this.maze = new MazeController(this.mainView);
+		// createMaze TODO we need the array of ints read from file
+		this.maze = new MazeController(this.mainView, new int[10][10]);
 	}
 
 	public void startEdit() {
