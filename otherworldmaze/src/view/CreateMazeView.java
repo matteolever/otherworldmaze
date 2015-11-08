@@ -65,8 +65,7 @@ public class CreateMazeView extends JPanel {
 		// new FlowLayout(FlowLayout.LEADING)
 		editPanel = new JPanel();
 		editPanel.setLayout(new BoxLayout(editPanel, BoxLayout.PAGE_AXIS));
-		previewMaze = new MazeView(rows, cols);
-		previewMaze.createEmptyGrid();
+		previewMaze = new MazeView();
 		// previewMaze.setLayout(null);
 		previewMaze.addMouseListener(mazeListener);
 
@@ -211,6 +210,7 @@ public class CreateMazeView extends JPanel {
 				CellView c = (CellView) previewMaze.getComponentAt(previewMaze.getMousePosition());
 				c.setType(cellPreview.getCellType().getType());
 				
+				//TODO create the component in the model
 				repaint();
 			}
 		}

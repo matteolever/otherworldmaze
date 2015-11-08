@@ -4,6 +4,7 @@ public abstract class MazeComponent {
 
 	private int x;
 	private int y;
+	/** the type of the component to allow for fast check*/
 	private int type;
 	private Maze maze;
 	private Halo halo;
