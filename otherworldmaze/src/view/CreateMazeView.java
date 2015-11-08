@@ -158,7 +158,7 @@ public class CreateMazeView extends JPanel {
 		cellPreview = new CellView(cellType);
 		// TODO set the correct size
 		// obstaclePreview.setPreferredSize(new Dimension(100, 129));
-		cellPreview.setBounds(0, 0, 100, 129);
+		cellPreview.setBounds(0, 0, CellView.CELLSIZE.width, CellView.CELLSIZE.height);
 		return cellPreview;
 
 	}

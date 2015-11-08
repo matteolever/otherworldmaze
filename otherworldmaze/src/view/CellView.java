@@ -1,6 +1,8 @@
 package view;
 
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -9,6 +11,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 
 import enums.CellEnum;
@@ -21,7 +24,7 @@ import enums.CellEnum;
  */
 public class CellView extends JPanel {
 
-	private Dimension CELLSIZE = new Dimension(20, 20);
+	 static Dimension CELLSIZE = new Dimension(40, 40);
 	/**
 	 * the type of the cell.
 	 */
@@ -56,6 +59,8 @@ public class CellView extends JPanel {
 
 	public void initCellView() {
 		this.setPreferredSize(CELLSIZE);
+		this.setBorder(BorderFactory.createLineBorder(Color.WHITE));
+		this.setOpaque(true);
 	}
 	
 	public BufferedImage loadImg(){
@@ -85,6 +90,13 @@ public class CellView extends JPanel {
 			if(cellType.getType() != CellEnum.EMPTY.getType())
 			System.out.println("img for "+this.cellType.toString()+" is null!");
 		}
+		
+		int w = getWidth();
+		int h = getHeight();
+		GradientPaint gp = new GradientPaint(0, 0, Color.BLACK, 0, h, Color.WHITE);
+		g.setPaint(gp);
+		g.drawRect(0, 0, w, h);
+		
 	}
 	
 	public void setType(int typeInt){
