@@ -21,6 +21,9 @@ import enums.CellEnum;
 
 public class CreateMazeView extends JPanel {
 
+	// TODO: player should be able to set the size of the playingfield in a text
+	// box.
+
 	/** check which component is selected */
 	private final float HEADING_FONT = 14.0f;
 	private final float FONT = 11.0f;

@@ -5,12 +5,12 @@ import java.util.List;
 
 public class Maze {
 	
-	private boolean[][] structure;
+	private int[][] grid;
 	private Player player;
 	private List mazeComponents;
 	
-	public Maze(int lenght, int width){
-		this.structure = new boolean[width][lenght];
+	public Maze(int rows, int cols){
+		this.grid = new int[rows][cols];
 		this.mazeComponents = new ArrayList();
 		this.player = new Player(0,0,this);
 	}

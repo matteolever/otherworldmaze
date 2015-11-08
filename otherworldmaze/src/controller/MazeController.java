@@ -24,7 +24,7 @@ public class MazeController {
 	int cols = 200; // TODO!!!!!! implement and do NOT set static
 
 	public MazeController(MainView mainView) {
-		mazeModel = new Maze(MAZE_LENGTH, MAZE_WIDTH);
+		mazeModel = new Maze(rows, cols);
 		mazeView = new MazeView(rows, cols);
 		mainView.add(mazeView);
 		mainView.view();
