@@ -86,7 +86,7 @@ public class CreateMazeView extends JPanel {
 
 		JLabel viallageLabel = new JLabel("Village");
 		createFont(viallageLabel, false);
-		viallageLabel.setName(String.valueOf(CellEnum.VILLAGE.getType()));
+		viallageLabel.setName(String.valueOf(CellEnum.HOUSE.getType()));
 		ImageIcon villageIcon = new ImageIcon("imgs/forest.png");
 		viallageLabel.setIcon(villageIcon);
 		viallageLabel.addMouseListener(obstacleListener);

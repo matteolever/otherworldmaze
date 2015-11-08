@@ -44,7 +44,7 @@ public class ObstacleView extends Component {
 			break;
 
 		case VILLAGE:
-			src = CellEnum.VILLAGE.getSrc();
+			src = CellEnum.HOUSE.getSrc();
 			break;
 
 		default:
