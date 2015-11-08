@@ -2,15 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2477b0d7-6c78-47ab-a044-6db1febeac97" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/otherworldmaze/appdata/mountains.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/otherworldmaze/appdata/village.png" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/otherworldmaze/appdata/forest.png" afterPath="$PROJECT_DIR$/otherworldmaze/appdata/forest.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/otherworldmaze/src/controller/Controller.java" afterPath="$PROJECT_DIR$/otherworldmaze/src/controller/Controller.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/otherworldmaze/src/enums/CellEnum.java" afterPath="$PROJECT_DIR$/otherworldmaze/src/enums/CellEnum.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/otherworldmaze/src/view/CellView.java" afterPath="$PROJECT_DIR$/otherworldmaze/src/view/CellView.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/otherworldmaze/src/view/CreateMazeView.java" afterPath="$PROJECT_DIR$/otherworldmaze/src/view/CreateMazeView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/otherworldmaze/src/view/HaloView.java" afterPath="$PROJECT_DIR$/otherworldmaze/src/view/HaloView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/otherworldmaze/src/view/ObstacleView.java" afterPath="$PROJECT_DIR$/otherworldmaze/src/view/ObstacleView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/otherworldmaze/src/view/PlayerView.java" afterPath="$PROJECT_DIR$/otherworldmaze/src/view/PlayerView.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/otherworldmaze/src/view/MazeView.java" afterPath="$PROJECT_DIR$/otherworldmaze/src/view/MazeView.java" />
     </list>
     <ignored path="otherworldmaze.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -88,8 +84,18 @@
         <entry file="file://$PROJECT_DIR$/otherworldmaze/src/enums/CellEnum.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="18" column="23" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
-              <folding />
+              <caret line="35" column="20" selection-start-line="35" selection-start-column="20" selection-end-line="35" selection-end-column="20" />
+              <folding>
+                <marker date="1446995168000" expanded="true" signature="16:106" placeholder="/**...*/" />
+                <marker date="1446995168000" expanded="true" signature="385:666" placeholder="/**...*/" />
+                <marker date="1446995168000" expanded="true" signature="707:749" placeholder="{...}" />
+                <marker date="1446995168000" expanded="false" signature="772:777" placeholder=" { " />
+                <marker date="1446995168000" expanded="false" signature="789:792" placeholder=" }" />
+                <marker date="1446995168000" expanded="false" signature="817:822" placeholder=" { " />
+                <marker date="1446995168000" expanded="false" signature="833:836" placeholder=" }" />
+                <marker date="1446995168000" expanded="false" signature="869:874" placeholder=" { " />
+                <marker date="1446995168000" expanded="false" signature="885:888" placeholder=" }" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -98,7 +104,7 @@
         <entry file="file://$PROJECT_DIR$/otherworldmaze/src/view/CreateMazeView.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="41" column="22" selection-start-line="41" selection-start-column="22" selection-end-line="41" selection-end-column="22" />
+              <caret line="48" column="22" selection-start-line="48" selection-start-column="22" selection-end-line="48" selection-end-column="22" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -106,10 +112,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="HaloView.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="HaloView.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/otherworldmaze/src/view/HaloView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.4114713">
+            <state vertical-scroll-proportion="0.0">
               <caret line="26" column="51" selection-start-line="26" selection-start-column="51" selection-end-line="26" selection-end-column="51" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -118,11 +124,21 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="Controller.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/otherworldmaze/src/controller/Controller.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.6072319">
+              <caret line="34" column="0" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="MazeView.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/otherworldmaze/src/view/MazeView.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="36" column="28" selection-start-line="36" selection-start-column="28" selection-end-line="36" selection-end-column="28" />
+              <caret line="58" column="28" selection-start-line="58" selection-start-column="28" selection-end-line="58" selection-end-column="28" />
               <folding />
             </state>
           </provider>
@@ -152,13 +168,13 @@
         <option value="$PROJECT_DIR$/otherworldmaze/src/controller/MazeController.java" />
         <option value="$PROJECT_DIR$/otherworldmaze/src/model/MazeComponent.java" />
         <option value="$PROJECT_DIR$/otherworldmaze/src/model/Halo.java" />
-        <option value="$PROJECT_DIR$/otherworldmaze/src/controller/Controller.java" />
         <option value="$PROJECT_DIR$/otherworldmaze/src/controller/PlayerController.java" />
         <option value="$PROJECT_DIR$/otherworldmaze/src/controller/HaloController.java" />
         <option value="$PROJECT_DIR$/otherworldmaze/src/view/PlayerView.java" />
         <option value="$PROJECT_DIR$/otherworldmaze/src/view/HaloView.java" />
         <option value="$PROJECT_DIR$/otherworldmaze/src/view/MazeView.java" />
         <option value="$PROJECT_DIR$/otherworldmaze/src/enums/CellEnum.java" />
+        <option value="$PROJECT_DIR$/otherworldmaze/src/controller/Controller.java" />
       </list>
     </option>
   </component>
@@ -594,7 +610,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32891566" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24964234" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24964234" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.328125" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24964234" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -715,18 +731,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/otherworldmaze/src/controller/Controller.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.71945137">
-          <caret line="40" column="10" selection-start-line="40" selection-start-column="10" selection-end-line="40" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/otherworldmaze/src/view/MazeView.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="36" column="28" selection-start-line="36" selection-start-column="28" selection-end-line="36" selection-end-column="28" />
+          <caret line="58" column="28" selection-start-line="58" selection-start-column="28" selection-end-line="58" selection-end-column="28" />
           <folding />
         </state>
       </provider>
@@ -776,15 +784,25 @@
     <entry file="file://$PROJECT_DIR$/otherworldmaze/src/enums/CellEnum.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="18" column="23" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
-          <folding />
+          <caret line="35" column="20" selection-start-line="35" selection-start-column="20" selection-end-line="35" selection-end-column="20" />
+          <folding>
+            <marker date="1446995168000" expanded="true" signature="16:106" placeholder="/**...*/" />
+            <marker date="1446995168000" expanded="true" signature="385:666" placeholder="/**...*/" />
+            <marker date="1446995168000" expanded="true" signature="707:749" placeholder="{...}" />
+            <marker date="1446995168000" expanded="false" signature="772:777" placeholder=" { " />
+            <marker date="1446995168000" expanded="false" signature="789:792" placeholder=" }" />
+            <marker date="1446995168000" expanded="false" signature="817:822" placeholder=" { " />
+            <marker date="1446995168000" expanded="false" signature="833:836" placeholder=" }" />
+            <marker date="1446995168000" expanded="false" signature="869:874" placeholder=" { " />
+            <marker date="1446995168000" expanded="false" signature="885:888" placeholder=" }" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/otherworldmaze/src/view/CreateMazeView.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="41" column="22" selection-start-line="41" selection-start-column="22" selection-end-line="41" selection-end-column="22" />
+          <caret line="48" column="22" selection-start-line="48" selection-start-column="22" selection-end-line="48" selection-end-column="22" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -793,11 +811,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/otherworldmaze/src/view/HaloView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4114713">
+        <state vertical-scroll-proportion="0.0">
           <caret line="26" column="51" selection-start-line="26" selection-start-column="51" selection-end-line="26" selection-end-column="51" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/otherworldmaze/src/controller/Controller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6072319">
+          <caret line="34" column="0" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>

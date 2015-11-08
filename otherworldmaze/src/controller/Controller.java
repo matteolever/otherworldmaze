@@ -10,11 +10,6 @@ public class Controller {
 	MazeController maze;
 	PlayerController player;
 
-	static public void main(String args[]) {
-		Controller controller = new Controller();
-		controller.init();
-	}
-
 	/** start main screen with menu */
 	public void init() {
 
@@ -46,4 +41,9 @@ public class Controller {
 
 	}
 
+	
+	static public void main(String args[]) {
+		Controller controller = new Controller();
+		controller.init();
+	}
 }
