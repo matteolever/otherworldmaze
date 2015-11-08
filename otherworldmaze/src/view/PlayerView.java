@@ -12,8 +12,7 @@ public class PlayerView extends Component {
 	private int y;
 
 	/**
-	 * a player needs to belong to a maze which needs to be given as an argument
-	 * when creating the playerview
+	 * a player needs to belong when creating the playerview
 	 * 
 	 * @param mazeView
 	 *            the maze to which the player belongs
