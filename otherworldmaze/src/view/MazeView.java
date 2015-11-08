@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.GridLayout;
 
 import javax.swing.JPanel;
@@ -15,20 +16,20 @@ import enums.CellEnum;
  */
 public class MazeView extends JPanel {
 
-	private int GAME_W = 500; //TODO!≥!
+	private int GAME_W = 500; // TODO!≥!
 	private int GAME_H = 500;
 	private Color BG_COLOR = new Color(0, 30, 100);
 
 	private Color bg;
 
-	private int rows =10;
-	private int cols=10;
+	private int rows = 10;
+	private int cols = 10;
 
 	public MazeView() {
 		initView();
 		createEmptyGrid();
 	}
-	
+
 	public MazeView(int[][] intGrid) {
 		initView();
 		createFilledGrid(intGrid);
@@ -45,27 +46,30 @@ public class MazeView extends JPanel {
 	public void createEmptyGrid() {
 		for (int row = 0; row < rows; row++) {
 			for (int col = 0; col < cols; col++) {
-				CellView cellView = new CellView(CellEnum.EMPTY);
+				CellView cellView = new CellView(CellEnum.EMPTY, row, col);
 				this.add(cellView);
 				System.out.print(" x ");
 			}
 			System.out.println("");
 		}
-		
+
 	}
-	
+
 	/**
 	 * creates a MazeView with the values given as a parameter.
-	 * @param grid the gird with which the values are 
+	 * 
+	 * @param grid
+	 *            the gird with which the values are
 	 */
-	public void createFilledGrid(int[][] grid){
+	public void createFilledGrid(int[][] grid) {
 		for (int row = 0; row < grid.length; row++) {
 			for (int col = 0; col < grid[0].length; col++) {
-				//TODO; how can I get the Enum when I only know the number of the type?
-			
-				CellView cellView = new CellView(grid[row][col]); 
+				// TODO; how can I get the Enum when I only know the number of
+				// the type?
+
+				CellView cellView = new CellView(grid[row][col], row, col);
 				this.add(cellView);
-				
+
 				System.out.print(" x ");
 			}
 			System.out.println("");
@@ -74,6 +78,19 @@ public class MazeView extends JPanel {
 
 	public void addPlayer(PlayerView player) {
 		this.add(player);
+	}
+
+	public int[][] getIntGrid() {
+		int[][] intGrid = new int[rows][cols];
+
+		for (Component c : this.getComponents()) {
+			CellView cell = (CellView) c;
+			// each cell know it's coordinates in the grid.
+			// therefore iterate over all cellViews and add its type to the gird
+			// of integer.
+			intGrid[cell.getCoordinates()[0]][cell.getCoordinates()[1]] = cell.getCellType().getType();
+		}
+		return intGrid;
 	}
 
 }

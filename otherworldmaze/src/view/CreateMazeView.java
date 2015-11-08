@@ -18,13 +18,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import controller.SaveMazeController;
+import controller.CreateMazeController;
 import enums.CellEnum;
 
 public class CreateMazeView extends JPanel {
 
 	// TODO: player should be able to set the size of the playingfield in a text
 	// box.
+	private static final long serialVersionUID = 1L;
 
 	/** check which component is selected */
 	private final float HEADING_FONT = 14.0f;
@@ -35,30 +36,36 @@ public class CreateMazeView extends JPanel {
 	 * preview when hovering over the preview panel
 	 */
 	private CellView[] cellOptions;
+
+	/**
+	 * the currently selected object the user wants to place in the playing
+	 * field. In the beginning nothing is selected.
+	 */
 	private CellView cellPreview = null;
+
+	private CreateMazeController controller;
 
 	private JPanel editPanel;
 	private JPanel obstaclePanel;
 	private MazeView previewMaze;
-
-	int[][] maze;
 
 	int rows = 10; // TODO
 	int cols = 10; // TODO
 
 	Timer timer;
 
-	private int selected;
+	/**
+	 * the currently selected object that the user wants to put into the maze
+	 */
 
-	public CreateMazeView() {
-		
-		timer = new Timer(100, mouseTracker);
-		maze = new int[rows][cols];
+	public CreateMazeView(CreateMazeController controller) {
+		this.controller = controller;
+		this.timer = new Timer(100, mouseTracker);
 
-		//create an object for each type as a preview
-		cellOptions = new CellView[CellEnum.values().length];
+		// create an object for each type as a preview
+		this.cellOptions = new CellView[CellEnum.values().length];
 		for (CellEnum c : CellEnum.values()) {
-			cellOptions[c.getType()] = createObjectPreview(c.getType());
+			this.cellOptions[c.getType()] = createObjectPreview(c.getType());
 		}
 
 		initView();
@@ -77,7 +84,7 @@ public class CreateMazeView extends JPanel {
 
 		editPanel.add(createObstaclePanel());
 		editPanel.add(createDoorPanel());
-		
+
 		// Save button
 		JButton saveMazeButton = new JButton("Save the maze");
 		saveMazeButton.addMouseListener(saveMazeListener);
@@ -85,7 +92,7 @@ public class CreateMazeView extends JPanel {
 
 		this.add(editPanel, BorderLayout.WEST);
 		this.add(previewMaze, BorderLayout.EAST);
-		
+
 	}
 
 	private JPanel createObstaclePanel() {
@@ -167,7 +174,7 @@ public class CreateMazeView extends JPanel {
 	}
 
 	public CellView createObjectPreview(int cellType) {
-		cellPreview = new CellView(cellType);
+		cellPreview = new CellView(cellType, -1, -1);
 		// TODO set the correct size
 		// obstaclePreview.setPreferredSize(new Dimension(100, 129));
 		cellPreview.setBounds(0, 0, CellView.CELLSIZE.width, CellView.CELLSIZE.height);
@@ -186,7 +193,7 @@ public class CreateMazeView extends JPanel {
 	private MouseAdapter saveMazeListener = new MouseAdapter() {
 		@Override
 		public void mouseClicked(MouseEvent e) {
-//			SaveMazeController saveMazeListener = new SaveMazeController();
+			controller.saveMaze(previewMaze.getIntGrid());
 		}
 	};
 
@@ -198,7 +205,6 @@ public class CreateMazeView extends JPanel {
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			JLabel c = (JLabel) e.getSource();
-			selected = Integer.parseInt(c.getName());
 			cellPreview = cellOptions[Integer.parseInt(((Component) e.getSource()).getName())];
 
 			deselectAll();
@@ -212,28 +218,33 @@ public class CreateMazeView extends JPanel {
 	private MouseAdapter mazeListener = new MouseAdapter() {
 		@Override
 		/**
-		 * when the user clicks, the object should will be added to the cell he clicked into
+		 * when the user clicks, the object should will be added to the cell he
+		 * clicked into
 		 */
 		public void mouseClicked(MouseEvent e) {
 			System.out.println("selected in click " + cellPreview.getCellType().toString());
 
 			if (cellPreview != null) {
-				
-//				// create the component that is selected
-//				CellView cell = createObjectPreview(selected);
-//				cell.setLocation(getMousePosition());
-//				previewMaze.add(cell, 0);
-				
-//				GridLayout layout = (GridLayout) previewMaze.getLayout();
+
+				// // create the component that is selected
+				// CellView cell = createObjectPreview(selected);
+				// cell.setLocation(getMousePosition());
+				// previewMaze.add(cell, 0);
+
+				// GridLayout layout = (GridLayout) previewMaze.getLayout();
 				CellView c = (CellView) previewMaze.getComponentAt(previewMaze.getMousePosition());
 				c.setType(cellPreview.getCellType().getType());
-				
-				//TODO create the component in the model
+
+				// TODO create the component in the model
 				repaint();
 			}
 		}
 
 		@Override
+		/**
+		 * When the mouse leaves the previewMaze the preview of the selected
+		 * Item should vanish
+		 */
 		public void mouseExited(MouseEvent e) {
 			System.out.println("exit");
 
@@ -247,6 +258,10 @@ public class CreateMazeView extends JPanel {
 		}
 
 		@Override
+		/**
+		 * when the mouse enters the previewMaze the previewImage should follow the mouse.
+		 * A Timer is started to ensure this.
+		 */
 		public void mouseEntered(MouseEvent e) {
 			System.out.println("enter");
 
@@ -257,7 +272,6 @@ public class CreateMazeView extends JPanel {
 				previewMaze.add(cellPreview);
 			}
 		}
-
 	};
 
 	private ActionListener mouseTracker = new ActionListener() {
@@ -265,13 +279,12 @@ public class CreateMazeView extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (cellPreview != null) {
-				cellPreview.setLocation(previewMaze.getMousePosition());
+				int x = previewMaze.getMousePosition().x-cellPreview.getWidth()/2;
+				int y = previewMaze.getMousePosition().y-cellPreview.getHeight()/2;
+				cellPreview.setLocation(x, y);
 				repaint();
 			}
-			GridLayout l = (GridLayout) previewMaze.getLayout();
-
 		}
 	};
-	
 
 }

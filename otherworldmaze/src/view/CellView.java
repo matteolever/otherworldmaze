@@ -24,25 +24,30 @@ import enums.CellEnum;
  */
 public class CellView extends JPanel {
 
-	 static Dimension CELLSIZE = new Dimension(40, 40);
+	static Dimension CELLSIZE = new Dimension(40, 40);
 	/**
 	 * the type of the cell.
 	 */
 	private CellEnum cellType;
-	
+
 	/**
 	 * the image of the cell
 	 */
 	private BufferedImage img = null;
 
 	/**
+	 * the coordinates of the cell
+	 */
+	private int[] coordinates = new int[2];
+
+	/**
 	 * 
 	 * @param cellType
 	 */
-	public CellView(CellEnum cellType) {
+	public CellView(CellEnum cellType, int row, int col) {
 		this.cellType = cellType;
 		this.img = loadImg();
-		initCellView();
+		initCellView(row, col);
 	}
 
 	/**
@@ -52,21 +57,24 @@ public class CellView extends JPanel {
 	 * @param cellType
 	 *            the type of this cell.
 	 */
-	public CellView(int typeInt) {
+	public CellView(int typeInt, int row, int col) {
 		setType(typeInt);
-		initCellView();
+		initCellView(row, col);
 	}
 
-	public void initCellView() {
+	public void initCellView(int row, int col) {
 		this.setPreferredSize(CELLSIZE);
 		this.setBorder(BorderFactory.createLineBorder(Color.WHITE));
 		this.setOpaque(true);
+
+		coordinates[0] = row;
+		coordinates[1] = col;
 	}
-	
-	public BufferedImage loadImg(){
+
+	public BufferedImage loadImg() {
 		String src = cellType.getSrc();
 		if (src == null || src.isEmpty()) {
-			//TODO. What happens if it does not have a graphic? paint a color?
+			// TODO. What happens if it does not have a graphic? paint a color?
 		} else {
 			try {
 				System.out.println("Try reading " + src + " for enum " + cellType.toString());
@@ -84,22 +92,22 @@ public class CellView extends JPanel {
 	public void paint(Graphics graphics) {
 		Graphics2D g = (Graphics2D) graphics;
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		if(img != null){
+		if (img != null) {
 			g.drawImage(img, 0, 0, null);
 		} else {
-			if(cellType.getType() != CellEnum.EMPTY.getType())
-			System.out.println("img for "+this.cellType.toString()+" is null!");
+			if (cellType.getType() != CellEnum.EMPTY.getType())
+				System.out.println("img for " + this.cellType.toString() + " is null!");
 		}
-		
+
 		int w = getWidth();
 		int h = getHeight();
 		GradientPaint gp = new GradientPaint(0, 0, Color.BLACK, 0, h, Color.WHITE);
 		g.setPaint(gp);
 		g.drawRect(0, 0, w, h);
-		
+
 	}
-	
-	public void setType(int typeInt){
+
+	public void setType(int typeInt) {
 		System.out.println("we changed the type :)");
 		for (CellEnum c : CellEnum.values()) {
 			if (c.getType() == typeInt) {
@@ -117,5 +125,10 @@ public class CellView extends JPanel {
 		return cellType;
 	}
 
+	public int[] getCoordinates() {
+		return coordinates;
+	}
 	
+	
+
 }
