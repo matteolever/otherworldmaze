@@ -13,6 +13,8 @@ public class PlayerController {
 	private PlayerView playerView;
 	private Player playerModel;
 
+	private HaloController haloController;
+
 	int INIT_PLAYER_X = 0;
 	int INIT_PLAYER_Y = 0;
 
@@ -22,6 +24,8 @@ public class PlayerController {
 		mazeController.mazeView.add(playerView);
 
 		playerModel = new Player(INIT_PLAYER_X, INIT_PLAYER_Y, mazeController.mazeModel);
+
+        haloController = new HaloController(playerModel.getX(), playerModel.getX(), mazeController);
 	}
 
 	public void setPos(int newX, int newY) {
@@ -29,7 +33,7 @@ public class PlayerController {
 		playerView.setLocation(newX, newY);
 	}
 
-	public Point getPos() {
+	public Point getViewPos() {
 		return playerView.getLocation();
 	}
 
@@ -40,6 +44,7 @@ public class PlayerController {
 		// System.out.println(dx+" "+dy);
 		playerModel.setPos(oldX + dx, oldY + dy);
 		playerView.setLocation(oldX + dx, oldY + dy);
+        haloController.refreshHalo(oldX+dx, oldY+dy);
 	}
 
 }

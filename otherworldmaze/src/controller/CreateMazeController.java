@@ -7,11 +7,11 @@ import view.MainView;
  * this should create an actual maze model, called by maze view.
  *
  */
-public class CreateMazeConrtoller {
+public class CreateMazeController {
 	MainView mainView;
 	CreateMazeView createMazeView;
 
-	public CreateMazeConrtoller(MainView mainView) {
+	public CreateMazeController(MainView mainView) {
 		createMazeView = new CreateMazeView();
 		mainView.add(createMazeView);
 		mainView.view();

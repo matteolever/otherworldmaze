@@ -57,8 +57,8 @@ public class Maze {
 					this.mazeComponents.add(new Obstacle(row, col, CellEnum.FOREST.getType(), this));
 				} else if(c == CellEnum.MOUNTAIN.getType()){
 					this.mazeComponents.add(new Obstacle(row, col, CellEnum.MOUNTAIN.getType(), this));
-				} else if(c == CellEnum.VILLAGE.getType()){
-					this.mazeComponents.add(new Obstacle(row, col, CellEnum.VILLAGE.getType(), this));
+				} else if(c == CellEnum.HOUSE.getType()){
+					this.mazeComponents.add(new Obstacle(row, col, CellEnum.HOUSE.getType(), this));
 				} else if(c == CellEnum.RIVER.getType()){
 					this.mazeComponents.add(new Obstacle(row, col, CellEnum.RIVER.getType(), this));
 				} else if(c == CellEnum.DOOR.getType()){
