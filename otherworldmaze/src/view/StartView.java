@@ -16,6 +16,7 @@ public class StartView extends JPanel {
 
 	JButton startButton;
 	JButton editButton;
+	JButton selectButton;
 
 	public StartView(Controller controller) {
 		this.controller = controller;
@@ -34,10 +35,14 @@ public class StartView extends JPanel {
 
 		this.editButton = new JButton("Create Game Board");
 		this.editButton.addMouseListener(this.createButtonListener);
+		
+		this.selectButton = new JButton("Select a Maze");
+		this.selectButton.addMouseListener(this.selectButtonListener);
 
 		this.add(nameLabel, BorderLayout.NORTH);
 		this.add(this.startButton, BorderLayout.EAST);
 		this.add(this.editButton, BorderLayout.WEST);
+		this.add(this.selectButton, BorderLayout.CENTER);
 	}
 
 	private MouseAdapter startButtonListener = new MouseAdapter() {
@@ -51,6 +56,13 @@ public class StartView extends JPanel {
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			StartView.this.controller.startEdit();
+		}
+	};
+	
+	private MouseAdapter selectButtonListener = new MouseAdapter() {
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			StartView.this.controller.startSelect();
 		}
 	};
 

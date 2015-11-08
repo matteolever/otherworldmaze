@@ -34,5 +34,7 @@ public class Maze {
 		this.player = player;
 	}
 	
-	
+	public int[][] getGrid(){
+		return this.grid;
+	}	
 }
