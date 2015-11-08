@@ -14,6 +14,7 @@ public class MazeController {
 	Maze mazeModel;
 
 	PlayerController player;
+	HaloController halo;
 
 	Timer timer;
 
@@ -49,7 +50,7 @@ public class MazeController {
 				if (mp == null)
 					return;
 
-				Point pp = player.getPos();
+				Point pp = player.getViewPos();
 
 				int dx = 0;
 				int dy = 0;

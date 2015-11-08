@@ -6,7 +6,7 @@ public abstract class MazeComponent {
 	private int y;
 	private int type;
 	private Maze maze;
-	private Halo halo;
+//	private Halo halo;
 
 	public MazeComponent(int x, int y, int type, Maze maze) {
 		this.x = x;
@@ -16,7 +16,7 @@ public abstract class MazeComponent {
 		this.maze.addMazeComponent(this);
 
 		// Initialized here, needs to be defined
-		this.halo = new Halo(this, 0, 0);
+//		this.halo = new Halo(this, 0, 0);
 	}
 
 	public int getX() {
@@ -44,9 +44,9 @@ public abstract class MazeComponent {
 		return type;
 	}
 
-	public void setHalo(int size, int shrinkFactor) {
-		this.halo.setSize(size);
-		this.halo.setShrinkFactor(shrinkFactor);
-	}
+//	public void setHalo(int size, int shrinkFactor) {
+//		this.halo.setSize(size);
+//		this.halo.setShrinkFactor(shrinkFactor);
+//	}
 
 }
