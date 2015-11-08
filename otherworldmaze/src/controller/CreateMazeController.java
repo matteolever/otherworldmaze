@@ -1,6 +1,5 @@
 package controller;
 
-import model.Obstacle;
 import view.CreateMazeView;
 import view.MainView;
 
@@ -8,11 +7,11 @@ import view.MainView;
  * this should create an actual maze model, called by maze view.
  *
  */
-public class CreateMazeConrtoller {
+public class CreateMazeController {
 	MainView mainView;
 	CreateMazeView createMazeView;
 
-	public CreateMazeConrtoller(MainView mainView) {
+	public CreateMazeController(MainView mainView) {
 		createMazeView = new CreateMazeView();
 		mainView.add(createMazeView);
 		mainView.view();
@@ -25,9 +24,13 @@ public class CreateMazeConrtoller {
 	}
 
 	public void createObstactle(int type, int x, int y) {
-		Obstacle obstacle = new Obstacle();
+	//	Obstacle obstacle = new Obstacle();
 		// TODO: we have to actually create the obstacle...
 
+	}
+	
+	public void createFilledMaze(){
+		
 	}
 
 }

@@ -8,11 +8,11 @@ package enums;
  */
 public enum CellEnum {
 	FOREST(0, "appdata/forest.png"), 
-	MOUNTAIN(1, "appdata/mountains.png"), 
-	VILLAGE(2, "appdata/village.png"), 
-	RIVER(3, null), 
-	KEY(4, null), 
-	DOOR(5, null),
+	MOUNTAIN(1, "appdata/mountain.png"),
+	HOUSE(2, "appdata/house.png"),
+	RIVER(3, "appdata/river.png"),
+	KEY(4, "appdata/key.png"),
+	DOOR(5, "appdata/door.png"),
 	EMPTY(6, null);
 
 	private int type;
@@ -43,5 +43,22 @@ public enum CellEnum {
 	public String getSrc(int type) {
 		return src;
 	}
+	
+//	public CellEnum getEnum(int type){
+//		switch (type) {
+//		case FOREST.getType():
+//			return CellEnum.FOREST;
+//		
+//		case FOREST.getType():
+//			return CellEnum.FOREST;
+//
+//		case FOREST.getType():
+//			return CellEnum.FOREST;
+//
+//		default:
+//			src = CellEnum.FOREST.getSrc();
+//			break;
+//		return null;
+//	}
 
 }

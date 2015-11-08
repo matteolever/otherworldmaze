@@ -66,7 +66,7 @@ public class SelectMazeController {
 	 */
 	public void loadMazeFile(String mazeName){
 		
-		int[][] maze;
+		int[][] maze = new int[0][0];
 
 		// Creates a file: the path is the mazename.txt
 		File file = new File(mazeName);

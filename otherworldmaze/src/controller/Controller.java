@@ -10,11 +10,6 @@ public class Controller {
 	MazeController maze;
 	PlayerController player;
 
-	static public void main(String args[]) {
-		Controller controller = new Controller();
-		controller.init();
-	}
-
 	/** start main screen with menu */
 	public void init() {
 
@@ -31,14 +26,14 @@ public class Controller {
 	public void startMaze() {
 		this.mainView.remove(this.startView);
 
-		// createMaze
-		this.maze = new MazeController(this.mainView);
+		// createMaze TODO we need the array of ints read from file
+		this.maze = new MazeController(this.mainView, new int[10][10]);
 	}
 
 	public void startEdit() {
 		this.mainView.remove(this.startView);
 
-		CreateMazeConrtoller editMaze = new CreateMazeConrtoller(this.mainView);
+		CreateMazeController editMaze = new CreateMazeController(this.mainView);
 	}
 	
 	public void startSelect() {
@@ -52,4 +47,9 @@ public class Controller {
 
 	}
 
+	
+	static public void main(String args[]) {
+		Controller controller = new Controller();
+		controller.init();
+	}
 }
