@@ -47,6 +47,10 @@ public class Maze {
 		this.player = player;
 	}
 	
+	public int[][] getGrid(){
+		return this.grid;
+	}	
+
 	public void fillMaze(){
 		for (int row = 0; row < grid.length; row++) {
 			for (int col = 0; col < grid[0].length; col++) {
@@ -72,6 +76,5 @@ public class Maze {
 			System.out.println("");
 		}
 	}
-	
 	
 }

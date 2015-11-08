@@ -13,10 +13,12 @@ import java.awt.event.MouseEvent;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import controller.SaveMazeController;
 import enums.CellEnum;
 
 public class CreateMazeView extends JPanel {
@@ -39,6 +41,8 @@ public class CreateMazeView extends JPanel {
 	private JPanel obstaclePanel;
 	private MazeView previewMaze;
 
+	int[][] maze;
+
 	int rows = 10; // TODO
 	int cols = 10; // TODO
 
@@ -47,7 +51,9 @@ public class CreateMazeView extends JPanel {
 	private int selected;
 
 	public CreateMazeView() {
+		
 		timer = new Timer(100, mouseTracker);
+		maze = new int[rows][cols];
 
 		//create an object for each type as a preview
 		cellOptions = new CellView[CellEnum.values().length];
@@ -71,9 +77,15 @@ public class CreateMazeView extends JPanel {
 
 		editPanel.add(createObstaclePanel());
 		editPanel.add(createDoorPanel());
+		
+		// Save button
+		JButton saveMazeButton = new JButton("Save the maze");
+		saveMazeButton.addMouseListener(saveMazeListener);
+		editPanel.add(saveMazeButton);
 
 		this.add(editPanel, BorderLayout.WEST);
 		this.add(previewMaze, BorderLayout.EAST);
+		
 	}
 
 	private JPanel createObstaclePanel() {
@@ -171,6 +183,13 @@ public class CreateMazeView extends JPanel {
 		}
 	}
 
+	private MouseAdapter saveMazeListener = new MouseAdapter() {
+		@Override
+		public void mouseClicked(MouseEvent e) {
+//			SaveMazeController saveMazeListener = new SaveMazeController();
+		}
+	};
+
 	/**
 	 * should plant an obstacle and call the createMazeController to create an
 	 * actual model of that
@@ -199,7 +218,6 @@ public class CreateMazeView extends JPanel {
 			System.out.println("selected in click " + cellPreview.getCellType().toString());
 
 			if (cellPreview != null) {
-				
 				
 //				// create the component that is selected
 //				CellView cell = createObjectPreview(selected);
