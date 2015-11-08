@@ -11,6 +11,8 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import enums.CellEnum;
+
 public class ObstacleView extends Component {
 
 	private static final long serialVersionUID = -2149030456213433584L;
@@ -35,18 +37,18 @@ public class ObstacleView extends Component {
 		String src = "";
 		switch (type) {
 		case FOREST:
-			src = "appdata/forest.png";
+			src = CellEnum.FOREST.getSrc();
 			break;
 		case MOUNTAIN:
-			src = "appdata/mountains.png";
+			src = CellEnum.MOUNTAIN.getSrc();
 			break;
 
 		case VILLAGE:
-			src = "appdata/village.png";
+			src = CellEnum.VILLAGE.getSrc();
 			break;
 
 		default:
-			src = "appdata/forest.png";
+			src = CellEnum.FOREST.getSrc();
 			break;
 		}
 

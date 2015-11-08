@@ -21,7 +21,7 @@ public class MazeController {
 	int MAZE_WIDTH = 200;
 
 	int rows = 200;
-	int cols = 200; // TODO!!!!!!
+	int cols = 200; // TODO!!!!!! implement and do NOT set static
 
 	public MazeController(MainView mainView) {
 		mazeModel = new Maze(MAZE_LENGTH, MAZE_WIDTH);

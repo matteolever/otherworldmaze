@@ -17,14 +17,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import enums.CellEnum;
+
 public class CreateMazeView extends JPanel {
 
 	/** check which component is selected */
-	private final int FOREST = 0;
-	private final int MOUNTAIN = 1;
-	private final int VILLAGE = 2;
-	private final int RIVER = 3;
-
 	private final float HEADING_FONT = 14.0f;
 	private final float FONT = 11.0f;
 
@@ -79,21 +76,21 @@ public class CreateMazeView extends JPanel {
 
 		JLabel forestLabel = new JLabel("Forest");
 		createFont(forestLabel, false);
-		forestLabel.setName(String.valueOf(FOREST));
+		forestLabel.setName(String.valueOf(CellEnum.FOREST.getType()));
 		ImageIcon icon = new ImageIcon("imgs/forest.png");
 		forestLabel.setIcon(icon);
 		forestLabel.addMouseListener(obstacleListener);
 
 		JLabel viallageLabel = new JLabel("Village");
 		createFont(viallageLabel, false);
-		viallageLabel.setName(String.valueOf(VILLAGE));
+		viallageLabel.setName(String.valueOf(CellEnum.VILLAGE.getType()));
 		ImageIcon villageIcon = new ImageIcon("imgs/forest.png");
 		viallageLabel.setIcon(villageIcon);
 		viallageLabel.addMouseListener(obstacleListener);
 
 		JLabel mountainLabel = new JLabel("Mountains");
 		createFont(mountainLabel, false);
-		mountainLabel.setName(String.valueOf(MOUNTAIN));
+		mountainLabel.setName(String.valueOf(CellEnum.MOUNTAIN.getType()));
 		ImageIcon mountainIcon = new ImageIcon("imgs/forest.png");
 		mountainLabel.setIcon(mountainIcon);
 		mountainLabel.addMouseListener(obstacleListener);

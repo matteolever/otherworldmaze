@@ -35,6 +35,7 @@ public class MazeView extends JPanel {
 		// this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		this.setPreferredSize(new Dimension(GAME_W, GAME_H));
 		this.setBackground(BG_COLOR);
+
 	}
 
 	public void addPlayer(PlayerView player) {
