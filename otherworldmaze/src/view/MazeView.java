@@ -26,6 +26,10 @@ import enums.CellEnum;
  */
 public class MazeView extends JPanel {
 
+	private static final String RIGHT = "RIGHT";
+	private static final String LEFT = "LEFT";
+	private static final String DOWN = "DOWN";
+	private static final String UP = "UP";
 	private Color BG_COLOR = new Color(250, 250, 250);
 	private Color BG_MID = new Color(243, 243, 243);
 	
@@ -70,10 +74,10 @@ public class MazeView extends JPanel {
 		// this.setPreferredSize(new Dimension(GAME_W, GAME_H));
 		this.setBackground(BG_COLOR);
 
-		this.getInputMap(IWF).put(KeyStroke.getKeyStroke("UP"), MOVE_UP);
-		this.getInputMap(IWF).put(KeyStroke.getKeyStroke("DOWN"), MOVE_DOWN);
-		this.getInputMap(IWF).put(KeyStroke.getKeyStroke("LEFT"), MOVE_LEFT);
-		this.getInputMap(IWF).put(KeyStroke.getKeyStroke("RIGHT"), MOVE_RIGHT);
+		this.getInputMap(IWF).put(KeyStroke.getKeyStroke(UP), MOVE_UP);
+		this.getInputMap(IWF).put(KeyStroke.getKeyStroke(DOWN), MOVE_DOWN);
+		this.getInputMap(IWF).put(KeyStroke.getKeyStroke(LEFT), MOVE_LEFT);
+		this.getInputMap(IWF).put(KeyStroke.getKeyStroke(RIGHT), MOVE_RIGHT);
 
 		this.getActionMap().put(MOVE_UP, moveUp);
 		this.getActionMap().put(MOVE_DOWN, moveDown);
@@ -136,33 +140,28 @@ public class MazeView extends JPanel {
 	Action moveUp = new AbstractAction() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-//			System.out.println("up");
-			controller.movePlayer(0, -(int)CellView.CELLSIZE.getHeight());
-			
+			controller.move(UP);
 		}
 	};
 	@SuppressWarnings("serial")
 	Action moveDown = new AbstractAction() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-//			System.out.println("down");
-			controller.movePlayer(0, (int)CellView.CELLSIZE.getHeight());
+			controller.move(DOWN);
 		}
 	};
 	@SuppressWarnings("serial")
 	Action moveLeft = new AbstractAction() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-//			System.out.println("left");
-			controller.movePlayer(-(int)CellView.CELLSIZE.getWidth(), 0);
+			controller.move(LEFT);
 		}
 	};
 	@SuppressWarnings("serial")
 	Action moveRight = new AbstractAction() {
 		@Override
 		public void actionPerformed(ActionEvent e) {
-//			System.out.println("right");
-			controller.movePlayer((int)CellView.CELLSIZE.getWidth(), 0);
+			controller.move(RIGHT);
 		}
 	};
 	

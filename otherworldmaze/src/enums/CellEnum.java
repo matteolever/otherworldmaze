@@ -1,5 +1,7 @@
 package enums;
 
+import java.awt.Dimension;
+
 /**
  * specifies all the objects that can be inside ONE cell.
  * 
@@ -13,8 +15,10 @@ public enum CellEnum {
 	RIVER(4, "appdata/river.png"),
 	KEY(5, "appdata/key.png"),
 	DOOR(6, "appdata/door.png"),
+	PLAYER(7, "appdata/meatpreis_low.jpg"),
 	EMPTY(0, null);
 
+	private Dimension CELL_SIZE = new Dimension(40, 40);
 	private int type;
 	private String src;
 
