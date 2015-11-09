@@ -137,7 +137,7 @@ public class MazeView extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 //			System.out.println("up");
-			controller.movePlayer(0, -1);
+			controller.movePlayer(0, -(int)CellView.CELLSIZE.getHeight());
 			
 		}
 	};
@@ -146,7 +146,7 @@ public class MazeView extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 //			System.out.println("down");
-			controller.movePlayer(0, 1);
+			controller.movePlayer(0, (int)CellView.CELLSIZE.getHeight());
 		}
 	};
 	@SuppressWarnings("serial")
@@ -154,7 +154,7 @@ public class MazeView extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 //			System.out.println("left");
-			controller.movePlayer(-1, 0);
+			controller.movePlayer(-(int)CellView.CELLSIZE.getWidth(), 0);
 		}
 	};
 	@SuppressWarnings("serial")
@@ -162,7 +162,7 @@ public class MazeView extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 //			System.out.println("right");
-			controller.movePlayer(1, 0);
+			controller.movePlayer((int)CellView.CELLSIZE.getWidth(), 0);
 		}
 	};
 	

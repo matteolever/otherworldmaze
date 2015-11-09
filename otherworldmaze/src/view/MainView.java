@@ -4,6 +4,7 @@ import java.awt.Container;
 
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 /**
  * JFrame in which everything takes place
@@ -13,7 +14,8 @@ import javax.swing.JFrame;
  */
 public class MainView extends JFrame {
 	Container pane;
-
+	JPanel container;
+	
 	public MainView() {
 		initView();
 	}

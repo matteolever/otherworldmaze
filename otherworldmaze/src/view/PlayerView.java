@@ -21,7 +21,7 @@ public class PlayerView extends Component {
 	public PlayerView(int x, int y) {
 		this.x = x;
 		this.y = y;
-
+		this.setBounds(x, y, (int) CellView.CELLSIZE.getWidth(), (int) CellView.CELLSIZE.getHeight());
 		// this.setLocation(x, y);
 	}
 
@@ -33,7 +33,6 @@ public class PlayerView extends Component {
 		g.setColor(new Color(120, 120, 120));
 
 		Ellipse2D p = new Ellipse2D.Double(x, y, CellView.CELLSIZE.getWidth(), CellView.CELLSIZE.getHeight());
-
 		g.fill(p);
 	}
 }

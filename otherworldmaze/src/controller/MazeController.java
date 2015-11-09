@@ -5,11 +5,15 @@ import java.awt.Point;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.swing.BoxLayout;
+import javax.swing.JPanel;
+
 import enums.CellEnum;
 import model.Door;
 import model.Key;
 import model.Maze;
 import view.CellView;
+import view.HaloView;
 import view.MainView;
 import view.MazeView;
 
@@ -19,7 +23,7 @@ public class MazeController {
 	Maze mazeModel;
 
 	PlayerController player;
-	HaloController halo;
+	HaloView halo;
 
 	Timer timer;
 
@@ -30,8 +34,33 @@ public class MazeController {
 	public MazeController(MainView mainView, int[][] intGrid) {
 		mazeModel = new Maze(intGrid);
 		mazeView = new MazeView(this, intGrid);
+		
+		halo = new HaloView(100, 100);
 
-		mainView.add(mazeView);
+		// mainView.getContainer().setLayer(halo,0);
+		// mainView.getContainer().setLayer(mazeView,1);
+		System.out.println("the maze view size is " + mazeView.getSize());
+
+		JPanel container = new JPanel(null);
+		container.setLayout(new BoxLayout(container, BoxLayout.LINE_AXIS));
+		// container.setPreferredSize(new Dimension(500, 500));
+		// container.setBounds(500,500,500,500);
+		container.setVisible(true);
+
+		// halo.setBounds(500,500,500,500);
+		// mazeView.setBounds(500,500,500,500);
+
+		container.add(halo);
+		container.add(mazeView);
+
+		
+
+		mainView.add(container);
+		container.revalidate();
+
+		// mainView.getContainer().setBounds(mazeView.getBounds());
+		// mainView.getContainer().setPreferredSize(mazeView.getSize());
+
 		mainView.view();
 
 		init(mainView);
@@ -47,44 +76,54 @@ public class MazeController {
 	/** start Gameplay */
 	public void startGame() {
 		player = new PlayerController(this);
+		System.out.println("the payer BEGINS in pos "+player.getViewPos());
+		player.setPos(0,0);
+		// CellView.CELLSIZE.getHeight());
 		setUpTimer();
 	}
 
-	public void movePlayer(int dx, int dy) {
-		
+	public void moveDown() {
 		Component c = mazeView.getComponentAt(player.getViewPos());
-		CellView cell = (CellView)c;
+		CellView cell = (CellView) c;
 		int type = Integer.parseInt(c.getName());
-		
+	}
+
+	/** move the player and check for collisions */
+	public void movePlayer(int dx, int dy) {
+
+		Component c = mazeView.getComponentAt(player.getViewPos());
+		CellView cell = (CellView) c;
+		int type = Integer.parseInt(c.getName());
+
 		if (type == CellEnum.EMPTY.getType())
 			player.move(dx, dy);
-		
-		else if(type == CellEnum.KEY.getType()){
-			System.out.println("collision with "+type);
 
-			System.out.println("id is "+cell.getCoordinates()[0]+","+cell.getCoordinates()[1]); 
-		
-			//add the key to the player and remove it from view
-			Key key = (Key) mazeModel.getMazeComponents().get(new Point(cell.getCoordinates()[0],cell.getCoordinates()[1]));
+		else if (type == CellEnum.KEY.getType()) {
+			System.out.println("collision with " + type);
+			System.out.println("id is " + cell.getCoordinates()[0] + "," + cell.getCoordinates()[1]);
+
+			// add the key to the player and remove it from view
+			Key key = (Key) mazeModel.getMazeComponents()
+					.get(new Point(cell.getCoordinates()[0], cell.getCoordinates()[1]));
 			player.collectKey(key, cell.getCoordinates()[0], cell.getCoordinates()[1]);
 			cell.setType(CellEnum.EMPTY.getType());
-			
-		} else if(type == CellEnum.DOOR.getType()){
-			//add the key to the player and remove it from view
-			Door door = (Door) mazeModel.getMazeComponents().get(new Point(cell.getCoordinates()[0],cell.getCoordinates()[1]));
+
+		} else if (type == CellEnum.DOOR.getType()) {
+			// add the key to the player and remove it from view
+			Door door = (Door) mazeModel.getMazeComponents()
+					.get(new Point(cell.getCoordinates()[0], cell.getCoordinates()[1]));
 			player.openDoor(door, cell.getCoordinates()[0], cell.getCoordinates()[1]);
-			if(mazeModel.isWon()){
+			if (mazeModel.isWon()) {
 				wonGame();
 			}
-			//cell.setType(CellEnum.EMPTY.getType());
 		} else {
-			
+
 		}
 		mazeView.repaint();
 	}
-	
-	public void wonGame(){
-		//TODO what happens when the Game is won?
+
+	public void wonGame() {
+		// TODO what happens when the Game is won?
 		System.out.println("THE GAME IS WON!");
 	}
 
@@ -100,7 +139,8 @@ public class MazeController {
 					return;
 
 				Point pp = player.getViewPos();
-
+				System.out.println("the payer is in pos "+player.getViewPos());
+				
 				int dx = 0;
 				int dy = 0;
 
@@ -127,18 +167,44 @@ public class MazeController {
 		}, 0, 50);
 	}
 
-	/** move the player and check for collisions */
-	public void movePlayer() {
-	}
-
 	/**
 	 * check if the player is running into something like a wall or key or door
 	 */
-	private void checkCollision() {
+	private void checkCollision(int dx, int dy) {
 		// if key = collect
 		// if wall = stop
 		// if door player checkKeys
 		// if true open door
+
+		Component c = mazeView.getComponentAt(player.getViewPos());
+		CellView cell = (CellView) c;
+		int type = Integer.parseInt(c.getName());
+
+		if (type == CellEnum.EMPTY.getType())
+			player.move(dx, dy);
+
+		else if (type == CellEnum.KEY.getType()) {
+			System.out.println("collision with " + type);
+			System.out.println("id is " + cell.getCoordinates()[0] + "," + cell.getCoordinates()[1]);
+
+			// add the key to the player and remove it from view
+			Key key = (Key) mazeModel.getMazeComponents()
+					.get(new Point(cell.getCoordinates()[0], cell.getCoordinates()[1]));
+			player.collectKey(key, cell.getCoordinates()[0], cell.getCoordinates()[1]);
+			cell.setType(CellEnum.EMPTY.getType());
+
+		} else if (type == CellEnum.DOOR.getType()) {
+			// add the key to the player and remove it from view
+			Door door = (Door) mazeModel.getMazeComponents()
+					.get(new Point(cell.getCoordinates()[0], cell.getCoordinates()[1]));
+			player.openDoor(door, cell.getCoordinates()[0], cell.getCoordinates()[1]);
+			if (mazeModel.isWon()) {
+				wonGame();
+			}
+		} else {
+
+		}
+		mazeView.repaint();
 	}
 
 }

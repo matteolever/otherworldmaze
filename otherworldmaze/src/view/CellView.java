@@ -59,16 +59,17 @@ public class CellView extends JPanel {
 	public CellView(int typeInt, int row, int col) {
 		setType(typeInt);
 		initCellView(row, col);
-		
+
 	}
 
 	public void initCellView(int row, int col) {
 		this.setPreferredSize(CELLSIZE);
+		this.setBounds(0, 0, (int) CELLSIZE.getWidth(), (int) CELLSIZE.getHeight());
 		this.setBorder(BorderFactory.createLineBorder(Color.WHITE));
 		this.setOpaque(true);
 		this.setName(String.valueOf(cellType.getType()));
-		
-		System.out.print("("+row+","+col+") "+cellType.getType()+" ");
+
+		System.out.print("(" + row + "," + col + ") " + cellType.getType() + " ");
 
 		coordinates[0] = row;
 		coordinates[1] = col;
@@ -80,7 +81,8 @@ public class CellView extends JPanel {
 			// TODO. What happens if it does not have a graphic? paint a color?
 		} else {
 			try {
-				//System.out.println("Try reading " + src + " for enum " + cellType.toString());
+				// System.out.println("Try reading " + src + " for enum " +
+				// cellType.toString());
 				img = ImageIO.read(new File(src));
 				this.setPreferredSize(new Dimension(img.getWidth(), img.getHeight()));
 			} catch (IOException e) {
@@ -104,7 +106,7 @@ public class CellView extends JPanel {
 
 		int w = getWidth();
 		int h = getHeight();
-	
+
 		g.setPaint(new Color(230, 230, 230));
 		g.drawRect(0, 0, w, h);
 
@@ -117,14 +119,14 @@ public class CellView extends JPanel {
 				break;
 			}
 		}
-	
+
 		if (this.cellType == null) {
 			System.err.println("INVALID CELL TYPE IN CELLVIEW!!!");
-		} else if(this.cellType == CellEnum.EMPTY){
+		} else if (this.cellType == CellEnum.EMPTY) {
 			img = null;
 		}
 		this.setName(String.valueOf(cellType.getType()));
-		
+
 		this.img = loadImg();
 	}
 
@@ -135,7 +137,5 @@ public class CellView extends JPanel {
 	public int[] getCoordinates() {
 		return coordinates;
 	}
-	
-	
 
 }

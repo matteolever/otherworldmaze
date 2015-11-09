@@ -42,7 +42,9 @@ public class Controller {
 		testMaze[4][1] = CellEnum.FOREST.getType();
 		testMaze[5][1] = CellEnum.FOREST.getType();
 		
+		
 		this.maze = new MazeController(this.mainView, testMaze);
+	
 	}
 
 	public void startEdit() {
