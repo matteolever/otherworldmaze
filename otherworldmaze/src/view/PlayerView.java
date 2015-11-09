@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.geom.Ellipse2D;
 
 public class PlayerView extends Component {
 
@@ -26,12 +27,13 @@ public class PlayerView extends Component {
 
 	@Override
 	public void paint(Graphics graphics) {
-        System.out.println("player");
-        Graphics2D g = (Graphics2D) graphics;
+		// System.out.println("player");
+		Graphics2D g = (Graphics2D) graphics;
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		g.setColor(new Color(250, 250, 250));
-//		g.fillOval(0, 0, 30, 30);
-		// for (CanvasItem item : items)
-		// item.paint(g);
+		g.setColor(new Color(120, 120, 120));
+
+		Ellipse2D p = new Ellipse2D.Double(x, y, CellView.CELLSIZE.getWidth(), CellView.CELLSIZE.getHeight());
+
+		g.fill(p);
 	}
 }

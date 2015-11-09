@@ -1,5 +1,6 @@
 package controller;
 
+import enums.CellEnum;
 import view.MainView;
 import view.StartView;
 
@@ -27,7 +28,21 @@ public class Controller {
 		this.mainView.remove(this.startView);
 
 		// createMaze TODO we need the array of ints read from file
-		this.maze = new MazeController(this.mainView, new int[10][10]);
+		int[][] testMaze = new int[10][10];
+//		testMaze[1][1] = CellEnum.HOUSE.getType();
+//		testMaze[1][2] = CellEnum.MOUNTAIN.getType();
+//		testMaze[1][3] = CellEnum.FOREST.getType();
+		
+		testMaze[1][1] = CellEnum.KEY.getType();
+		
+		testMaze[1][3] = CellEnum.DOOR.getType();
+		testMaze[5][1] = CellEnum.HOUSE.getType();
+		testMaze[2][1] = CellEnum.MOUNTAIN.getType();
+		testMaze[3][1] = CellEnum.FOREST.getType();
+		testMaze[4][1] = CellEnum.FOREST.getType();
+		testMaze[5][1] = CellEnum.FOREST.getType();
+		
+		this.maze = new MazeController(this.mainView, testMaze);
 	}
 
 	public void startEdit() {

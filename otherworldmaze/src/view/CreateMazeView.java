@@ -3,6 +3,7 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -78,7 +79,10 @@ public class CreateMazeView extends JPanel {
 		// new FlowLayout(FlowLayout.LEADING)
 		editPanel = new JPanel();
 		editPanel.setLayout(new BoxLayout(editPanel, BoxLayout.PAGE_AXIS));
-		previewMaze = new MazeView();
+		editPanel.setBackground(Color.DARK_GRAY);
+		editPanel.setOpaque(true);
+		editPanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+		previewMaze = new MazeView(null);
 		// previewMaze.setLayout(null);
 		previewMaze.addMouseListener(mazeListener);
 
@@ -96,70 +100,59 @@ public class CreateMazeView extends JPanel {
 	}
 
 	private JPanel createObstaclePanel() {
-		obstaclePanel = new JPanel(new GridLayout(4, 2));
-		obstaclePanel.setBorder(BorderFactory.createLineBorder(Color.BLUE));
+		obstaclePanel = new JPanel(new GridLayout(3, 2));
+		// obstaclePanel.setBorder(BorderFactory.createLineBorder(Color.BLUE));
+		obstaclePanel.setOpaque(false);
 
 		JLabel obstaclesLabel = new JLabel("Obstacles");
 		createFont(obstaclesLabel, true);
 
-		JLabel forestLabel = new JLabel("Forest");
-		createFont(forestLabel, false);
-		forestLabel.setName(String.valueOf(CellEnum.FOREST.getType()));
-		ImageIcon icon = new ImageIcon("imgs/forest.png");
-		forestLabel.setIcon(icon);
-		forestLabel.addMouseListener(obstacleListener);
+		JLabel forestLabel = oneOptionPanel("Forest", String.valueOf(CellEnum.FOREST.getType()),
+				CellEnum.FOREST.getSrc());
 
-		JLabel viallageLabel = new JLabel("Village");
-		createFont(viallageLabel, false);
-		viallageLabel.setName(String.valueOf(CellEnum.HOUSE.getType()));
-		ImageIcon villageIcon = new ImageIcon("imgs/forest.png");
-		viallageLabel.setIcon(villageIcon);
-		viallageLabel.addMouseListener(obstacleListener);
+		JLabel viallageLabel = oneOptionPanel("Village", String.valueOf(CellEnum.HOUSE.getType()),
+				CellEnum.HOUSE.getSrc());
 
-		JLabel mountainLabel = new JLabel("Mountains");
-		createFont(mountainLabel, false);
-		mountainLabel.setName(String.valueOf(CellEnum.MOUNTAIN.getType()));
-		ImageIcon mountainIcon = new ImageIcon("imgs/forest.png");
-		mountainLabel.setIcon(mountainIcon);
-		mountainLabel.addMouseListener(obstacleListener);
+		JLabel mountainLabel = oneOptionPanel("Mountains", String.valueOf(CellEnum.MOUNTAIN.getType()),
+				CellEnum.MOUNTAIN.getSrc());
+
+		JLabel riverLabel = oneOptionPanel("River", String.valueOf(CellEnum.RIVER.getType()), CellEnum.RIVER.getSrc());
 
 		obstaclePanel.add(obstaclesLabel);
+		obstaclePanel.add(new JLabel());
 		obstaclePanel.add(forestLabel);
 		obstaclePanel.add(mountainLabel);
 		obstaclePanel.add(viallageLabel);
-
-		// mountainLabel.setBackground(Color.RED);
-		// mountainLabel.setOpaque(true);
-		// mountainLabel.setBounds(100, 100, 100, 100);
-		// mountainLabel.setLocation(100, 100);
-		// previewMaze.add(mountainLabel);
+		obstaclePanel.add(riverLabel);
 
 		return obstaclePanel;
 	}
 
-	private JPanel createDoorPanel() {
-		// Doors
-		JPanel doorsPanel = new JPanel(new GridLayout(4, 2));
-		doorsPanel.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+	private JLabel oneOptionPanel(String name, String type, String src) {
+		JLabel label = new JLabel();
+		createFont(label, false);
+		label.setName(type);
+		label.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
+		ImageIcon icon = new ImageIcon(src);
+		label.setIcon(icon);
+		label.setPreferredSize(new Dimension(CellView.CELLSIZE.width, CellView.CELLSIZE.height + 10));
+		label.addMouseListener(obstacleListener);
+		return label;
+	}
 
+	private JPanel createDoorPanel() {
+		doorsPanel = new JPanel(new GridLayout(3, 2));
+		// doorsPanel.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+		doorsPanel.setOpaque(false);
 		JLabel doorsLabel = new JLabel("Doors and Keys");
 		createFont(doorsLabel, true);
 
-		JLabel doorLabel = new JLabel("Door");
-		doorLabel.setName(String.valueOf(CellEnum.DOOR.getType()));
-		createFont(doorLabel, false);
-		ImageIcon icon = new ImageIcon("imgs/forest.png");
-		doorLabel.setIcon(icon);
-		// doorLabel.addMouseListener();
+		JLabel doorLabel = oneOptionPanel("Door", String.valueOf(CellEnum.DOOR.getType()), CellEnum.DOOR.getSrc());
 
-		JLabel keyLabel = new JLabel("Key");
-		keyLabel.setName(String.valueOf(CellEnum.KEY.getType()));
-		createFont(keyLabel, false);
-		ImageIcon keyIcon = new ImageIcon("imgs/forest.png");
-		keyLabel.setIcon(keyIcon);
-		// keyLabel.addMouseListener();
+		JLabel keyLabel = oneOptionPanel("Key", String.valueOf(CellEnum.KEY.getType()), CellEnum.KEY.getSrc());
 
 		doorsPanel.add(doorsLabel);
+		doorsPanel.add(new JLabel());
 		doorsPanel.add(doorLabel);
 		doorsPanel.add(keyLabel);
 
@@ -167,6 +160,7 @@ public class CreateMazeView extends JPanel {
 	}
 
 	public void createFont(JLabel label, boolean isH) {
+		label.setForeground(Color.WHITE);
 		if (isH)
 			label.setFont(label.getFont().deriveFont(Font.BOLD, HEADING_FONT));
 		else
@@ -188,6 +182,12 @@ public class CreateMazeView extends JPanel {
 			l.setBackground(null);
 			l.setOpaque(false);
 		}
+		for (Component c : doorsPanel.getComponents()) {
+			JLabel l = (JLabel) c;
+			l.setBackground(null);
+			l.setOpaque(false);
+		}
+
 	}
 
 	private MouseAdapter saveMazeListener = new MouseAdapter() {
@@ -208,7 +208,7 @@ public class CreateMazeView extends JPanel {
 			cellPreview = cellOptions[Integer.parseInt(((Component) e.getSource()).getName())];
 
 			deselectAll();
-			c.setBackground(Color.GREEN);
+			c.setBackground(Color.LIGHT_GRAY);
 			c.setOpaque(true);
 
 			System.out.println("selected " + ((Component) e.getSource()).getName());
@@ -259,8 +259,8 @@ public class CreateMazeView extends JPanel {
 
 		@Override
 		/**
-		 * when the mouse enters the previewMaze the previewImage should follow the mouse.
-		 * A Timer is started to ensure this.
+		 * when the mouse enters the previewMaze the previewImage should follow
+		 * the mouse. A Timer is started to ensure this.
 		 */
 		public void mouseEntered(MouseEvent e) {
 			System.out.println("enter");
@@ -279,12 +279,14 @@ public class CreateMazeView extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (cellPreview != null) {
-				int x = previewMaze.getMousePosition().x-cellPreview.getWidth()/2;
-				int y = previewMaze.getMousePosition().y-cellPreview.getHeight()/2;
+				int x = previewMaze.getMousePosition().x - cellPreview.getWidth() / 2;
+				int y = previewMaze.getMousePosition().y - cellPreview.getHeight() / 2;
 				cellPreview.setLocation(x, y);
 				repaint();
 			}
 		}
 	};
+
+	private JPanel doorsPanel;
 
 }

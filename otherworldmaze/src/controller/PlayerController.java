@@ -2,9 +2,15 @@ package controller;
 
 import java.awt.Point;
 
+import model.Door;
+import model.Key;
 import model.Player;
 import view.PlayerView;
 
+/**
+ * @author verena
+ *
+ */
 public class PlayerController {
 
 	// the parent is the Maze
@@ -20,12 +26,16 @@ public class PlayerController {
 
 	public PlayerController(MazeController mazeController) {
 		this.mazeController = mazeController;
-		playerView = new PlayerView(INIT_PLAYER_X, INIT_PLAYER_Y);
+
+		playerView = new PlayerView(INIT_PLAYER_X, INIT_PLAYER_Y); // needs to
+																	// be added
+																	// to the
+																	// cellview
 		mazeController.mazeView.add(playerView);
 
 		playerModel = new Player(INIT_PLAYER_X, INIT_PLAYER_Y, mazeController.mazeModel);
 
-        haloController = new HaloController(playerModel.getX(), playerModel.getX(), mazeController);
+		haloController = new HaloController(playerModel.getX(), playerModel.getX(), mazeController);
 	}
 
 	public void setPos(int newX, int newY) {
@@ -43,8 +53,30 @@ public class PlayerController {
 
 		// System.out.println(dx+" "+dy);
 		playerModel.setPos(oldX + dx, oldY + dy);
+
 		playerView.setLocation(oldX + dx, oldY + dy);
-        haloController.refreshHalo(oldX+dx, oldY+dy);
+		haloController.refreshHalo(oldX + dx, oldY + dy);
+	}
+
+	public void collectKey(Key key, int row, int col) {
+		// TODO add the key to the player model and remove it from the view
+		// playerModel.getKeys().add();
+		playerModel.collectKey(key);
+	}
+
+	public void openDoor(Door door, int row, int col) {
+		if (!playerModel.getKeys().isEmpty()) {
+			door.openDoor(true);
+			playerModel.useKey(null); //TODO should actually be the correct key
+		}
+	}
+
+	public PlayerView getPlayerView() {
+		return playerView;
+	}
+
+	public Player getPlayerModel() {
+		return playerModel;
 	}
 
 }

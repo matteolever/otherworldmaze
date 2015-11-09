@@ -1,7 +1,9 @@
 package view;
 
-import java.awt.*;
-import java.awt.geom.Point2D;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 public class HaloView extends Component {
 
@@ -24,7 +26,7 @@ public class HaloView extends Component {
 
     @Override
     public void paint(Graphics graphics) {
-        System.out.println("halo "+ x + " " + y);
+       // System.out.println("halo "+ x + " " + y);
         Graphics2D g = (Graphics2D) graphics;
 //        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g.setColor(new Color(1, 250, 250));

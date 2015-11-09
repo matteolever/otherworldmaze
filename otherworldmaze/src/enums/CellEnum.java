@@ -7,13 +7,13 @@ package enums;
  *
  */
 public enum CellEnum {
-	FOREST(0, "appdata/forest.png"), 
-	MOUNTAIN(1, "appdata/mountain.png"),
-	HOUSE(2, "appdata/house.png"),
-	RIVER(3, "appdata/river.png"),
-	KEY(4, "appdata/key.png"),
-	DOOR(5, "appdata/door.png"),
-	EMPTY(6, null);
+	FOREST(1, "appdata/forest.png"), 
+	MOUNTAIN(2, "appdata/mountain.png"),
+	HOUSE(3, "appdata/house.png"),
+	RIVER(4, "appdata/river.png"),
+	KEY(5, "appdata/key.png"),
+	DOOR(6, "appdata/door.png"),
+	EMPTY(0, null);
 
 	private int type;
 	private String src;
