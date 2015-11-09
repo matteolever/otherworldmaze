@@ -16,10 +16,8 @@ public class SelectMazeController {
 
 	MainView mainView;
 	SelectMazeView selectMazeView;
-
 	private List<String> mazeList;
 
-	
 	public SelectMazeController(MainView mainView){
 		
 		this.mainView = mainView;
@@ -27,7 +25,7 @@ public class SelectMazeController {
 		mainView.add(this.selectMazeView);
 		mainView.view();
 
-		mazeList = new ArrayList<String>();
+		this.mazeList = new ArrayList<String>();
 		
 		// Saves the maze list from a text file to a list
 		readMazeList();
@@ -44,7 +42,7 @@ public class SelectMazeController {
 			while (diskf.hasNextLine()){
 				String line = diskf.nextLine();				
 				try {
-					mazeList.add(line);
+					this.mazeList.add(line);
 				}
 				catch (IndexOutOfBoundsException e){
 					JOptionPane.showMessageDialog(null, "There is an error with the file.");

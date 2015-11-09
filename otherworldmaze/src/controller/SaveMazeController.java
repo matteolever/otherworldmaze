@@ -15,16 +15,20 @@ import javax.swing.JOptionPane;
 import model.Maze;
 
 
+/**
+ * Saves a maze (an array of integers) as a text file for future use
+ * @author maarithirvonen
+ */
 public class SaveMazeController {
 
-	// SAVING
 	private PrintWriter printerMaze;
 	private PrintWriter printerList;
 	private String mazeName;
 	
-	public SaveMazeController (Maze maze){
-
-		int[][] mazeGrid = maze.getGrid();
+	/** Creates a textfile for a maze
+	 * @param mazeGrid Grid of integers to be saved
+	 */
+	public SaveMazeController (int[][] mazeGrid){
 
 		mazeName = JOptionPane.showInputDialog("Give your maze a name");
 
