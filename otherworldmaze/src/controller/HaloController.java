@@ -18,14 +18,16 @@ public class HaloController {
 
         haloModel = new Halo(haloX, haloY, mazeController.mazeModel);
         this.mazeController = mazeController;
-        mazeController.mazeView.add(haloView);
+        mazeController.addHaloToMaze(haloView);
     }
 
     public void refreshHalo(int newX, int newY){
         this.haloX = newX;
         this.haloY = newY;
+     
         haloView.setX(haloX);
         haloView.setY(haloY);
+        
         this.haloView.repaint();
     }
 

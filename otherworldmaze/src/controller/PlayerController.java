@@ -27,15 +27,12 @@ public class PlayerController {
 	public PlayerController(MazeController mazeController) {
 		this.mazeController = mazeController;
 
-		playerView = new PlayerView(INIT_PLAYER_X, INIT_PLAYER_Y); // needs to
-																	// be added
-																	// to the
-																	// cellview
-		mazeController.mazeView.add(playerView);
-
 		playerModel = new Player(INIT_PLAYER_X, INIT_PLAYER_Y, mazeController.mazeModel);
+		playerView = new PlayerView(INIT_PLAYER_X, INIT_PLAYER_Y); 
+		
+		mazeController.mazeView.getParent().add(playerView);
 
-		haloController = new HaloController(playerModel.getX(), playerModel.getX(), mazeController);
+		//haloController = new HaloController(playerModel.getX(), playerModel.getX(), mazeController);
 	}
 
 	public void setPos(int newX, int newY) {

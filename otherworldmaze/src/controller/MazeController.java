@@ -1,12 +1,12 @@
 package controller;
 
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Point;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import javax.swing.BoxLayout;
-import javax.swing.JPanel;
+import javax.swing.JLayeredPane;
 
 import enums.CellEnum;
 import model.Door;
@@ -18,14 +18,15 @@ import view.MainView;
 import view.MazeView;
 
 public class MazeController {
-
+	
 	MazeView mazeView;
 	Maze mazeModel;
 
 	PlayerController player;
-	HaloView halo;
-
+	//HaloView halo;
+	
 	Timer timer;
+	private JLayeredPane container;
 
 	// public MazeController(MainView mainView) {
 	// init(mainView);
@@ -34,36 +35,13 @@ public class MazeController {
 	public MazeController(MainView mainView, int[][] intGrid) {
 		mazeModel = new Maze(intGrid);
 		mazeView = new MazeView(this, intGrid);
-		
-		halo = new HaloView(100, 100);
-
-		// mainView.getContainer().setLayer(halo,0);
-		// mainView.getContainer().setLayer(mazeView,1);
-		System.out.println("the maze view size is " + mazeView.getSize());
-
-		JPanel container = new JPanel(null);
-		container.setLayout(new BoxLayout(container, BoxLayout.LINE_AXIS));
-		// container.setPreferredSize(new Dimension(500, 500));
-		// container.setBounds(500,500,500,500);
-		container.setVisible(true);
-
-		// halo.setBounds(500,500,500,500);
-		// mazeView.setBounds(500,500,500,500);
-
-		container.add(halo);
-		container.add(mazeView);
-
-		
-
-		mainView.add(container);
-		container.revalidate();
-
-		// mainView.getContainer().setBounds(mazeView.getBounds());
-		// mainView.getContainer().setPreferredSize(mazeView.getSize());
-
-		mainView.view();
 
 		init(mainView);
+		
+		HaloController haloController = new HaloController( 0, 0, this);		
+		//halo = new HaloView(100, 100);
+
+		
 		startGame();
 	}
 
@@ -71,14 +49,42 @@ public class MazeController {
 		mazeView.setFocusable(true);
 		mazeView.getInputMap();
 		mazeView.setRequestFocusEnabled(true);
+
+		System.out.println("the maze view size is " + mazeView.getSize());
+
+		container = new JLayeredPane();
+		container.setBounds(0, 0, 500, 500);
+		container.setPreferredSize(new Dimension(500, 500));
+		
+		mazeView.setBounds(0, 0, 500, 500);
+		mazeView.setVisible(true);
+
+		container.add(mazeView, new Integer(0), 0);
+
+		mainView.add(container);
+		container.setVisible(true);
+		container.revalidate();
+
+		// mainView.getContainer().setBounds(mazeView.getBounds());
+		// mainView.getContainer().setPreferredSize(mazeView.getSize());
+
+		mainView.view();
+
+	}
+	
+	public void addHaloToMaze(HaloView haloView){
+		haloView.setBounds(0, 0, 500, 500);
+		haloView.setVisible(true);
+		container.add(haloView, new Integer(1), 0);
+		container.setVisible(true);
+		container.revalidate();
 	}
 
 	/** start Gameplay */
 	public void startGame() {
 		player = new PlayerController(this);
-		System.out.println("the payer BEGINS in pos "+player.getViewPos());
-		player.setPos(0,0);
-		// CellView.CELLSIZE.getHeight());
+		System.out.println("the payer BEGINS in pos " + player.getViewPos());
+		player.setPos(0, 0);
 		setUpTimer();
 	}
 
@@ -139,8 +145,8 @@ public class MazeController {
 					return;
 
 				Point pp = player.getViewPos();
-				System.out.println("the payer is in pos "+player.getViewPos());
-				
+				System.out.println("the payer is in pos " + player.getViewPos());
+
 				int dx = 0;
 				int dy = 0;
 
