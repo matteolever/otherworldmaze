@@ -19,7 +19,8 @@ import controller.SelectMazeController;
 import enums.CellEnum;
 
 /**
- * View class for 
+ * Class for displaying the list of mazes for selecting them
+ * @author maarithirvonen
  */
 public class SelectMazeView extends JPanel {
 
@@ -35,8 +36,8 @@ public class SelectMazeView extends JPanel {
 		this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		
 		int i = 0;
-		while (i < mazelist.size()){
-			String mazename = mazelist.get(i);
+		while (i < this.mazelist.size()){
+			String mazename = this.mazelist.get(i);
 			JButton mazeButton = new JButton(mazename);
 			mazeButton.addMouseListener(this.mazeButtonListener);
 			this.add(mazeButton);			
@@ -51,6 +52,7 @@ public class SelectMazeView extends JPanel {
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			
+			System.out.println(getName());
 			// Creates a new maze based on the selected maze
 			controller.loadMazeFile(getName());
 		}
