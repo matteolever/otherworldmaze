@@ -32,7 +32,7 @@ public class PlayerController {
 		
 		mazeController.mazeView.getParent().add(playerView);
 
-		//haloController = new HaloController(playerModel.getX(), playerModel.getX(), mazeController);
+		haloController = new HaloController(playerModel.getX(), playerModel.getX(), mazeController);
 	}
 
 	public void setPos(int newX, int newY) {
