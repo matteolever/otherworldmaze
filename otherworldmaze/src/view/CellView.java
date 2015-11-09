@@ -23,7 +23,7 @@ import enums.CellEnum;
  */
 public class CellView extends JPanel {
 
-	static Dimension CELLSIZE = new Dimension(40, 40);
+	static public Dimension CELLSIZE = new Dimension(40, 40);
 	/**
 	 * the type of the cell.
 	 */

@@ -16,6 +16,7 @@ import view.CellView;
 import view.HaloView;
 import view.MainView;
 import view.MazeView;
+import view.PlayerView;
 
 public class MazeController {
 	
@@ -69,11 +70,19 @@ public class MazeController {
 	public void addHaloToMaze(HaloView haloView){
 		haloView.setBounds(0, 0, 500, 500);
 		haloView.setVisible(true);
-		container.add(haloView, new Integer(1), 0);
+		container.add(haloView, new Integer(2), 0);
 		container.setVisible(true);
 		container.revalidate();
 	}
 
+	public void addPlayerToMaze(PlayerView playerView){
+		playerView.setBounds(0, 0, 500, 500);
+		playerView.setVisible(true);
+		container.add(playerView, new Integer(1), 0);
+		container.setVisible(true);
+		container.revalidate();
+	}
+	
 	/** start Gameplay */
 	public void startGame() {
 		player = new PlayerController(this);
@@ -92,7 +101,7 @@ public class MazeController {
 	/** move the player and check for collisions */
 	public void movePlayer(int dx, int dy) {
 
-		Component c = mazeView.getComponentAt(player.getViewPos());
+		Component c = mazeView.getComponentAt((int)CellView.CELLSIZE.getWidth(), (int)CellView.CELLSIZE.getHeight());
 		CellView cell = (CellView) c;
 		int type = Integer.parseInt(c.getName());
 

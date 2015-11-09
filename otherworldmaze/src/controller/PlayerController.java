@@ -29,9 +29,10 @@ public class PlayerController {
 
 		playerModel = new Player(INIT_PLAYER_X, INIT_PLAYER_Y, mazeController.mazeModel);
 		playerView = new PlayerView(INIT_PLAYER_X, INIT_PLAYER_Y); 
+		mazeController.addPlayerToMaze(playerView);
 		
-		mazeController.mazeView.getParent().add(playerView);
-
+		//add the player to the absolute layout container
+		//mazeController.mazeView.add(playerView);
 		haloController = new HaloController(playerModel.getX(), playerModel.getX(), mazeController);
 	}
 
