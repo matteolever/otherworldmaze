@@ -23,7 +23,7 @@ public class MazeController {
 	Maze mazeModel;
 
 	PlayerController player;
-	//HaloView halo;
+	HaloController haloController;
 	
 	Timer timer;
 	private JLayeredPane container;
@@ -37,11 +37,6 @@ public class MazeController {
 		mazeView = new MazeView(this, intGrid);
 
 		init(mainView);
-		
-		HaloController haloController = new HaloController( 0, 0, this);		
-		//halo = new HaloView(100, 100);
-
-		
 		startGame();
 	}
 
@@ -83,6 +78,7 @@ public class MazeController {
 	/** start Gameplay */
 	public void startGame() {
 		player = new PlayerController(this);
+		haloController = new HaloController( 0, 0, this);	
 		System.out.println("the payer BEGINS in pos " + player.getViewPos());
 		player.setPos(0, 0);
 		setUpTimer();
