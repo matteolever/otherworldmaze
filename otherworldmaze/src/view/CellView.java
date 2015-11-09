@@ -2,7 +2,6 @@ package view;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -60,12 +59,16 @@ public class CellView extends JPanel {
 	public CellView(int typeInt, int row, int col) {
 		setType(typeInt);
 		initCellView(row, col);
+		
 	}
 
 	public void initCellView(int row, int col) {
 		this.setPreferredSize(CELLSIZE);
 		this.setBorder(BorderFactory.createLineBorder(Color.WHITE));
 		this.setOpaque(true);
+		this.setName(String.valueOf(cellType.getType()));
+		
+		System.out.print("("+row+","+col+") "+cellType.getType()+" ");
 
 		coordinates[0] = row;
 		coordinates[1] = col;
@@ -77,11 +80,11 @@ public class CellView extends JPanel {
 			// TODO. What happens if it does not have a graphic? paint a color?
 		} else {
 			try {
-				System.out.println("Try reading " + src + " for enum " + cellType.toString());
+				//System.out.println("Try reading " + src + " for enum " + cellType.toString());
 				img = ImageIO.read(new File(src));
 				this.setPreferredSize(new Dimension(img.getWidth(), img.getHeight()));
 			} catch (IOException e) {
-				System.out.println("ERROR: Could not find the file at " + src + " for enum " + cellType.toString());
+				System.err.println("ERROR: Could not find the file at " + src + " for enum " + cellType.toString());
 				e.printStackTrace();
 			}
 		}
@@ -101,23 +104,27 @@ public class CellView extends JPanel {
 
 		int w = getWidth();
 		int h = getHeight();
-		GradientPaint gp = new GradientPaint(0, 0, Color.BLACK, 0, h, Color.WHITE);
-		g.setPaint(gp);
+	
+		g.setPaint(new Color(230, 230, 230));
 		g.drawRect(0, 0, w, h);
 
 	}
 
 	public void setType(int typeInt) {
-		System.out.println("we changed the type :)");
 		for (CellEnum c : CellEnum.values()) {
 			if (c.getType() == typeInt) {
 				this.cellType = c;
 				break;
 			}
 		}
+	
 		if (this.cellType == null) {
-			System.out.println("INVALID CELL TYPE IN CELLVIEW!!!");
+			System.err.println("INVALID CELL TYPE IN CELLVIEW!!!");
+		} else if(this.cellType == CellEnum.EMPTY){
+			img = null;
 		}
+		this.setName(String.valueOf(cellType.getType()));
+		
 		this.img = loadImg();
 	}
 

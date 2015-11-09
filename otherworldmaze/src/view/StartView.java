@@ -1,6 +1,8 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -25,11 +27,15 @@ public class StartView extends JPanel {
 
 	public void initView() {
 		this.setLayout(new BorderLayout());
-		this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+		this.setBorder(BorderFactory.createEmptyBorder(100, 100, 100, 100));
+		this.setBackground(Color.WHITE);
+		this.setOpaque(true);
 
-		JLabel nameLabel = new JLabel("Night Maze");
+		JLabel nameLabel = new JLabel("MAZE");
+		nameLabel.setFont(nameLabel.getFont().deriveFont(Font.BOLD, 20f));
 		nameLabel.setHorizontalAlignment(JLabel.CENTER);
-		// TODO set Font nameLabel.setFont(new Fon);
+		nameLabel.setBorder(BorderFactory.createEmptyBorder(20,20,20,20));
+		
 		this.startButton = new JButton("Start Game");
 		this.startButton.addMouseListener(this.startButtonListener);
 

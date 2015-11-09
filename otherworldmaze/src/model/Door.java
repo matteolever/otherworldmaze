@@ -21,6 +21,7 @@ public class Door extends MazeComponent {
 
 	public void openDoor(boolean isOpen) {
 		this.isOpen = isOpen;
+		maze.openOneDoor();
 	}
 
 }

@@ -1,43 +1,82 @@
 package model;
-import java.util.ArrayList;
-import java.util.List;
+
+import java.awt.Point;
+import java.util.HashMap;
 
 import enums.CellEnum;
 
-
 public class Maze {
-	
+
 	private int[][] grid;
 	private Player player;
-	private List<MazeComponent> mazeComponents;
-	
-	//create an empty Maze
-	public Maze(int rows, int cols){
+
+	/**
+	 * the amount of doors that still need to be opened to win. 100 is just an
+	 * arbitrary initializer.
+	 */
+	private int closedDoors = 0;
+
+	/** a HashMap of mazecomponent with the coordinates as key */
+	private HashMap<Point, MazeComponent> mazeComponents;
+
+	// create an empty Maze
+	public Maze(int rows, int cols) {
 		this.grid = new int[rows][cols];
-		this.mazeComponents = new ArrayList<MazeComponent>();
-		this.player = new Player(0,0,this);
-		
-		fillMaze();
+		this.mazeComponents = new HashMap<Point, MazeComponent>();
+		this.player = new Player(0, 0, this);
+
+		fillMaze(grid);
 	}
-	
-	public Maze(int[][] intGrid){
+
+	public Maze(int[][] intGrid) {
 		this.grid = intGrid;
-		this.mazeComponents = new ArrayList<MazeComponent>();
-		this.player = new Player(0,0,this);
-		
-		fillMaze();
+		this.mazeComponents = new HashMap<Point, MazeComponent>();
+		this.player = new Player(0, 0, this);
+
+		fillMaze(intGrid);
 	}
-	
-	public boolean endGame(){
-		if (this.player.isAlive()==false){
+
+	public boolean endGame() {
+		if (this.player.isAlive() == false) {
 			return true;
 		}
 		return false;
 	}
-	
-	public void addMazeComponent(MazeComponent component){
-		this.mazeComponents.add(component);
+
+	public void fillMaze(int[][] intGrid) {
+		for (int row = 0; row < intGrid.length; row++) {
+			for (int col = 0; col < intGrid[0].length; col++) {
+				// check each number and create according maze components
+				int c = intGrid[row][col];
+				
+				Point pos = new Point(row, col);
+
+				if (c == CellEnum.FOREST.getType()) {
+					Obstacle o = new Obstacle(row, col, CellEnum.FOREST.getType(), this);
+					this.mazeComponents.put(pos, o);
+					
+				} else if (c == CellEnum.MOUNTAIN.getType()) {
+					this.mazeComponents.put(pos, new Obstacle(row, col, CellEnum.MOUNTAIN.getType(), this));
+				} else if (c == CellEnum.HOUSE.getType()) {
+					this.mazeComponents.put(pos, new Obstacle(row, col, CellEnum.HOUSE.getType(), this));
+				} else if (c == CellEnum.RIVER.getType()) {
+					this.mazeComponents.put(pos, new Obstacle(row, col, CellEnum.RIVER.getType(), this));
+				} else if (c == CellEnum.DOOR.getType()) {
+					this.mazeComponents.put(pos, new Door(row, c, this));
+					this.closedDoors += 1;
+				} else if (c == CellEnum.KEY.getType()) {
+					this.mazeComponents.put(pos, new Key(row, col, this));
+				}
+
+				System.out.print(" x ");
+			}
+			System.out.println("");
+		}
 	}
+
+	// public void addMazeComponent(MazeComponent component){
+	// this.mazeComponents.put(component);
+	// }
 
 	public Player getPlayer() {
 		return player;
@@ -46,35 +85,25 @@ public class Maze {
 	public void setPlayer(Player player) {
 		this.player = player;
 	}
-	
-	public int[][] getGrid(){
-		return this.grid;
-	}	
 
-	public void fillMaze(){
-		for (int row = 0; row < grid.length; row++) {
-			for (int col = 0; col < grid[0].length; col++) {
-				//check each number and create according maze components
-				int c = grid[row][col];
-				
-				if(c == CellEnum.FOREST.getType()){
-					this.mazeComponents.add(new Obstacle(row, col, CellEnum.FOREST.getType(), this));
-				} else if(c == CellEnum.MOUNTAIN.getType()){
-					this.mazeComponents.add(new Obstacle(row, col, CellEnum.MOUNTAIN.getType(), this));
-				} else if(c == CellEnum.HOUSE.getType()){
-					this.mazeComponents.add(new Obstacle(row, col, CellEnum.HOUSE.getType(), this));
-				} else if(c == CellEnum.RIVER.getType()){
-					this.mazeComponents.add(new Obstacle(row, col, CellEnum.RIVER.getType(), this));
-				} else if(c == CellEnum.DOOR.getType()){
-					this.mazeComponents.add(new Door(row, c, this));
-				} else if(c == CellEnum.KEY.getType()){
-					this.mazeComponents.add(new Key(row, col, this));
-				}
-				
-				System.out.print(" x ");
-			}
-			System.out.println("");
-		}
+	public int[][] getGrid() {
+		return this.grid;
+	}
+
+	public HashMap<Point, MazeComponent> getMazeComponents() {
+		return mazeComponents;
 	}
 	
+	public void openOneDoor(){
+		this.closedDoors -=1;
+	}
+
+	public boolean isWon() {
+		boolean won = false;
+		if (this.closedDoors == 0){
+			won = true;
+		}
+		return won;
+	}
+
 }

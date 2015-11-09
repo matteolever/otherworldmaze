@@ -6,7 +6,7 @@ public abstract class MazeComponent {
 	private int y;
 	/** the type of the component to allow for fast check*/
 	private int type;
-	private Maze maze;
+	protected Maze maze;
 //	private Halo halo;
 
 	public MazeComponent(int x, int y, int type, Maze maze) {
@@ -14,7 +14,8 @@ public abstract class MazeComponent {
 		this.y = y;
 		this.type = type;
 		this.maze = maze;
-		this.maze.addMazeComponent(this);
+		
+//		this.maze.addMazeComponent(this);
 
 		// Initialized here, needs to be defined
 //		this.halo = new Halo(this, 0, 0);

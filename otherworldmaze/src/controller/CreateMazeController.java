@@ -24,18 +24,6 @@ public class CreateMazeController {
 		mainView.view();
 	}
 
-	public void runCreation() {
-		while (true) {
-
-		}
-	}
-
-	public void createObstactle(int type, int x, int y) {
-		// Obstacle obstacle = new Obstacle();
-		// TODO: we have to actually create the obstacle...
-
-	}
-
 	public void saveMaze(int[][] intGrid) {
 
 		PrintWriter printerList;
@@ -57,7 +45,7 @@ public class CreateMazeController {
 				// Saves the maze as a text file
 				for (int row = 0; row < intGrid.length; row++) {
 					for (int col = 0; col < intGrid[0].length; col++) {
-						printerMaze.println("hallo");
+//						printerMaze.println("hallo");
 						printerMaze.println(row + ":" + col + ":" + intGrid[row][col]);
 					}
 				}
