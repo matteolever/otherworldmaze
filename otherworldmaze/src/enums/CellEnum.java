@@ -13,7 +13,8 @@ public enum CellEnum {
 	RIVER(4, "appdata/river.png"),
 	KEY(5, "appdata/key.png"),
 	DOOR(6, "appdata/door.png"),
-	EMPTY(0, null);
+	EMPTY(0, null),
+	SIZE(40,null);
 
 	private int type;
 	private String src;
