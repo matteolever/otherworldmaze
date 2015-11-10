@@ -122,10 +122,14 @@ public class MazeController {
 	public void wonGame() {
 		// TODO what happens when the Game is won?
 		System.out.println("THE GAME IS WON!");
-		JOptionPane.showMessageDialog(mazeView, "\u265B \tCongrats! You opend the exit door and won! \t\u265B", "You Won",
-				JOptionPane.PLAIN_MESSAGE);
-		timer.cancel();
-		controller.startMaze();
+		Object[] options = {"Go Back", "Restart!"};
+		int choice = JOptionPane.showOptionDialog(mazeView,"♛ \tCongrats! You opened the exit door and won! \t♛\", \"You Won", "What do you want to do?",JOptionPane.CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE,null, options, options[1]);
+		if (choice == 0){
+			//Go back to menu
+		} else if (choice == 1){
+			timer.cancel();
+			controller.startMaze();
+		}
 	}
 	
 	public void lostGame(){
