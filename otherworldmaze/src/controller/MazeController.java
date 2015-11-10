@@ -2,6 +2,10 @@ package controller;
 
 import java.awt.Dimension;
 import java.awt.Point;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.List;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -45,24 +49,30 @@ public class MazeController {
 
 		this.controller = controller;
 
-		// the keyPanel is the second component int the menubar
-		JPanel keyPanel = (JPanel) menuBar.getComponent(1);
-		keyLabel = (JLabel) keyPanel.getComponent(1);
-		
-		// the doorPanel is the second component int the menubar
-		JPanel doorPanel = (JPanel) menuBar.getComponent(2);
-		doorLabel = (JLabel) doorPanel.getComponent(1);
+		setUpMenuBar(menuBar);
 
 		init();
 		startGame();
 	}
-	
-	public void setKeyPanelValue(int value){
-		keyLabel.setText(String.valueOf(value));
-	}
-	
-	public void setDoorPanelValue(int value){
-		doorLabel.setText(String.valueOf(value));
+
+	/** sets up the menubar according to the needs of the gamePlay */
+	public void setUpMenuBar(JPanel menuBar) {
+		// the back button is the first component
+		JLabel backLabel = (JLabel) menuBar.getComponent(0);
+		backLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				timer.cancel();
+			}
+		});
+
+		// the keyPanel is the second component int the menubar
+		JPanel keyPanel = (JPanel) menuBar.getComponent(1);
+		keyLabel = (JLabel) keyPanel.getComponent(1);
+
+		// the doorPanel is the second component int the menubar
+		JPanel doorPanel = (JPanel) menuBar.getComponent(2);
+		doorLabel = (JLabel) doorPanel.getComponent(1);
 	}
 
 	public void init() {
@@ -96,11 +106,11 @@ public class MazeController {
 	/** start Gameplay */
 	public void startGame() {
 		player = new PlayerController(this);
-		
+
 		int keys = player.getPlayerKeys();
 		keyLabel.setText(String.valueOf(keys));
 		doorLabel.setText(String.valueOf(mazeModel.getClosedDoors()));
-		
+
 		System.out.println("the payer BEGINS in pos " + player.getViewPos());
 		setUpTimer();
 	}
@@ -173,6 +183,13 @@ public class MazeController {
 			// Go back to menu
 			controller.startView();
 		} else if (choice == 1) {
+			SelectMazeController selectMaze = new SelectMazeController(controller);
+			List<String> mazes = selectMaze.readMazeList();
+			if(mazes != null && !mazes.isEmpty()){
+				Random random = new Random();
+				int newMazeInt = random.nextInt(mazes.size());
+				selectMaze.loadMazeFile(mazes.get(newMazeInt));
+			} else
 			controller.startMaze(this.mazeModel.getGrid());
 		}
 	}
@@ -215,22 +232,22 @@ public class MazeController {
 					.get(new Point(cell.getCoordinates()[0], cell.getCoordinates()[1]));
 			player.collectKey(key, cell.getCoordinates()[0], cell.getCoordinates()[1]);
 			cell.setType(CellEnum.EMPTY.getType());
-			
-			//update the label
+
+			// update the label
 			keyLabel.setText(String.valueOf(player.getPlayerKeys()));
 
 			return false;
 
 		} else if (type == CellEnum.DOOR.getType()) {
-			
+
 			// add the key to the player and remove it from view
 			Door door = (Door) mazeModel.getMazeComponents()
 					.get(new Point(cell.getCoordinates()[0], cell.getCoordinates()[1]));
-			if(player.openDoor(door, cell.getCoordinates()[0], cell.getCoordinates()[1])){
+			if (player.openDoor(door, cell.getCoordinates()[0], cell.getCoordinates()[1])) {
 				cell.setType(CellEnum.DOOR_OPENED.getType());
 				doorLabel.setText(String.valueOf(mazeModel.getClosedDoors()));
 			}
-			
+
 			if (mazeModel.isWon()) {
 				wonGame();
 			}
