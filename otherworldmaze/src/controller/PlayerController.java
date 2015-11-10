@@ -76,8 +76,8 @@ public class PlayerController {
 		return playerModel;
 	}
 	
-	public void shrinkHalo(int shrink){
-		haloController.shrinkHalo();
+	public boolean shrinkHalo(){
+		return haloController.shrinkHalo();
 	}
 
 }

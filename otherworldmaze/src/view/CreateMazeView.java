@@ -66,6 +66,8 @@ public class CreateMazeView extends JPanel {
 		// create an object for each type as a preview
 		this.cellOptions = new CellView[CellEnum.values().length];
 		for (CellEnum c : CellEnum.values()) {
+			if(c.getType() == CellEnum.SIZE.getType())
+				continue;
 			this.cellOptions[c.getType()] = createObjectPreview(c.getType());
 		}
 
@@ -82,7 +84,7 @@ public class CreateMazeView extends JPanel {
 		editPanel.setBackground(Color.DARK_GRAY);
 		editPanel.setOpaque(true);
 		editPanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
-		previewMaze = new MazeView(null);
+		previewMaze = new MazeView(rows, cols, null);
 		// previewMaze.setLayout(null);
 		previewMaze.addMouseListener(mazeListener);
 

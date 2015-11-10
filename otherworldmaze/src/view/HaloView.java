@@ -25,22 +25,6 @@ public class HaloView extends Component {
         this.radius = radius;
     }
 
-    public void setX(int newX) {
-        this.x = newX;
-    }
-
-    public void setY(int newY) {
-        this.y = newY;
-    }
-    
-    public void setRadius(int radius){
-    	this.radius = radius;
-    }
-    
-
-    public int getRadius() {
-		return radius;
-	}
 
 	@Override
     public void paint(Graphics graphics) {
@@ -56,7 +40,23 @@ public class HaloView extends Component {
         Color[] colors = {new Color(0,0,0,0), new Color(0,0,0,0), BG};
         RadialGradientPaint p = new RadialGradientPaint(center, this.radius, dist, colors);
         g.setPaint(p);
-        g.fillRect(0,0,this.getWidth(),getHeight());
+        g.fillRect(0,0,this.getParent().getWidth(),this.getParent().getHeight());
     }
 
+	public void setX(int newX) {
+		this.x = newX;
+	}
+	
+	public void setY(int newY) {
+		this.y = newY;
+	}
+	
+	public void setRadius(int radius){
+		this.radius = radius;
+	}
+	
+	
+	public int getRadius() {
+		return radius;
+	}
 }

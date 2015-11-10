@@ -32,9 +32,9 @@ public class MazeView extends JPanel {
 	private static final String UP = "UP";
 	private Color BG_COLOR = new Color(250, 250, 250);
 	private Color BG_MID = new Color(243, 243, 243);
-	
-	private int rows = 10;
-	private int cols = 10;
+
+	private int rows;
+	private int cols;
 
 	int IWF = JComponent.WHEN_IN_FOCUSED_WINDOW;
 	String MOVE_UP = "move up";
@@ -48,8 +48,10 @@ public class MazeView extends JPanel {
 	 * creates a maze View with an empty grid. This is relevant for the creation
 	 * of a maze
 	 */
-	public MazeView(MazeController controller) {
+	public MazeView(int rows, int cols, MazeController controller) {
 		this.controller = controller;
+		this.rows = rows;
+		this.cols = cols;
 		initView();
 		createEmptyGrid();
 	}
@@ -64,12 +66,14 @@ public class MazeView extends JPanel {
 	 */
 	public MazeView(MazeController controller, int[][] intGrid) {
 		this.controller = controller;
+		this.rows = intGrid.length;
+		this.cols = intGrid[0].length;
 		initView();
 		createFilledGrid(intGrid);
 	}
 
 	public void initView() {
-		this.setLayout(new GridLayout(rows+1, cols+1));
+		this.setLayout(new GridLayout(rows + 1, cols + 1));
 		// this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		// this.setPreferredSize(new Dimension(GAME_W, GAME_H));
 		this.setBackground(BG_COLOR);
@@ -91,7 +95,7 @@ public class MazeView extends JPanel {
 			for (int col = 0; col < cols; col++) {
 				CellView cellView = new CellView(CellEnum.EMPTY, row, col);
 				this.add(cellView);
-				System.out.print(CellEnum.EMPTY+" ");
+				System.out.print(CellEnum.EMPTY + " ");
 			}
 			System.out.println("");
 		}
@@ -113,7 +117,8 @@ public class MazeView extends JPanel {
 				CellView cellView = new CellView(grid[row][col], row, col);
 				this.add(cellView);
 
-//				System.out.print("("+row+","+col+") "+this.getComponentCount()+"  "+   grid[row][col]+" ");
+				// System.out.print("("+row+","+col+")
+				// "+this.getComponentCount()+" "+ grid[row][col]+" ");
 			}
 			System.out.println("");
 		}
@@ -164,7 +169,7 @@ public class MazeView extends JPanel {
 			controller.move(RIGHT);
 		}
 	};
-	
+
 	@Override
 	protected void paintComponent(Graphics g) {
 		// creates a gradient as background

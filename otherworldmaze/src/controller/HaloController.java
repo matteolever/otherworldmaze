@@ -2,6 +2,7 @@ package controller;
 
 
 import model.Halo;
+import view.CellView;
 import view.HaloView;
 
 public class HaloController {
@@ -33,10 +34,16 @@ public class HaloController {
         this.haloView.repaint();
     }
     
-    public void shrinkHalo(){
+    public boolean shrinkHalo(){
     	this.haloView.setRadius(haloView.getRadius()-haloModel.getShrinkFactor());
+    	this.haloView.repaint();
     	this.haloModel.shrink();
-    	System.out.println("HaloController.shrinkHalo(): the radius is "+haloView.getRadius());
+    	
+    	if(this.haloView.getRadius() < CellView.CELLSIZE.getWidth()/3)
+    		return false;
+    	return true;
+    	
+    	//System.out.println("HaloController.shrinkHalo(): the radius is "+haloView.getRadius());
 	}
 
 

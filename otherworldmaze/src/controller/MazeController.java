@@ -6,6 +6,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import javax.swing.JLayeredPane;
+import javax.swing.JOptionPane;
 
 import enums.CellEnum;
 import model.Door;
@@ -25,18 +26,23 @@ public class MazeController {
 
 	Timer timer;
 	
+	
 	private JLayeredPane container;
 
 	private static final String RIGHT = "RIGHT";
 	private static final String LEFT = "LEFT";
 	private static final String DOWN = "DOWN";
 	private static final String UP = "UP";
+	Controller controller;
 	
-	private int initTime = 300; //TODOD set that somewhere else!
+	
+	private int initTime = 200; //TODOD set that somewhere else!
 
-	public MazeController(MainView mainView, int[][] intGrid) {
-		mazeModel = new Maze(intGrid, 120);
+	public MazeController(MainView mainView, int[][] intGrid, Controller controller) {
+		mazeModel = new Maze(intGrid, initTime);
 		mazeView = new MazeView(this, intGrid);
+		
+		this.controller = controller;
 
 		init(mainView);
 		startGame();
@@ -48,12 +54,13 @@ public class MazeController {
 		mazeView.setRequestFocusEnabled(true);
 
 		System.out.println("the maze view size is " + mazeView.getSize());
+		int width = (int)CellView.CELLSIZE.getWidth()*mazeModel.getGrid().length;
 
 		container = new JLayeredPane();
-		container.setBounds(0, 0, 500, 500);
-		container.setPreferredSize(new Dimension(500, 500));
+		container.setBounds(0, 0, width, width);
+		container.setPreferredSize(new Dimension(width, width));
 
-		mazeView.setBounds(0, 0, 500, 500);
+		mazeView.setBounds(0, 0, width, width);
 		mazeView.setVisible(true);
 
 		container.add(mazeView, new Integer(0), 0);
@@ -115,6 +122,19 @@ public class MazeController {
 	public void wonGame() {
 		// TODO what happens when the Game is won?
 		System.out.println("THE GAME IS WON!");
+		JOptionPane.showMessageDialog(mazeView, "\u265B \tCongrats! You opend the exit door and won! \t\u265B", "You Won",
+				JOptionPane.PLAIN_MESSAGE);
+		timer.cancel();
+		controller.startMaze();
+	}
+	
+	public void lostGame(){
+		System.out.println("You lost!");
+		JOptionPane.showMessageDialog(mazeView, " \tOh no...the light ran out. \t", "You Won",
+				JOptionPane.PLAIN_MESSAGE);
+		timer.cancel();
+		this.startGame();
+		controller.startMaze();
 	}
 
 	private void setUpTimer() {
@@ -124,9 +144,12 @@ public class MazeController {
 			@Override
 			public void run() {
 				//shrink halo
-				player.shrinkHalo(1);
+				boolean shrink = player.shrinkHalo();
+				if(!shrink)
+					lostGame();
+				
 			}
-		}, 0, 1000);
+		}, 0, 150);
 	}
 
 	/**
@@ -163,7 +186,7 @@ public class MazeController {
 			if (mazeModel.isWon()) {
 				wonGame();
 			}
-			return false; //TODO player should go into the door
+			return true; //TODO player should go into the door
 		}
 		mazeView.repaint();
 		return true;
