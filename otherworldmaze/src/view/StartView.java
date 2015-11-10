@@ -35,7 +35,6 @@ public class StartView extends JPanel {
 	public void initView() {
 		
 		this.setLayout(new BorderLayout());
-//		this.setBorder(BorderFactory.createEmptyBorder(100, 100, 100, 100));
 		this.setPreferredSize(new Dimension(500,500));
 		this.setBackground(Color.WHITE);
 		this.setOpaque(true);

@@ -17,7 +17,7 @@ import javax.swing.JPanel;
 import controller.SelectMazeController;
 
 /**
- * Class for displaying the list of mazes for selecting them
+ * View class for the maze selection
  */
 public class SelectMazeView extends JPanel {
 
@@ -26,6 +26,10 @@ public class SelectMazeView extends JPanel {
 	private JLabel selectMazeLabel;
 	private JPanel listpanel;
 
+	/**
+	 * Creates the view class
+	 * @param controller The controller of the view class
+	 */
 	public SelectMazeView(SelectMazeController controller){
 
 		this.controller = controller;
