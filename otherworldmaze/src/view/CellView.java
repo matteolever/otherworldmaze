@@ -53,8 +53,6 @@ public class CellView extends JPanel {
 	 * Initialization when only the integer of a cell is known. Will
 	 * automatically set the correct enum as cellType
 	 * 
-	 * @param cellType
-	 *            the type of this cell.
 	 */
 	public CellView(int typeInt, int row, int col) {
 		setType(typeInt);
@@ -84,7 +82,7 @@ public class CellView extends JPanel {
 				// System.out.println("Try reading " + src + " for enum " +
 				// cellType.toString());
 				img = ImageIO.read(new File(src));
-				this.setPreferredSize(new Dimension(img.getWidth(), img.getHeight()));
+				this.setPreferredSize(new Dimension(CELLSIZE));
 			} catch (IOException e) {
 				System.err.println("ERROR: Could not find the file at " + src + " for enum " + cellType.toString());
 				e.printStackTrace();
@@ -98,7 +96,7 @@ public class CellView extends JPanel {
 		Graphics2D g = (Graphics2D) graphics;
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		if (img != null) {
-			g.drawImage(img, 0, 0, null);
+			g.drawImage(img,0,0,CELLSIZE.width-5,CELLSIZE.height-5,null);
 		} else {
 			if (cellType.getType() != CellEnum.EMPTY.getType())
 				System.out.println("img for " + this.cellType.toString() + " is null!");
