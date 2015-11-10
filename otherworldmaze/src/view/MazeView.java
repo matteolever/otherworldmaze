@@ -65,8 +65,8 @@ public class MazeView extends JPanel {
 	 *            the number of rows of the empty playing field.
 	 * @param cols
 	 *            the number of columns in the empty playing field.
-	 * @param the
-	 *            controller that controls this view.
+	 * @param controller
+	 *            the controller that controls this view.
 	 */
 	public MazeView(int rows, int cols, MazeController controller) {
 		this.controller = controller;
@@ -83,6 +83,8 @@ public class MazeView extends JPanel {
 	 * @param intGrid
 	 *            the grid in numbers, according to the CellEnum that will be
 	 *            created.
+	 * @param controller
+	 *            the MazeController that controlls this maze view.
 	 */
 	public MazeView(MazeController controller, int[][] intGrid) {
 		this.controller = controller;
@@ -93,7 +95,7 @@ public class MazeView extends JPanel {
 	}
 
 	/**
-	 * initilaizes the keyboard listeners (ActionMap).
+	 * Initializes the keyboard listeners (ActionMap).
 	 */
 	public void initView() {
 		this.setLayout(new GridLayout(rows + 1, cols + 1));
@@ -147,7 +149,7 @@ public class MazeView extends JPanel {
 	 * creates a two dimensional grid of the mazeView. This is relevant when the
 	 * user has created his on grid and wants to save it.
 	 * 
-	 * @return the int representation of the maze. 
+	 * @return the int representation of the maze.
 	 */
 	public int[][] getIntGrid() {
 		int[][] intGrid = new int[rows][cols];

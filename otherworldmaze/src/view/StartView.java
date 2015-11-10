@@ -5,15 +5,18 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import controller.Controller;
+import enums.CellEnum;
 
 /**
  * the start View of the whole game.
@@ -43,10 +46,20 @@ public class StartView extends JPanel {
 		this.setBackground(Color.WHITE);
 		this.setOpaque(true);
 
-		JLabel nameLabel = new JLabel("MAZE");
+		JLabel nameLabel = new JLabel("The Ghost of Orsay");
 		nameLabel.setFont(nameLabel.getFont().deriveFont(Font.BOLD, 20f));
 		nameLabel.setBorder(BorderFactory.createEmptyBorder(100,0,50,0));
 		nameLabel.setHorizontalAlignment(JLabel.CENTER);
+		
+		
+		ImageIcon icon = new ImageIcon(CellEnum.PLAYER.getSrc());
+		Image img = icon.getImage() ;
+		Image newimg = img.getScaledInstance( 200,200, java.awt.Image.SCALE_SMOOTH ) ;
+		icon = new ImageIcon(newimg);
+
+		nameLabel.setIcon(icon);
+		//label.setBounds(0, 0, CellView.CELLSIZE.width, CellView.CELLSIZE.height + 10);
+		//label.setPreferredSize(new Dimension(CellView.CELLSIZE.width, CellView.CELLSIZE.height + 10));
 		
 		this.startButton = new JButton("Start Game");
 		this.startButton.addMouseListener(this.startButtonListener);

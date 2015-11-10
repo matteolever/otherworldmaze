@@ -6,13 +6,36 @@ import enums.CellEnum;
 import view.MainView;
 import view.StartView;
 
+/**
+ * this class is the Ancestor of all other classes. 
+ * It controls the changing of the various views. It is the starting
+ * point of the game.
+ *
+ */
 public class Controller {
+	/**
+	 * the JFram that contains everything
+	 */
 	MainView mainView;
+
+	/**
+	 * the start view that the player sees first.
+	 */
 	StartView startView;
 
+	/**
+	 * the Controller for the maze view.
+	 */
 	MazeController maze;
-	PlayerController player;
+
+	/**
+	 * the controller for the selectMaze View.
+	 */
 	private SelectMazeController selectMaze;
+
+	/**
+	 * the controller for the createMaze view.
+	 */
 	private CreateMazeController editMaze;
 
 	/** start main screen with menu */
@@ -23,16 +46,23 @@ public class Controller {
 		this.startView = new StartView(this);
 
 		this.startView();
-
 	}
 
+	/**
+	 * opens the start screen.
+	 */
 	public void startView() {
 		removeOldViews();
 		this.mainView.add(this.startView);
 		this.mainView.view();
 	}
 
-	// MAZE
+	/**
+	 * opens the maze
+	 * 
+	 * @param mazeGrid,
+	 *            the grid of the maze the is to be opend.
+	 */
 	public void startMaze(int[][] mazeGrid) {
 		removeOldViews();
 
@@ -40,7 +70,7 @@ public class Controller {
 			mazeGrid = generateTestMaze();
 		}
 
-		//the menubar needs to specifically given to the controller
+		// the menubar needs to specifically given to the controller
 		JPanel menuBar = mainView.addMenuBar(true);
 		this.maze = new MazeController(mazeGrid, this, menuBar);
 
@@ -49,6 +79,9 @@ public class Controller {
 		mainView.view();
 	}
 
+	/**
+	 * opens the create a maze view.
+	 */
 	public void startEdit() {
 		removeOldViews();
 		editMaze = new CreateMazeController(this);
@@ -58,6 +91,9 @@ public class Controller {
 		mainView.view();
 	}
 
+	/**
+	 * opens the maze selection view.
+	 */
 	public void startSelect() {
 		removeOldViews();
 		selectMaze = new SelectMazeController(this);
@@ -67,10 +103,19 @@ public class Controller {
 		mainView.view();
 	}
 
+	/**
+	 * removes the previous view from the main view.
+	 */
 	public void removeOldViews() {
 		this.mainView.getContentPane().removeAll();
 	}
 
+	/**
+	 * creats a sample maze. relevant if there is no txt file to read a maze
+	 * from.
+	 * 
+	 * @return
+	 */
 	public int[][] generateTestMaze() {
 		// createMaze TODO we need the array of ints read from file
 		int[][] mazeGrid = new int[10][10];
@@ -109,6 +154,11 @@ public class Controller {
 		return mazeGrid;
 	}
 
+	/**
+	 * the main method that creates this controller and opens the mainview.
+	 * 
+	 * @param args
+	 */
 	static public void main(String args[]) {
 		Controller controller = new Controller();
 		controller.init();

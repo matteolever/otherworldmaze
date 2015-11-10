@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -9,7 +10,6 @@ import java.awt.event.MouseEvent;
 import java.util.List;
 
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -35,21 +35,25 @@ public class SelectMazeView extends JPanel {
 		this.controller = controller;
 		this.mazelist = this.controller.getMazelist();
 		this.setPreferredSize(new Dimension(500,500));
-		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		this.setLayout(new BorderLayout());
 
-		setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+		this.setBackground(Color.WHITE);
+		this.setOpaque(true);
+		this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
 		this.selectMazeLabel = new JLabel("Select a maze");
 		this.selectMazeLabel.setFont(new Font("Sans Serif", Font.PLAIN, 20));
 		this.selectMazeLabel.setForeground(Color.BLACK);
 		this.selectMazeLabel.setOpaque(false);
 		this.selectMazeLabel.setPreferredSize(new Dimension(500,70));
-		this.add(this.selectMazeLabel);
+		this.selectMazeLabel.setHorizontalAlignment(JLabel.CENTER);
 
 		this.listpanel = new JPanel();
 		this.listpanel.setOpaque(false);
 		this.listpanel.setLayout(new FlowLayout());
-		this.add(this.listpanel);
+
+		this.add(this.selectMazeLabel, BorderLayout.NORTH);
+		this.add(this.listpanel, BorderLayout.CENTER);
 
 		int i = 0;
 		while (i < this.mazelist.size()){

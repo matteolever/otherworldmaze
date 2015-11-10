@@ -253,7 +253,7 @@ public class MazeController {
 	 *            the title of the box.
 	 */
 	public void showDialog(String msg, String title) {
-		Object[] options = { "Go Back", "Restart!" };
+		Object[] options = { "Go Back", "Restart with new Board!" };
 		int choice = JOptionPane.showOptionDialog(mazeView, msg, title + " What do you want to do?",
 				JOptionPane.CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
 		if (choice == 0) {
