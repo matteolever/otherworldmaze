@@ -76,6 +76,10 @@ public class PlayerController {
 		return playerModel;
 	}
 	
+	public int getPlayerKeys(){
+		return playerModel.getKeys().size();
+	}
+	
 	public boolean shrinkHalo(){
 		return haloController.shrinkHalo();
 	}

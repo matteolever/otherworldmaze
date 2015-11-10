@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import controller.Controller;
+import enums.CellEnum;
 
 /**
  * JFrame in which everything takes place
@@ -41,7 +42,14 @@ public class MainView extends JFrame {
 		pack();
 	}
 
-	public void addMenuBar(boolean isMaze) {
+	/**
+	 * adds a menubar as a component to the main view. if the isMaze is true
+	 * then extra labels are added to the menubar
+	 * 
+	 * @param isMaze.
+	 *            indicates whther the menubar is for the mazeivew of not
+	 */
+	public JPanel addMenuBar(boolean isMaze) {
 		JPanel goBackPanel = new JPanel(new BorderLayout());
 		goBackPanel.setBackground(Color.BLACK);
 		goBackPanel.setOpaque(true);
@@ -53,36 +61,58 @@ public class MainView extends JFrame {
 		goBackLabel.setForeground(Color.WHITE);
 
 		goBackPanel.add(goBackLabel, BorderLayout.WEST);
-		
+
 		if (isMaze) {
-			JPanel keyPanel = new JPanel(new BoxLayout(pane, BoxLayout.X_AXIS));
+			// THe panel for the keys
+			JPanel keyPanel = new JPanel();
 			keyPanel.setOpaque(false);
-			
+
 			JLabel keysLabel = new JLabel("Collected Keys: ");
 			keysLabel.setFont(keysLabel.getFont().deriveFont(Font.PLAIN, 10f));
 			keysLabel.setHorizontalAlignment(JLabel.CENTER);
 			keysLabel.setForeground(Color.WHITE);
-			
-			
 
-			JPanel doorPanel = new JPanel(new BoxLayout(pane, BoxLayout.X_AXIS));
+			JLabel keyN = new JLabel(" ");
+			keyN.setFont(keysLabel.getFont());
+			keyN.setHorizontalAlignment(JLabel.CENTER);
+			keyN.setForeground(Color.WHITE);
+			keyN.setName(String.valueOf(CellEnum.KEY.getType()));
+
+			keyPanel.add(keysLabel);
+			keyPanel.add(keyN);
+
+			// THe panel for the doors the player has collected
+			JPanel doorPanel = new JPanel();
 			doorPanel.setOpaque(false);
+
 			JLabel doorsLabel = new JLabel("Closed Doors: ");
 			doorsLabel.setFont(keysLabel.getFont().deriveFont(Font.PLAIN, 10f));
 			doorsLabel.setHorizontalAlignment(JLabel.CENTER);
 			doorsLabel.setForeground(Color.WHITE);
 			
-			goBackPanel.add(doorsLabel, BorderLayout.CENTER);
-			goBackPanel.add(keysLabel, BorderLayout.EAST);
+			JLabel doorN = new JLabel(" ");
+			doorN.setFont(keysLabel.getFont());
+			doorN.setHorizontalAlignment(JLabel.CENTER);
+			doorN.setForeground(Color.WHITE);
+			doorN.setName(String.valueOf(CellEnum.KEY.getType()));
+
+			doorPanel.add(doorsLabel);
+			doorPanel.add(doorN);
+
+			goBackPanel.add(keyPanel, BorderLayout.CENTER);
+			goBackPanel.add(doorPanel, BorderLayout.EAST);
 		}
-		this.add(goBackPanel);
+		
+		return goBackPanel;
 	}
-	
+
 	private MouseAdapter goBackListener = new MouseAdapter() {
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			controller.startView();
 		}
 	};
+	
+	
 
 }
