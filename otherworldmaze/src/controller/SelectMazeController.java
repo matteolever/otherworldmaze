@@ -143,4 +143,10 @@ public class SelectMazeController {
 	public List<String> getMazelist(){
 		return this.mazeList;
 	}
+
+	public SelectMazeView getSelectMazeView() {
+		return selectMazeView;
+	}
+	
+	
 }

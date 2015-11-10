@@ -10,6 +10,8 @@ public class Controller {
 
 	MazeController maze;
 	PlayerController player;
+	private SelectMazeController selectMaze;
+	private CreateMazeController editMaze;
 
 	/** start main screen with menu */
 	public void init() {
@@ -18,19 +20,19 @@ public class Controller {
 		this.mainView = new MainView();
 		this.startView = new StartView(this);
 
+		this.startView();
+
+	}
+
+	public void startView() {
+		removeOldViews();
 		this.mainView.add(this.startView);
 		this.mainView.view();
-
 	}
 
 	// MAZE
 	public void startMaze() {
-		this.mainView.remove(this.startView);
-
-		if (this.maze != null) {
-			if (this.mainView.isAncestorOf(this.maze.getContainer()))
-				this.mainView.remove(this.maze.getContainer());
-		}
+		removeOldViews();
 
 		// createMaze TODO we need the array of ints read from file
 		int[][] testMaze = new int[10][10];
@@ -74,20 +76,36 @@ public class Controller {
 	}
 
 	public void startEdit() {
-		this.mainView.remove(this.startView);
+		removeOldViews();
 
-		CreateMazeController editMaze = new CreateMazeController(this.mainView);
+		editMaze = new CreateMazeController(this.mainView);
 	}
 
 	public void startSelect() {
-		this.mainView.remove(this.startView);
 
-		SelectMazeController selectMaze = new SelectMazeController(this.mainView, this);
+		removeOldViews();
+
+		selectMaze = new SelectMazeController(this.mainView, this);
 	}
 
-	/** initialize the edit mode */
-	public void initEdit() {
+	public void removeOldViews() {
+		// check if the user is coming back from another screen. then it needs
+		// to be removed.
+		if (this.mainView.isAncestorOf(this.startView))
+			this.mainView.remove(this.startView);
+		if (this.maze != null) {
+			if (this.mainView.isAncestorOf(this.maze.getContainer()))
+				this.mainView.remove(this.maze.getContainer());
+		} else if (this.editMaze != null) {
 
+			if (this.mainView.isAncestorOf(this.editMaze.getCreateMazeView()))
+				this.mainView.remove(this.editMaze.getCreateMazeView());
+
+		} else if (this.selectMaze != null) {
+
+			if (this.mainView.isAncestorOf(this.selectMaze.getSelectMazeView()))
+				this.mainView.remove(this.selectMaze.getSelectMazeView());
+		}
 	}
 
 	static public void main(String args[]) {
