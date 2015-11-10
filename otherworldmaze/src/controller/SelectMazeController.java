@@ -11,12 +11,19 @@ import javax.swing.JOptionPane;
 
 import view.SelectMazeView;
 
+/**
+ *Controller class for the maze selection
+ */
 public class SelectMazeController {
 
 	private SelectMazeView selectMazeView;
 	private List<String> mazeList;
 	Controller controller;
 
+	/**
+	 * Creates the controller for the maze selection
+	 * @param controller The controller of the game
+	 */
 	public SelectMazeController(Controller controller){
 
 		this.controller = controller;
@@ -25,11 +32,14 @@ public class SelectMazeController {
 		this.selectMazeView = new SelectMazeView(this);
 	}
 
+	/**
+	 * Reads the maze list from a text file
+	 * @return The maze as a list of strings
+	 */
 	public List<String> readMazeList(){
 		File file = new File("mazelist.txt");
 
 		try{
-			// Creates the file and the scanner
 			file.createNewFile();
 			Scanner scanner1 = new Scanner(file);
 
@@ -62,26 +72,19 @@ public class SelectMazeController {
 
 		int[][] maze = new int[0][0];
 
-		// Creates a file: the path is the mazename.txt
 		File file = new File(mazeName+".txt");
 		int numberOfRows = 10;
 		int numberOfColumns = 10;
 
 		try{
-			// Creates the file and the scanner
 			file.createNewFile();
-			Scanner scanner1 = new Scanner(file);
-			Scanner scanner2 = new Scanner(file);
+			Scanner scanner = new Scanner(file);
 
-			// THIS WORKS BEAUTIFULLY
-			System.out.println("filename: "+file.getName());
-
-			// Places the integers into a grid
 			maze = new int[numberOfRows][numberOfColumns];
 
-			while (scanner2.hasNextLine()){
+			while (scanner.hasNextLine()){
 
-				String line = scanner2.nextLine();
+				String line = scanner.nextLine();
 				try {
 					int rowIndex = Integer.parseInt(line.substring(0,1));
 					int columnIndex = Integer.parseInt(line.substring(2,3));
@@ -94,7 +97,7 @@ public class SelectMazeController {
 				}
 
 			}
-			scanner2.close();
+			scanner.close();
 		}
 		catch (FileNotFoundException e){
 			JOptionPane.showMessageDialog(null, "There is an error with the file.");
@@ -102,23 +105,25 @@ public class SelectMazeController {
 		catch (IOException e){
 			JOptionPane.showMessageDialog(null, "There is an error with the file.");
 		}
-
-		System.out.println("Random cell in the maze: "+maze[3][3]);
-
-		// CREATING A NEW MAZE
+		
 		controller.startMaze(maze);
-//		this.mainView.remove(selectMazeView);
-//		MazeController newMazeController = new MazeController(mainView, maze, controller);
 	}
 
 
+	/**
+	 * Getter for the list of maze names
+	 * @return The list of maze names
+	 */
 	public List<String> getMazelist(){
 		return this.mazeList;
 	}
-
+	
+	
+	/**
+	 * Getter for the corresponding view class
+	 * @return SelectedMazeView - the view class of this controller
+	 */
 	public SelectMazeView getSelectMazeView() {
 		return selectMazeView;
 	}
-	
-	
 }

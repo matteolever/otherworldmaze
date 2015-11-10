@@ -74,9 +74,6 @@ public class Controller {
 	public int[][] generateTestMaze() {
 		// createMaze TODO we need the array of ints read from file
 		int[][] mazeGrid = new int[10][10];
-		// mazeGrid[1][1] = CellEnum.HOUSE.getType();
-		// mazeGrid[1][2] = CellEnum.MOUNTAIN.getType();
-		// mazeGrid[1][3] = CellEnum.FOREST.getType();
 
 		mazeGrid[7][4] = CellEnum.MOUNTAIN.getType();
 		mazeGrid[7][5] = CellEnum.MOUNTAIN.getType();
