@@ -1,60 +1,85 @@
 package view;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.GridLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import controller.SelectMazeController;
-import enums.CellEnum;
 
 /**
  * Class for displaying the list of mazes for selecting them
- * @author maarithirvonen
  */
 public class SelectMazeView extends JPanel {
 
-	private SelectMazeController controller;
 	private List<String> mazelist;
+	private SelectMazeController controller;
+	private JLabel selectMazeLabel;
+	private JPanel listpanel;
 
 	public SelectMazeView(SelectMazeController controller){
 
 		this.controller = controller;
 		this.mazelist = this.controller.getMazelist();
-
+		this.setPreferredSize(new Dimension(500,500));
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-		
+
+		setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+		this.selectMazeLabel = new JLabel("Select a maze");
+		this.selectMazeLabel.setFont(new Font("Sans Serif", Font.PLAIN, 20));
+		this.selectMazeLabel.setForeground(Color.BLACK);
+		this.selectMazeLabel.setOpaque(false);
+		this.selectMazeLabel.setPreferredSize(new Dimension(500,70));
+		this.add(this.selectMazeLabel);
+
+		this.listpanel = new JPanel();
+		this.listpanel.setOpaque(false);
+		this.listpanel.setLayout(new FlowLayout());
+		this.add(this.listpanel);
+
 		int i = 0;
 		while (i < this.mazelist.size()){
 			String mazename = this.mazelist.get(i);
 			JButton mazeButton = new JButton(mazename);
+
 			mazeButton.addMouseListener(this.mazeButtonListener);
-			this.add(mazeButton);			
+
+			mazeButton.setFont(new Font("Sans Serif", Font.PLAIN, 16));
+			mazeButton.setForeground(Color.DARK_GRAY);
+			mazeButton.setOpaque(false);
+			mazeButton.setContentAreaFilled(false);
+			mazeButton.setBorderPainted(false);
+
+			mazeButton.setOpaque(true);
+			this.listpanel.add(mazeButton);
 			i++;
 		}
 	}
-	
+
+
 	/**
 	 * Listener for clicking maze selection buttons
 	 */
 	private MouseAdapter mazeButtonListener = new MouseAdapter() {
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			
-			System.out.println(getName());
+
+			JButton selectedButton = (JButton)e.getSource();
+			String selectedButtonName = selectedButton.getText();
+
 			// Creates a new maze based on the selected maze
-			controller.loadMazeFile(getName());
+			controller.loadMazeFile(selectedButtonName);
+
 		}
 	};
 
