@@ -14,7 +14,7 @@ public enum CellEnum {
 	RIVER(4, "appdata/river.png"),
 	KEY(5, "appdata/key.png"),
 	DOOR(6, "appdata/door.png"),
-	PLAYER(7, "appdata/candle.png"),
+	PLAYER(7, "appdata/ghost.png"),
 	DOOR_OPENED(8, "appdata/door_opened.png"),
 	EMPTY(0, null),
 	SIZE(40, null);
