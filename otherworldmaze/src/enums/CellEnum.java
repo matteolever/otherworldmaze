@@ -8,7 +8,7 @@ package enums;
  *
  */
 public enum CellEnum {
-	FOREST(1, "appdata/forest.png"), 
+	FOREST(1, "appdata/forest.png"),
 	MOUNTAIN(2, "appdata/mountain.png"),
 	HOUSE(3, "appdata/house.png"),
 	RIVER(4, "appdata/river.png"),

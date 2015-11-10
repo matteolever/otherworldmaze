@@ -87,20 +87,37 @@ public class MazeController {
 	 * @param direction
 	 */
 	public void move(String direction) {
+		//
 		int oldIndex = ((player.getViewPos()[1] + 1) + player.getViewPos()[0] * mazeModel.getGrid()[0].length) - 1;
 		int newIndex = oldIndex;
 		switch (direction) {
 		case UP:
-			newIndex = oldIndex - mazeModel.getGrid().length;
+			if (oldIndex - mazeModel.getGrid().length < 0){
+				newIndex = oldIndex;
+			} else {
+				newIndex = oldIndex - mazeModel.getGrid().length;
+			}
 			break;
 		case DOWN:
-			newIndex = oldIndex + mazeModel.getGrid().length;
+			if (oldIndex + mazeModel.getGrid().length > (mazeModel.getGrid()[0].length * mazeModel.getGrid().length)) {
+				newIndex = oldIndex;
+			} else {
+				newIndex = oldIndex + mazeModel.getGrid().length;
+			}
 			break;
 		case LEFT:
-			newIndex = oldIndex - 1;
+			if ((oldIndex + 1) % mazeModel.getGrid().length == 1) {
+				newIndex = oldIndex;
+			} else {
+				newIndex = oldIndex - 1;
+			}
 			break;
 		case RIGHT:
-			newIndex = oldIndex + 1;
+			if ((oldIndex + 1) % mazeModel.getGrid().length == 0) {
+				newIndex = oldIndex;
+			} else {
+				newIndex = oldIndex + 1;
+			}
 			break;
 		default:
 			break;
