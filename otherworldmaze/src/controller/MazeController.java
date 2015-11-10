@@ -31,9 +31,11 @@ public class MazeController {
 	private static final String LEFT = "LEFT";
 	private static final String DOWN = "DOWN";
 	private static final String UP = "UP";
+	
+	private int initTime = 300; //TODOD set that somewhere else!
 
 	public MazeController(MainView mainView, int[][] intGrid) {
-		mazeModel = new Maze(intGrid);
+		mazeModel = new Maze(intGrid, 120);
 		mazeView = new MazeView(this, intGrid);
 
 		init(mainView);
@@ -74,7 +76,7 @@ public class MazeController {
 
 	/** start Gameplay */
 	public void startGame() {
-		player = new PlayerController(this, mazeModel.getGrid().length, mazeModel.getGrid()[0].length);
+		player = new PlayerController(this);
 
 		System.out.println("the payer BEGINS in pos " + player.getViewPos());
 		setUpTimer();
@@ -121,8 +123,10 @@ public class MazeController {
 
 			@Override
 			public void run() {
+				//shrink halo
+				player.shrinkHalo(1);
 			}
-		}, 0, 50);
+		}, 0, 1000);
 	}
 
 	/**
@@ -167,6 +171,10 @@ public class MazeController {
 
 	public MazeView getMazeView() {
 		return mazeView;
+	}
+	
+	public int getTime(){
+		return this.initTime;
 	}
 
 }

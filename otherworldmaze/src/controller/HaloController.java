@@ -11,10 +11,10 @@ public class HaloController {
     private Halo haloModel;
     private int haloX, haloY;
 
-    public HaloController(int x, int y, MazeController mazeController) {
+    public HaloController(int x, int y, int radius, MazeController mazeController) {
         this.haloX = x;
         this.haloY = y;
-        haloView = new HaloView(haloX, haloY);
+        haloView = new HaloView(haloX, haloY, radius);
 
         haloModel = new Halo(haloX, haloY, mazeController.mazeModel);
         this.mazeController = mazeController;
@@ -24,12 +24,20 @@ public class HaloController {
     public void refreshHalo(int newX, int newY){
         this.haloX = newX;
         this.haloY = newY;
+
+        haloModel.setPos(newX, newY);
      
         haloView.setX(haloX);
         haloView.setY(haloY);
         
         this.haloView.repaint();
     }
+    
+    public void shrinkHalo(){
+    	this.haloView.setRadius(haloView.getRadius()-haloModel.getShrinkFactor());
+    	this.haloModel.shrink();
+    	System.out.println("HaloController.shrinkHalo(): the radius is "+haloView.getRadius());
+	}
 
 
 //    public HaloController(MazeController mazeController) {

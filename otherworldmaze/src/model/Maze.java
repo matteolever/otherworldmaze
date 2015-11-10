@@ -7,7 +7,14 @@ import enums.CellEnum;
 
 public class Maze {
 
+	/**
+	 * the grid of the maze, displayed as integers
+	 */
 	private int[][] grid;
+	
+	/**
+	 * the player of the maze
+	 */
 	private Player player;
 
 	/**
@@ -18,18 +25,22 @@ public class Maze {
 
 	/** a HashMap of mazecomponent with the coordinates as key */
 	private HashMap<Point, MazeComponent> mazeComponents;
+	
+	private int initTime = 0;
 
 	// create an empty Maze
-	public Maze(int rows, int cols) {
+	public Maze(int rows, int cols, int initTime) {
 		this.grid = new int[rows][cols];
+		this.initTime = initTime;
 		this.mazeComponents = new HashMap<Point, MazeComponent>();
 		this.player = new Player(0, 0, this);
 
 		fillMaze(grid);
 	}
 
-	public Maze(int[][] intGrid) {
+	public Maze(int[][] intGrid, int initTime) {
 		this.grid = intGrid;
+		this.initTime = initTime;
 		this.mazeComponents = new HashMap<Point, MazeComponent>();
 		this.player = new Player(0, 0, this);
 

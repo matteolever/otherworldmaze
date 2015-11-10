@@ -30,7 +30,7 @@ public class PlayerController {
 	int INIT_PLAYER_X = 0;
 	int INIT_PLAYER_Y = 0;
 
-	public PlayerController(MazeController mazeController, int XMaxMovement,  int YMaxMovement) {
+	public PlayerController(MazeController mazeController) {
 		this.mazeController = mazeController;
 
 		playerModel = new Player(INIT_PLAYER_X, INIT_PLAYER_Y, mazeController.mazeModel);
@@ -43,41 +43,21 @@ public class PlayerController {
 		
 		//add the player to the absolute layout container
 		//mazeController.mazeView.add(playerView);
-		haloController = new HaloController(playerModel.getX(), playerModel.getX(), mazeController);
+		haloController = new HaloController(playerModel.getX(), playerModel.getX(), mazeController.getTime(), mazeController);
 	}
 	
-	
-
-//	public void setPos(int newX, int newY) {
-//		playerModel.setPos(newX, newY);
-//		
-//		playerCell.setType(CellEnum.PLAYER.getType());
-//		playerView.setLocation(newX, newY);
-//	}
-
 	public int[] getViewPos() {
 		return playerCell.getCoordinates();
 	}
 
 	public void move(CellView newPlayerCell) {
-		int oldX = playerCell.getCoordinates()[0];
-		int oldY = playerCell.getCoordinates()[1];
-
-		// System.out.println(dx+" "+dy);
 		playerModel.setPos(newPlayerCell.getCoordinates()[0], newPlayerCell.getCoordinates()[1]);
-		haloController.refreshHalo((int)playerCell.getLocation().getX(), (int)playerCell.getLocation().getY());
+		haloController.refreshHalo((int)newPlayerCell.getLocation().getX(), (int)newPlayerCell.getLocation().getY());
 		
 		playerCell.setType(CellEnum.EMPTY.getType());
 		playerCell = newPlayerCell;
 		playerCell.setType(CellEnum.PLAYER.getType());
 	}
-	
-//	public void movePlayerUp(){
-//		CellView oldView = playerCell;
-//		oldView.setType(CellEnum.EMPTY.getType());
-//		
-//		playerCell = mazeController.getMazeView().getComponent()
-//	}
 
 	public void collectKey(Key key, int row, int col) {
 		// TODO add the key to the player model and remove it from the view
@@ -92,12 +72,12 @@ public class PlayerController {
 		}
 	}
 
-//	public PlayerView getPlayerView() {
-//		return playerView;
-//	}
-
 	public Player getPlayerModel() {
 		return playerModel;
+	}
+	
+	public void shrinkHalo(int shrink){
+		haloController.shrinkHalo();
 	}
 
 }
