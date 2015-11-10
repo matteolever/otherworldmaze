@@ -1,16 +1,13 @@
 package view;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GridLayout;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -131,7 +128,7 @@ public class CreateMazeView extends JPanel {
 		// new FlowLayout(FlowLayout.LEADING)
 		editPanel = new JPanel();
 		editPanel.setLayout(new BoxLayout(editPanel, BoxLayout.PAGE_AXIS));
-		editPanel.setBackground(Color.DARK_GRAY);
+		editPanel.setBackground(new Color(37,60,84));
 		editPanel.setOpaque(true);
 		editPanel.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
 
@@ -230,6 +227,10 @@ public class CreateMazeView extends JPanel {
 		label.setName(type);
 		label.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		ImageIcon icon = new ImageIcon(src);
+		Image img = icon.getImage() ;
+		Image newimg = img.getScaledInstance( CellView.CELLSIZE.width, CellView.CELLSIZE.height,  java.awt.Image.SCALE_SMOOTH ) ;
+		icon = new ImageIcon(newimg);
+
 		label.setIcon(icon);
 		label.setBounds(0, 0, CellView.CELLSIZE.width, CellView.CELLSIZE.height + 10);
 		label.setPreferredSize(new Dimension(CellView.CELLSIZE.width, CellView.CELLSIZE.height + 10));
