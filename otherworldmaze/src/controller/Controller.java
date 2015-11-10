@@ -27,8 +27,10 @@ public class Controller {
 	public void startMaze() {
 		this.mainView.remove(this.startView);
 
-		if (mainView.getComponents().length > 1)
-			this.mainView.remove(1);
+		if (this.maze != null) {
+			if (this.mainView.isAncestorOf(this.maze.getContainer()))
+				this.mainView.remove(this.maze.getContainer());
+		}
 
 		// createMaze TODO we need the array of ints read from file
 		int[][] testMaze = new int[10][10];
@@ -69,7 +71,6 @@ public class Controller {
 		// testMaze[14][14] = CellEnum.MOUNTAIN.getType();
 
 		this.maze = new MazeController(this.mainView, testMaze, this);
-
 	}
 
 	public void startEdit() {

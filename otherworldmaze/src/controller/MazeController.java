@@ -133,7 +133,6 @@ public class MazeController {
 		JOptionPane.showMessageDialog(mazeView, " \tOh no...the light ran out. \t", "You Won",
 				JOptionPane.PLAIN_MESSAGE);
 		timer.cancel();
-		this.startGame();
 		controller.startMaze();
 	}
 
@@ -199,5 +198,11 @@ public class MazeController {
 	public int getTime(){
 		return this.initTime;
 	}
+
+	public JLayeredPane getContainer() {
+		return container;
+	}
+	
+	
 
 }
