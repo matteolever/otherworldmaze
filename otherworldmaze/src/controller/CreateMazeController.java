@@ -38,14 +38,12 @@ public class CreateMazeController {
 				printerList = new PrintWriter(new BufferedWriter(new FileWriter("mazelist.txt", true)));
 				printerList.println(mazeName);
 				printerList.close();
-				
+
 				printerMaze = new PrintWriter(new BufferedWriter(new FileWriter(mazeName + ".txt", true)));
-				printerMaze.println("hallo");
-				
+
 				// Saves the maze as a text file
 				for (int row = 0; row < intGrid.length; row++) {
 					for (int col = 0; col < intGrid[0].length; col++) {
-//						printerMaze.println("hallo");
 						printerMaze.println(row + ":" + col + ":" + intGrid[row][col]);
 					}
 				}
@@ -53,10 +51,7 @@ public class CreateMazeController {
 			} catch (IOException ex) {
 				ex.printStackTrace();
 			}
-
-		
 		}
-
 	}
 
 	public CreateMazeView getCreateMazeView() {
