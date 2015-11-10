@@ -16,16 +16,29 @@ import controller.Controller;
 import enums.CellEnum;
 
 /**
- * JFrame in which everything takes place
- * 
- * @author verena
- *
+ * JFrame that contains everything, and also the menubar that is visible in all
+ * pages except the start view.
  */
 public class MainView extends JFrame {
+	private static final long serialVersionUID = -7629143563219013810L;
+
+	/**
+	 * the content pane of the JFrame
+	 */
 	Container pane;
-	JPanel container;
+
+	/**
+	 * the controller that controls the main view. Necessary so the mainView
+	 */
 	Controller controller;
 
+	/**
+	 * JFrame that contains all other jpanels.
+	 * 
+	 * @param controller.
+	 *            the controller that take scare of which view is to be
+	 *            displayed.
+	 */
 	public MainView(Controller controller) {
 		this.controller = controller;
 		initView();
@@ -36,6 +49,9 @@ public class MainView extends JFrame {
 		pane.setLayout(new BoxLayout(pane, BoxLayout.Y_AXIS));
 	}
 
+	/**
+	 * sets everything visible and packs it.
+	 */
 	public void view() {
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -89,7 +105,7 @@ public class MainView extends JFrame {
 			doorsLabel.setFont(keysLabel.getFont().deriveFont(Font.PLAIN, 10f));
 			doorsLabel.setHorizontalAlignment(JLabel.CENTER);
 			doorsLabel.setForeground(Color.WHITE);
-			
+
 			JLabel doorN = new JLabel(" ");
 			doorN.setFont(keysLabel.getFont());
 			doorN.setHorizontalAlignment(JLabel.CENTER);
@@ -102,17 +118,19 @@ public class MainView extends JFrame {
 			goBackPanel.add(keyPanel, BorderLayout.CENTER);
 			goBackPanel.add(doorPanel, BorderLayout.EAST);
 		}
-		
+
 		return goBackPanel;
 	}
 
+	/**
+	 * Listens for clicks on the goBackArrow in the menubar, and then goes back
+	 * to the start screen.
+	 */
 	private MouseAdapter goBackListener = new MouseAdapter() {
 		@Override
 		public void mouseClicked(MouseEvent e) {
 			controller.startView();
 		}
 	};
-	
-	
 
 }
