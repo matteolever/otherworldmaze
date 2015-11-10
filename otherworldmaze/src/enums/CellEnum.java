@@ -8,13 +8,13 @@ package enums;
  *
  */
 public enum CellEnum {
-	FOREST(1, "appdata/forest.png"), 
+	FOREST(1, "appdata/forest.png"),
 	MOUNTAIN(2, "appdata/mountain.png"),
 	HOUSE(3, "appdata/house.png"),
 	RIVER(4, "appdata/river.png"),
 	KEY(5, "appdata/key.png"),
 	DOOR(6, "appdata/door.png"),
-	PLAYER(7, "appdata/candle.png"),
+	PLAYER(7, "appdata/ghost.png"),
 	DOOR_OPENED(8, "appdata/door_opened.png"),
 	EMPTY(0, null),
 	SIZE(40, null);

@@ -25,7 +25,7 @@ public class SelectMazeController {
 		this.selectMazeView = new SelectMazeView(this);
 	}
 
-	public void readMazeList(){
+	public List<String> readMazeList(){
 		File file = new File("mazelist.txt");
 
 		try{
@@ -43,6 +43,7 @@ public class SelectMazeController {
 				}
 			}
 			scanner1.close();
+			return mazeList;
 		}
 		catch (FileNotFoundException e){
 			JOptionPane.showMessageDialog(null, "There is an error with the file.");
@@ -50,6 +51,7 @@ public class SelectMazeController {
 		catch (IOException e){
 			JOptionPane.showMessageDialog(null, "There is an error with the file.");
 		}
+		return null;
 	}
 
 	/**
