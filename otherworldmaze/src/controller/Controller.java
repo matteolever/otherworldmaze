@@ -1,5 +1,7 @@
 package controller;
 
+import javax.swing.JPanel;
+
 import enums.CellEnum;
 import view.MainView;
 import view.StartView;
@@ -37,9 +39,12 @@ public class Controller {
 		if (mazeGrid == null) {
 			mazeGrid = generateTestMaze();
 		}
-		this.maze = new MazeController(mazeGrid, this);
 
-		mainView.addMenuBar(true);
+		//the menubar needs to specifically given to the controller
+		JPanel menuBar = mainView.addMenuBar(true);
+		this.maze = new MazeController(mazeGrid, this, menuBar);
+
+		mainView.add(menuBar);
 		mainView.add(this.maze.getContainer());
 		mainView.view();
 	}
@@ -48,7 +53,7 @@ public class Controller {
 		removeOldViews();
 		editMaze = new CreateMazeController(this);
 
-		mainView.addMenuBar(false);
+		mainView.add(mainView.addMenuBar(false));
 		mainView.add(editMaze.getCreateMazeView());
 		mainView.view();
 	}
@@ -57,7 +62,7 @@ public class Controller {
 		removeOldViews();
 		selectMaze = new SelectMazeController(this);
 
-		mainView.addMenuBar(false);
+		mainView.add(mainView.addMenuBar(false));
 		mainView.add(selectMaze.getSelectMazeView());
 		mainView.view();
 	}
@@ -106,7 +111,7 @@ public class Controller {
 
 		return mazeGrid;
 	}
-	
+
 	static public void main(String args[]) {
 		Controller controller = new Controller();
 		controller.init();

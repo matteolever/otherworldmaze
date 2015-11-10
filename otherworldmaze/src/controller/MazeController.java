@@ -5,8 +5,10 @@ import java.awt.Point;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 import enums.CellEnum;
 import model.Door;
@@ -26,6 +28,8 @@ public class MazeController {
 	Timer timer;
 
 	private JLayeredPane container;
+	private JLabel keyLabel;
+	private JLabel doorLabel;
 
 	private static final String RIGHT = "RIGHT";
 	private static final String LEFT = "LEFT";
@@ -35,14 +39,30 @@ public class MazeController {
 
 	private int initTime = 200; // TODOD set that somewhere else!
 
-	public MazeController(int[][] intGrid, Controller controller) {
+	public MazeController(int[][] intGrid, Controller controller, JPanel menuBar) {
 		mazeModel = new Maze(intGrid, initTime);
 		mazeView = new MazeView(this, intGrid);
 
 		this.controller = controller;
 
+		// the keyPanel is the second component int the menubar
+		JPanel keyPanel = (JPanel) menuBar.getComponent(1);
+		keyLabel = (JLabel) keyPanel.getComponent(1);
+		
+		// the doorPanel is the second component int the menubar
+		JPanel doorPanel = (JPanel) menuBar.getComponent(2);
+		doorLabel = (JLabel) doorPanel.getComponent(1);
+
 		init();
 		startGame();
+	}
+	
+	public void setKeyPanelValue(int value){
+		keyLabel.setText(String.valueOf(value));
+	}
+	
+	public void setDoorPanelValue(int value){
+		doorLabel.setText(String.valueOf(value));
 	}
 
 	public void init() {
@@ -64,7 +84,7 @@ public class MazeController {
 		container.setVisible(true);
 		container.revalidate();
 	}
-	
+
 	public void addHaloToMaze(HaloView haloView) {
 		haloView.setBounds(0, 0, 500, 500);
 		haloView.setVisible(true);
@@ -76,7 +96,11 @@ public class MazeController {
 	/** start Gameplay */
 	public void startGame() {
 		player = new PlayerController(this);
-
+		
+		int keys = player.getPlayerKeys();
+		keyLabel.setText(String.valueOf(keys));
+		doorLabel.setText(String.valueOf(mazeModel.getClosedDoors()));
+		
 		System.out.println("the payer BEGINS in pos " + player.getViewPos());
 		setUpTimer();
 	}
@@ -132,9 +156,7 @@ public class MazeController {
 		// TODO what happens when the Game is won?
 		System.out.println("THE GAME IS WON!");
 		timer.cancel();
-		showDialog(
-				"♛ \tCongrats! You opened the exit door and won! \t♛",
-				"You Won!");
+		showDialog("♛ \tCongrats! You opened the exit door and won! \t♛", "You Won!");
 	}
 
 	public void lostGame() {
@@ -193,20 +215,27 @@ public class MazeController {
 					.get(new Point(cell.getCoordinates()[0], cell.getCoordinates()[1]));
 			player.collectKey(key, cell.getCoordinates()[0], cell.getCoordinates()[1]);
 			cell.setType(CellEnum.EMPTY.getType());
+			
+			//update the label
+			keyLabel.setText(String.valueOf(player.getPlayerKeys()));
 
 			return false;
 
 		} else if (type == CellEnum.DOOR.getType()) {
+			
 			// add the key to the player and remove it from view
 			Door door = (Door) mazeModel.getMazeComponents()
 					.get(new Point(cell.getCoordinates()[0], cell.getCoordinates()[1]));
-			player.openDoor(door, cell.getCoordinates()[0], cell.getCoordinates()[1]);
+			if(player.openDoor(door, cell.getCoordinates()[0], cell.getCoordinates()[1])){
+				cell.setType(CellEnum.DOOR_OPENED.getType());
+				doorLabel.setText(String.valueOf(mazeModel.getClosedDoors()));
+			}
+			
 			if (mazeModel.isWon()) {
 				wonGame();
 			}
 			return true; // TODO player should go into the door
 		}
-		mazeView.repaint();
 		return true;
 	}
 

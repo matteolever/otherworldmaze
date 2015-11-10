@@ -117,4 +117,9 @@ public class Maze {
 		return won;
 	}
 
+	public int getClosedDoors() {
+		return closedDoors;
+	}
+	
+
 }
