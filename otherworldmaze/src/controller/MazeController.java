@@ -22,36 +22,88 @@ import view.CellView;
 import view.HaloView;
 import view.MazeView;
 
+/**
+ * this class controlls the whole gameplay. it aligns mazeView and mazeModel. it
+ * also creates a player controller and checks for collisions when moving it.
+ */
 public class MazeController {
 
+	/**
+	 * the View of the Maze
+	 */
 	MazeView mazeView;
+	
+	/**
+	 * the Model of the Maze
+	 */
 	Maze mazeModel;
 
+	/**
+	 * the Controller for the player is added to the Maze.
+	 */
 	PlayerController player;
 
+	/**
+	 * this is the timer, which redraws the maze and takes care that the halo
+	 * shrinks
+	 */
 	Timer timer;
 
+	/**
+	 * the mazeView is not directly added to the mainView, as the overlay of
+	 * halo and mazeView requires and additional panel that allows a
+	 * layeredLayout. therefore this container contains them both and is added
+	 * to the mainview.
+	 */
 	private JLayeredPane container;
+	/**
+	 * this is the label that shows the number of collected keys.
+	 */
 	private JLabel keyLabel;
+	/**
+	 * this is the label that shows the number of closed doors.
+	 */
 	private JLabel doorLabel;
 
 	private static final String RIGHT = "RIGHT";
 	private static final String LEFT = "LEFT";
 	private static final String DOWN = "DOWN";
 	private static final String UP = "UP";
+
+	/**
+	 * the controller. needed here to be able to switch views.
+	 */
 	Controller controller;
 
+	/**
+	 * the initial Size of the halo
+	 */
 	private int initTime = 200; // TODOD set that somewhere else!
 
+	/**
+	 * this class controls the whole gameplay. it aligns mazeView and mazeModel.
+	 * it also creates a player controller and checks for collisions when moving
+	 * it.
+	 * 
+	 * @param intGrid.
+	 *            this is the grid of integers, from which the mazeModel will be
+	 *            created.
+	 * @param controller.
+	 *            this is the "parent"controller. Needed here to be able to go
+	 *            back to the startView.
+	 * @param menuBar.
+	 *            this is the menuBar that is created in the mainView. The maze
+	 *            needs access to it directly to manipulate the keys and door
+	 *            labels.
+	 */
 	public MazeController(int[][] intGrid, Controller controller, JPanel menuBar) {
-		mazeModel = new Maze(intGrid, initTime);
+		mazeModel = new Maze(intGrid);
 		mazeView = new MazeView(this, intGrid);
 
 		this.controller = controller;
 
 		setUpMenuBar(menuBar);
-
-		init();
+		initView();
 		startGame();
 	}
 
@@ -75,7 +127,11 @@ public class MazeController {
 		doorLabel = (JLabel) doorPanel.getComponent(1);
 	}
 
-	public void init() {
+	/**
+	 * initilalizes the game, by aliging mazeView and HaloView and adding them
+	 * to a newly created container.
+	 */
+	public void initView() {
 		mazeView.setFocusable(true);
 		mazeView.getInputMap();
 		mazeView.setRequestFocusEnabled(true);
@@ -95,15 +151,21 @@ public class MazeController {
 		container.revalidate();
 	}
 
+	/**
+	 * Helper method. adds the halo to the container, on top of the mazeView.
+	 * 
+	 * @param haloView
+	 */
 	public void addHaloToMaze(HaloView haloView) {
-		haloView.setBounds(0, 0, 500, 500);
+		int width = (int) CellView.CELLSIZE.getWidth() * mazeModel.getGrid().length;
+		haloView.setBounds(0, 0, width, width);
 		haloView.setVisible(true);
 		container.add(haloView, new Integer(2), 0);
 		container.setVisible(true);
 		container.revalidate();
 	}
 
-	/** start Gameplay */
+	/** starts Gameplay, by starting the timer and adding the player */
 	public void startGame() {
 		player = new PlayerController(this);
 
@@ -116,17 +178,18 @@ public class MazeController {
 	}
 
 	/**
-	 * moves the player according to keyboard input
+	 * moves the player according to keyboard input and checks for collisions.
 	 * 
 	 * @param direction
+	 *            specifies which direction the player should move. Either UP,
+	 *            DOWN, LEFT or RIGHT
 	 */
 	public void move(String direction) {
-		//
 		int oldIndex = ((player.getViewPos()[1] + 1) + player.getViewPos()[0] * mazeModel.getGrid()[0].length) - 1;
 		int newIndex = oldIndex;
 		switch (direction) {
 		case UP:
-			if (oldIndex - mazeModel.getGrid().length < 0){
+			if (oldIndex - mazeModel.getGrid().length < 0) {
 				newIndex = oldIndex;
 			} else {
 				newIndex = oldIndex - mazeModel.getGrid().length;
@@ -162,19 +225,33 @@ public class MazeController {
 			player.move(newPlayer);
 	}
 
+	/**
+	 * called when the game is won. cancels the timer and opens a dialog.
+	 */
 	public void wonGame() {
-		// TODO what happens when the Game is won?
 		System.out.println("THE GAME IS WON!");
 		timer.cancel();
 		showDialog("♛ \tCongrats! You opened the exit door and won! \t♛", "You Won!");
 	}
 
+	/**
+	 * called when the game is lost. cancels the timer and opens a dialog.
+	 */
 	public void lostGame() {
 		System.out.println("You lost!");
 		timer.cancel();
 		showDialog("\tOh no...the light ran out.", "You Lost!");
 	}
 
+	/**
+	 * opens a dialog box with the message given as an argument and lets the
+	 * user choose whether to start a new game or go back to the menu.
+	 * 
+	 * @param msg
+	 *            the message that is to be displayed in the dialogbox.
+	 * @param title
+	 *            the title of the box.
+	 */
 	public void showDialog(String msg, String title) {
 		Object[] options = { "Go Back", "Restart!" };
 		int choice = JOptionPane.showOptionDialog(mazeView, msg, title + " What do you want to do?",
@@ -185,15 +262,18 @@ public class MazeController {
 		} else if (choice == 1) {
 			SelectMazeController selectMaze = new SelectMazeController(controller);
 			List<String> mazes = selectMaze.readMazeList();
-			if(mazes != null && !mazes.isEmpty()){
+			if (mazes != null && !mazes.isEmpty()) {
 				Random random = new Random();
 				int newMazeInt = random.nextInt(mazes.size());
 				selectMaze.loadMazeFile(mazes.get(newMazeInt));
 			} else
-			controller.startMaze(this.mazeModel.getGrid());
+				controller.startMaze(this.mazeModel.getGrid());
 		}
 	}
 
+	/**
+	 * sets up the timer, that shrinks the halo
+	 */
 	private void setUpTimer() {
 		timer = new Timer();
 		timer.schedule(new TimerTask() {
@@ -204,33 +284,28 @@ public class MazeController {
 				boolean shrink = player.shrinkHalo();
 				if (!shrink)
 					lostGame();
-
 			}
 		}, 0, 150);
 	}
 
 	/**
-	 * check if the player is running into something like a wall or key or door.
-	 * If it does this method will return true
+	 * checks if the player is running into something like a wall or key or
+	 * door. If it does this method will return true. If key => collect; if door
+	 * ==> check if the player has a key and if true open door
+	 * 
+	 * @param cell
+	 *            this is the cell the player wants to move into.
 	 */
 	private boolean checkCollision(CellView cell) {
-		// if key = collect
-		// if wall = stop
-		// if door player checkKeys
-		// if true open door
-
 		int type = cell.getCellType().getType();
 		if (type == CellEnum.EMPTY.getType())
 			return false;
 
 		else if (type == CellEnum.KEY.getType()) {
-			System.out.println("collision with " + type);
-			System.out.println("id is " + cell.getCoordinates()[0] + "," + cell.getCoordinates()[1]);
-
 			// add the key to the player and remove it from view
 			Key key = (Key) mazeModel.getMazeComponents()
 					.get(new Point(cell.getCoordinates()[0], cell.getCoordinates()[1]));
-			player.collectKey(key, cell.getCoordinates()[0], cell.getCoordinates()[1]);
+			player.collectKey(key);
 			cell.setType(CellEnum.EMPTY.getType());
 
 			// update the label
@@ -243,15 +318,18 @@ public class MazeController {
 			// add the key to the player and remove it from view
 			Door door = (Door) mazeModel.getMazeComponents()
 					.get(new Point(cell.getCoordinates()[0], cell.getCoordinates()[1]));
-			if (player.openDoor(door, cell.getCoordinates()[0], cell.getCoordinates()[1])) {
+			
+			//this will be true if the player can open the door
+			if (player.openDoor(door)) {
 				cell.setType(CellEnum.DOOR_OPENED.getType());
 				doorLabel.setText(String.valueOf(mazeModel.getClosedDoors()));
+				
+				if (mazeModel.isWon()) {
+					wonGame();
+				}
+				return true; 
 			}
 
-			if (mazeModel.isWon()) {
-				wonGame();
-			}
-			return true; // TODO player should go into the door
 		}
 		return true;
 	}

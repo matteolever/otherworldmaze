@@ -2,10 +2,9 @@ package enums;
 
 
 /**
- * specifies all the objects that can be inside ONE cell.
+ * Very important: specifies all the objects that can be inside ONE cell.
+ * Called from all packages.
  * 
- * @author verena
- *
  */
 public enum CellEnum {
 	FOREST(1, "appdata/forest.png"),
@@ -47,22 +46,5 @@ public enum CellEnum {
 	public String getSrc(int type) {
 		return src;
 	}
-	
-//	public CellEnum getEnum(int type){
-//		switch (type) {
-//		case FOREST.getType():
-//			return CellEnum.FOREST;
-//		
-//		case FOREST.getType():
-//			return CellEnum.FOREST;
-//
-//		case FOREST.getType():
-//			return CellEnum.FOREST;
-//
-//		default:
-//			src = CellEnum.FOREST.getSrc();
-//			break;
-//		return null;
-//	}
 
 }
