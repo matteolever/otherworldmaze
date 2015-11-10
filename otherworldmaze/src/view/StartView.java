@@ -9,15 +9,19 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import controller.Controller;
 
+/**
+ * the start View of the whole game.
+ *
+ */
 public class StartView extends JPanel {
 	
+	private static final long serialVersionUID = -4810210219893519108L;
 	private Controller controller;
 	private JPanel createMazePanel;
 

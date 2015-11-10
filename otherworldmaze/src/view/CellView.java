@@ -18,8 +18,6 @@ import enums.CellEnum;
 /**
  * represents one cell in the playingfield
  * 
- * @author verena
- *
  */
 public class CellView extends JPanel {
 
@@ -60,6 +58,12 @@ public class CellView extends JPanel {
 
 	}
 
+	/**
+	 * initializes the cell view.
+	 * 
+	 * @param row the row of the cell in the grid.
+	 * @param col the column of the cell in the grid. 
+	 */
 	public void initCellView(int row, int col) {
 		this.setPreferredSize(CELLSIZE);
 		this.setBounds(0, 0, (int) CELLSIZE.getWidth(), (int) CELLSIZE.getHeight());
@@ -67,20 +71,20 @@ public class CellView extends JPanel {
 		this.setOpaque(true);
 		this.setName(String.valueOf(cellType.getType()));
 
-		System.out.print("(" + row + "," + col + ") " + cellType.getType() + " ");
-
 		coordinates[0] = row;
 		coordinates[1] = col;
 	}
 
+	/**
+	 * loads the image of the cell. 
+	 * @return
+	 */
 	public BufferedImage loadImg() {
 		String src = cellType.getSrc();
 		if (src == null || src.isEmpty()) {
 			// TODO. What happens if it does not have a graphic? paint a color?
 		} else {
 			try {
-				// System.out.println("Try reading " + src + " for enum " +
-				// cellType.toString());
 				img = ImageIO.read(new File(src));
 				this.setPreferredSize(new Dimension(CELLSIZE));
 			} catch (IOException e) {
@@ -96,7 +100,7 @@ public class CellView extends JPanel {
 		Graphics2D g = (Graphics2D) graphics;
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		if (img != null) {
-			g.drawImage(img,0,0,CELLSIZE.width-5,CELLSIZE.height-5,null);
+			g.drawImage(img, 0, 0, CELLSIZE.width - 5, CELLSIZE.height - 5, null);
 		} else {
 			if (cellType.getType() != CellEnum.EMPTY.getType())
 				System.out.println("img for " + this.cellType.toString() + " is null!");
@@ -106,10 +110,14 @@ public class CellView extends JPanel {
 		int h = getHeight();
 
 		g.setPaint(new Color(230, 230, 230));
-	//	g.drawRect(0, 0, w, h);
+		// g.drawRect(0, 0, w, h);
 
 	}
 
+	/**
+	 * sets the type of a cell. Depending on the type different graphics will be displayed. 
+	 * @param typeInt the type this cell should change into. 
+	 */
 	public void setType(int typeInt) {
 		for (CellEnum c : CellEnum.values()) {
 			if (c.getType() == typeInt) {

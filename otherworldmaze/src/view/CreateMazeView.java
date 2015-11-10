@@ -46,20 +46,37 @@ public class CreateMazeView extends JPanel {
 	private CellView cellPreview = null;
 
 	/**
-	 * state field to indicate whether the game is allowed to be saved in its
-	 * current state. Not ok for example if the payer has not set a door for
-	 * each key
+	 * the CreateMazeController that controls the maze.
 	 */
-	private boolean isOk = false;
-
 	private CreateMazeController controller;
 
+	/**
+	 * the panel on the left, which edit options.
+	 */
 	private JPanel editPanel;
+
+	/**
+	 * the panel inside the editPanel that displays all possible obstacles
+	 */
 	private JPanel obstaclePanel;
+
+	/**
+	 * the preview of a maze.
+	 */
 	private MazeView previewMaze;
 
 	private JPanel doorsPanel;
+
+	/**
+	 * the number of doors the player still has to put into the maze to be
+	 * consistent with the number of keys alreadt in the mazes.
+	 */
 	private JLabel doorsToSetInd;
+
+	/**
+	 * the number of keys the player still has to put into the maze to be
+	 * consistent with the number of doors already set.
+	 */
 	private JLabel keysToSetInd;
 
 	/**
@@ -76,6 +93,8 @@ public class CreateMazeView extends JPanel {
 	 * the amount of keys the user has already put into the playing field
 	 */
 	int keysAlreadySetN = 0;
+	
+	private JButton saveMazeButton;
 
 	int rows = 10; // TODO
 	int cols = 10; // TODO
@@ -83,9 +102,11 @@ public class CreateMazeView extends JPanel {
 	Timer timer;
 
 	/**
-	 * the currently selected object that the user wants to put into the maze
+	 * the view of the editing.
+	 * 
+	 * @param controller.
+	 *            the controller that controls the mazeView
 	 */
-
 	public CreateMazeView(CreateMazeController controller) {
 		this.controller = controller;
 		this.timer = new Timer(100, mouseTracker);
@@ -97,10 +118,12 @@ public class CreateMazeView extends JPanel {
 				continue;
 			this.cellOptions[c.getType()] = createObjectPreview(c.getType());
 		}
-
 		initView();
 	}
 
+	/**
+	 * initializes the view.
+	 */
 	public void initView() {
 		this.setLayout(new BorderLayout());
 		this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -155,6 +178,11 @@ public class CreateMazeView extends JPanel {
 		return generalPanel;
 	}
 
+	/**
+	 * creates the panel with all obstacles
+	 * 
+	 * @return the created panel filled with all obstacles.
+	 */
 	private JPanel createObstaclePanel() {
 		obstaclePanel = new JPanel(new GridLayout(3, 2));
 		// obstaclePanel.setBorder(BorderFactory.createLineBorder(Color.BLUE));
@@ -184,6 +212,18 @@ public class CreateMazeView extends JPanel {
 		return obstaclePanel;
 	}
 
+	/**
+	 * creates a Label for a cell option, according to the type specified in the
+	 * type argument.
+	 * 
+	 * @param name
+	 *            the visible name of the panel (not the internal one)
+	 * @param type
+	 *            the type of the panel
+	 * @param src
+	 *            the source of the icon.
+	 * @return the newly created label
+	 */
 	private JLabel oneOptionPanel(String name, String type, String src) {
 		JLabel label = new JLabel();
 		createFont(label, false);
@@ -197,6 +237,11 @@ public class CreateMazeView extends JPanel {
 		return label;
 	}
 
+	/**
+	 * creates the panel with doors and keys.
+	 * 
+	 * @return
+	 */
 	private JPanel createDoorPanel() {
 		doorsPanel = new JPanel(new GridLayout(4, 2));
 		// doorsPanel.setBorder(BorderFactory.createLineBorder(Color.GREEN));
@@ -240,6 +285,14 @@ public class CreateMazeView extends JPanel {
 		return doorsPanel;
 	}
 
+	/**
+	 * set the font for the label given as an arguemnt
+	 * 
+	 * @param label
+	 *            the label that the font will be applied to.
+	 * @param isH
+	 *            if the label is a headline or not.
+	 */
 	public void createFont(JLabel label, boolean isH) {
 		label.setForeground(Color.WHITE);
 		if (isH)
@@ -248,24 +301,30 @@ public class CreateMazeView extends JPanel {
 			label.setFont(label.getFont().deriveFont(Font.PLAIN, FONT));
 	}
 
+	/**
+	 * creates a preView of each cell.
+	 * 
+	 * @param cellType
+	 * @return
+	 */
 	public CellView createObjectPreview(int cellType) {
 		cellPreview = new CellView(cellType, -1, -1);
-		// TODO set the correct size
-		// obstaclePreview.setPreferredSize(new Dimension(100, 129));
 		cellPreview.setBounds(0, 0, CellView.CELLSIZE.width, CellView.CELLSIZE.height);
 		return cellPreview;
-
 	}
 
 	/**
-	 * this method is called by the controller to initialte all necessary
-	 * labels, bozes etc.
+	 * this method is called by the controller to initiate all necessary labels,
+	 * bozes etc.
 	 */
 	public void initiateValues(int doorsToSetN, int keysToSetN) {
 		this.doorsToSetInd.setText(String.valueOf(doorsToSetN));
 		this.keysToSetInd.setText(String.valueOf(keysToSetN));
 	}
 
+	/**
+	 * deselects all other fields.
+	 */
 	public void deselectAll() {
 		for (Component c : obstaclePanel.getComponents()) {
 			JLabel l = (JLabel) c;
@@ -281,33 +340,13 @@ public class CreateMazeView extends JPanel {
 				l.setOpaque(false);
 			}
 		}
-
 	}
 
-	// private ActionListener doorsAmountListener = new ActionListener() {
-	//
-	// @Override
-	// public void actionPerformed(ActionEvent e) {
-	// JTextField field = (JTextField) e.getSource();
-	// }
-	// };
-	//
-	// private void checkTextField(JTextField field){
-	// try {
-	// doorsAndKeysToSetN = Integer.parseInt(field.getText());
-	//
-	// if(doorsAndKeysToSetN > 3){
-	// doorsAndKeysToSetN = 3;
-	// }
-	//
-	// } catch (NumberFormatException e1) {
-	// JOptionPane.showMessageDialog(this, "Only Numbers allowed", "Wrong
-	// Input",
-	// JOptionPane.ERROR_MESSAGE);
-	// doorsAndKeysToSetN = 1;
-	// }
-	// }
-
+	/**
+	 * when the user puts a door or a key into the maze this method is called.
+	 * It checks how many keys and doors still have to be put into the maze so
+	 * that it is consistent.
+	 */
 	private void updateDoorsAndKeysToSet() {
 		int doorsStillToPut = keysAlreadySetN - doorsAlreadySetN;
 		if (doorsStillToPut < 0)
@@ -323,12 +362,13 @@ public class CreateMazeView extends JPanel {
 			saveMazeButton.setEnabled(false);
 		else
 			saveMazeButton.setEnabled(true);
-
 	}
 
 	/**
-	 * checks whether number of doors and keys is aligned
-	 * @return
+	 * checks whether number of doors and keys is aligned.
+	 * 
+	 * @return true if the nubmer of doors and keys is the same, false
+	 *         otherwise.
 	 */
 	private boolean isOkToSave() {
 		if (doorsAlreadySetN == keysAlreadySetN)
@@ -338,7 +378,7 @@ public class CreateMazeView extends JPanel {
 	}
 
 	/**
-	 * called when user wants to save the maze 
+	 * called when user wants to save the maze
 	 */
 	private MouseAdapter saveMazeListener = new MouseAdapter() {
 		@Override
@@ -365,6 +405,10 @@ public class CreateMazeView extends JPanel {
 		}
 	};
 
+	/**
+	 * checks it the user clicks into the maze with an item selected in the
+	 * editpanel and then plants it into the maze..
+	 */
 	private MouseAdapter mazeListener = new MouseAdapter() {
 		@Override
 		/**
@@ -376,12 +420,6 @@ public class CreateMazeView extends JPanel {
 
 			if (cellPreview != null) {
 
-				// // create the component that is selected
-				// CellView cell = createObjectPreview(selected);
-				// cell.setLocation(getMousePosition());
-				// previewMaze.add(cell, 0);
-
-				// GridLayout layout = (GridLayout) previewMaze.getLayout();
 				CellView c = (CellView) previewMaze.getComponentAt(previewMaze.getMousePosition());
 				c.setType(cellPreview.getCellType().getType());
 
@@ -399,7 +437,7 @@ public class CreateMazeView extends JPanel {
 		@Override
 		/**
 		 * When the mouse leaves the previewMaze the preview of the selected
-		 * Item should vanish
+		 * Item should vanish.
 		 */
 		public void mouseExited(MouseEvent e) {
 			System.out.println("exit");
@@ -430,6 +468,10 @@ public class CreateMazeView extends JPanel {
 		}
 	};
 
+	/**
+	 * takes care that the preview image follows the mouse when the user build a
+	 * playing field.
+	 */
 	private ActionListener mouseTracker = new ActionListener() {
 
 		@Override
@@ -442,7 +484,4 @@ public class CreateMazeView extends JPanel {
 			}
 		}
 	};
-
-	private JButton saveMazeButton;
-
 }

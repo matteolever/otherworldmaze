@@ -19,12 +19,12 @@ import controller.MazeController;
 import enums.CellEnum;
 
 /**
- * the view of the maze
+ * the view of the maze.
  * 
- * @author verena
- *
  */
 public class MazeView extends JPanel {
+
+	private static final long serialVersionUID = 1L;
 
 	private static final String RIGHT = "RIGHT";
 	private static final String LEFT = "LEFT";
@@ -33,20 +33,40 @@ public class MazeView extends JPanel {
 	private Color BG_COLOR = new Color(250, 250, 250);
 	private Color BG_MID = new Color(243, 243, 243);
 
+	/**
+	 * the number of rows in the playing field.
+	 */
 	private int rows;
+
+	/**
+	 * the number of colums in the playing field.
+	 */
 	private int cols;
 
+	/**
+	 * this is necessary for the keyListener.
+	 */
 	int IWF = JComponent.WHEN_IN_FOCUSED_WINDOW;
 	String MOVE_UP = "move up";
 	String MOVE_DOWN = "move down";
 	String MOVE_LEFT = "move left";
 	String MOVE_RIGHT = "move right";
 
+	/**
+	 * the controller that controls this view.
+	 */
 	private MazeController controller;
 
 	/**
 	 * creates a maze View with an empty grid. This is relevant for the creation
 	 * of a maze
+	 * 
+	 * @param rows
+	 *            the number of rows of the empty playing field.
+	 * @param cols
+	 *            the number of columns in the empty playing field.
+	 * @param the
+	 *            controller that controls this view.
 	 */
 	public MazeView(int rows, int cols, MazeController controller) {
 		this.controller = controller;
@@ -72,6 +92,9 @@ public class MazeView extends JPanel {
 		createFilledGrid(intGrid);
 	}
 
+	/**
+	 * initilaizes the keyboard listeners (ActionMap).
+	 */
 	public void initView() {
 		this.setLayout(new GridLayout(rows + 1, cols + 1));
 		// this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -89,7 +112,10 @@ public class MazeView extends JPanel {
 		this.getActionMap().put(MOVE_RIGHT, moveRight);
 
 	}
-	
+
+	/**
+	 * creates a grid with CellViews of the type EMPTY.
+	 */
 	public void createEmptyGrid() {
 		for (int row = 0; row < rows; row++) {
 			for (int col = 0; col < cols; col++) {
@@ -99,31 +125,30 @@ public class MazeView extends JPanel {
 			}
 			System.out.println("");
 		}
-
 	}
 
 	/**
-	 * creates a MazeView with the values given as a parameter.
+	 * creates a MazeView with the values int grid.
 	 * 
 	 * @param grid
-	 *            the gird with which the values are
+	 *            the grid that specifies the look of the maze.
 	 */
 	public void createFilledGrid(int[][] grid) {
 		for (int row = 0; row < grid.length; row++) {
 			for (int col = 0; col < grid[0].length; col++) {
-				// TODO; how can I get the Enum when I only know the number of
-				// the type?
-
 				CellView cellView = new CellView(grid[row][col], row, col);
 				this.add(cellView);
-
-				// System.out.print("("+row+","+col+")
-				// "+this.getComponentCount()+" "+ grid[row][col]+" ");
 			}
 			System.out.println("");
 		}
 	}
 
+	/**
+	 * creates a two dimensional grid of the mazeView. This is relevant when the
+	 * user has created his on grid and wants to save it.
+	 * 
+	 * @return the int representation of the maze. 
+	 */
 	public int[][] getIntGrid() {
 		int[][] intGrid = new int[rows][cols];
 
