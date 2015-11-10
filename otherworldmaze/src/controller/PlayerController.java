@@ -65,11 +65,13 @@ public class PlayerController {
 		playerModel.collectKey(key);
 	}
 
-	public void openDoor(Door door, int row, int col) {
+	public boolean openDoor(Door door, int row, int col) {
 		if (!playerModel.getKeys().isEmpty()) {
 			door.openDoor(true);
 			playerModel.useKey(null); //TODO should actually be the correct key
+			return true;
 		}
+		return false;
 	}
 
 	public Player getPlayerModel() {

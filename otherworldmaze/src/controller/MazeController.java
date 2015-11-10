@@ -209,15 +209,16 @@ public class MazeController {
 			// add the key to the player and remove it from view
 			Door door = (Door) mazeModel.getMazeComponents()
 					.get(new Point(cell.getCoordinates()[0], cell.getCoordinates()[1]));
-			player.openDoor(door, cell.getCoordinates()[0], cell.getCoordinates()[1]);
+			if(player.openDoor(door, cell.getCoordinates()[0], cell.getCoordinates()[1])){
+				cell.setType(CellEnum.DOOR_OPENED.getType());
+				doorLabel.setText(String.valueOf(mazeModel.getClosedDoors()));
+			}
 			
-			doorLabel.setText(String.valueOf(mazeModel.getClosedDoors()));
 			if (mazeModel.isWon()) {
 				wonGame();
 			}
 			return true; // TODO player should go into the door
 		}
-		mazeView.repaint();
 		return true;
 	}
 
