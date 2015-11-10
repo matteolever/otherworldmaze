@@ -1,22 +1,12 @@
 package view;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GridLayout;
-import java.awt.Image;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
-import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-
 import controller.Controller;
 import enums.CellEnum;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  * the start View of the whole game.
@@ -58,9 +48,7 @@ public class StartView extends JPanel {
 		icon = new ImageIcon(newimg);
 
 		nameLabel.setIcon(icon);
-		//label.setBounds(0, 0, CellView.CELLSIZE.width, CellView.CELLSIZE.height + 10);
-		//label.setPreferredSize(new Dimension(CellView.CELLSIZE.width, CellView.CELLSIZE.height + 10));
-		
+
 		this.startButton = new JButton("Start Game");
 		this.startButton.addMouseListener(this.startButtonListener);
 		this.startButton.setFont(new Font("Sans Serif", Font.PLAIN, 16));

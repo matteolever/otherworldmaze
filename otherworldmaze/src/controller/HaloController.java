@@ -6,9 +6,6 @@ import view.HaloView;
 
 /**
  * the HaloController takes care of the actions regarding the halo.
- * 
- * @author verena
- *
  */
 public class HaloController {
 

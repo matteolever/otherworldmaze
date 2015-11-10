@@ -1,16 +1,15 @@
 package controller;
 
+import view.CreateMazeView;
+
+import javax.swing.*;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import javax.swing.JOptionPane;
-
-import view.CreateMazeView;
-
 /**
- * this controller takes care of the acrions performed in the CreateMazeView.
+ * this controller takes care of the actions performed in the CreateMazeView.
  * Such as saving the maze.
  *
  */

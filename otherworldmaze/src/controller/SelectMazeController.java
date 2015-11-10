@@ -1,15 +1,14 @@
 package controller;
 
+import view.SelectMazeView;
+
+import javax.swing.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
-import javax.swing.JOptionPane;
-
-import view.SelectMazeView;
 
 /**
  *Controller class for the maze selection

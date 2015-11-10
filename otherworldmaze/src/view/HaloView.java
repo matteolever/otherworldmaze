@@ -1,13 +1,9 @@
 package view;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RadialGradientPaint;
-import java.awt.geom.Point2D;
-
 import enums.CellEnum;
+
+import java.awt.*;
+import java.awt.geom.Point2D;
 
 /**
  * 
@@ -52,7 +48,6 @@ public class HaloView extends Component {
 
 	@Override
 	public void paint(Graphics graphics) {
-		// System.out.println("halo "+ x + " " + y);
 		Graphics2D g = (Graphics2D) graphics;
 
 		Point2D center = new Point2D.Float(x + CellEnum.SIZE.getType() / 2, y + CellEnum.SIZE.getType() / 2);

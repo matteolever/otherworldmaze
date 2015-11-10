@@ -1,19 +1,13 @@
 package view;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
+import enums.CellEnum;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
-import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
-import javax.swing.JPanel;
-
-import enums.CellEnum;
 
 /**
  * represents one cell in the playingfield
@@ -110,8 +104,6 @@ public class CellView extends JPanel {
 		int h = getHeight();
 
 		g.setPaint(new Color(230, 230, 230));
-		// g.drawRect(0, 0, w, h);
-
 	}
 
 	/**

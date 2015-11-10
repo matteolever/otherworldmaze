@@ -1,24 +1,14 @@
 package view;
 
+import controller.CreateMazeController;
+import enums.CellEnum;
+
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.File;
-
-import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.Timer;
-
-import controller.CreateMazeController;
-import enums.CellEnum;
 
 public class CreateMazeView extends JPanel {
 
@@ -125,7 +115,6 @@ public class CreateMazeView extends JPanel {
 		this.setLayout(new BorderLayout());
 		this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-		// new FlowLayout(FlowLayout.LEADING)
 		editPanel = new JPanel();
 		editPanel.setLayout(new BoxLayout(editPanel, BoxLayout.PAGE_AXIS));
 		editPanel.setBackground(new Color(37,60,84));
@@ -135,7 +124,6 @@ public class CreateMazeView extends JPanel {
 		saveMazeButton = new JButton("Save the maze and Start Playing!");
 		saveMazeButton.addMouseListener(saveMazeListener);
 
-		// editPanel.add(createGeneralPanel());
 		editPanel.add(createObstaclePanel());
 		editPanel.add(createDoorPanel());
 		editPanel.add(saveMazeButton);
@@ -143,7 +131,6 @@ public class CreateMazeView extends JPanel {
 		previewMaze = new MazeView(rows, cols, null);
 		previewMaze.addMouseListener(mazeListener);
 
-		// this.add(goBackPanel, BorderLayout.NORTH);
 		this.add(editPanel, BorderLayout.WEST);
 		this.add(previewMaze, BorderLayout.EAST);
 	}
@@ -162,7 +149,6 @@ public class CreateMazeView extends JPanel {
 		createFont(doorAmountLabel, false);
 		JTextField doorAmountField = new JTextField(" ");
 		doorAmountField.setPreferredSize(new Dimension(30, 10));
-		// doorAmountField.addActionListener(doorsAmountListener);
 
 		doorAmountPanel.add(doorAmountLabel, BorderLayout.WEST);
 		doorAmountPanel.add(doorAmountField, BorderLayout.CENTER);
@@ -170,7 +156,6 @@ public class CreateMazeView extends JPanel {
 		generalPanel.add(generalLabel);
 		generalPanel.add(new JLabel());
 		generalPanel.add(doorAmountPanel);
-		// generalPanel.add(keyAmountPanel);
 
 		return generalPanel;
 	}
@@ -182,7 +167,6 @@ public class CreateMazeView extends JPanel {
 	 */
 	private JPanel createObstaclePanel() {
 		obstaclePanel = new JPanel(new GridLayout(3, 2));
-		// obstaclePanel.setBorder(BorderFactory.createLineBorder(Color.BLUE));
 		obstaclePanel.setOpaque(false);
 
 		JLabel obstaclesLabel = new JLabel("Obstacles");
@@ -245,7 +229,6 @@ public class CreateMazeView extends JPanel {
 	 */
 	private JPanel createDoorPanel() {
 		doorsPanel = new JPanel(new GridLayout(4, 2));
-		// doorsPanel.setBorder(BorderFactory.createLineBorder(Color.GREEN));
 		doorsPanel.setOpaque(false);
 		JLabel doorsLabel = new JLabel("Doors and Keys");
 		createFont(doorsLabel, true);

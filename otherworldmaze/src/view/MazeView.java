@@ -1,22 +1,11 @@
 package view;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.GradientPaint;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.GridLayout;
-import java.awt.RenderingHints;
-import java.awt.event.ActionEvent;
-
-import javax.swing.AbstractAction;
-import javax.swing.Action;
-import javax.swing.JComponent;
-import javax.swing.JPanel;
-import javax.swing.KeyStroke;
-
 import controller.MazeController;
 import enums.CellEnum;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
 
 /**
  * the view of the maze.
@@ -99,8 +88,6 @@ public class MazeView extends JPanel {
 	 */
 	public void initView() {
 		this.setLayout(new GridLayout(rows + 1, cols + 1));
-		// this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-		// this.setPreferredSize(new Dimension(GAME_W, GAME_H));
 		this.setBackground(BG_COLOR);
 
 		this.getInputMap(IWF).put(KeyStroke.getKeyStroke(UP), MOVE_UP);

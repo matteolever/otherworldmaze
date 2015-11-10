@@ -1,19 +1,5 @@
 package controller;
 
-import java.awt.Dimension;
-import java.awt.Point;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.List;
-import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
-
-import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-
 import enums.CellEnum;
 import model.Door;
 import model.Key;
@@ -21,6 +7,15 @@ import model.Maze;
 import view.CellView;
 import view.HaloView;
 import view.MazeView;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.List;
+import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * this class controlls the whole gameplay. it aligns mazeView and mazeModel. it

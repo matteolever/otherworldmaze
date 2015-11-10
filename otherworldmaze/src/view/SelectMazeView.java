@@ -1,20 +1,12 @@
 package view;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
+import controller.SelectMazeController;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
-
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-
-import controller.SelectMazeController;
 
 /**
  * View class for the maze selection
@@ -73,7 +65,6 @@ public class SelectMazeView extends JPanel {
 			i++;
 		}
 	}
-
 
 	/**
 	 * Listener for clicking maze selection buttons

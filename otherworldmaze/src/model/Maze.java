@@ -1,9 +1,9 @@
 package model;
 
-import java.awt.Point;
-import java.util.HashMap;
-
 import enums.CellEnum;
+
+import java.awt.*;
+import java.util.HashMap;
 
 /**
  * this class represents the maze as a model.

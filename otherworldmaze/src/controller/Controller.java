@@ -1,10 +1,10 @@
 package controller;
 
-import javax.swing.JPanel;
-
 import enums.CellEnum;
 import view.MainView;
 import view.StartView;
+
+import javax.swing.*;
 
 /**
  * this class is the Ancestor of all other classes. 
@@ -14,7 +14,7 @@ import view.StartView;
  */
 public class Controller {
 	/**
-	 * the JFram that contains everything
+	 * the JFrame that contains everything
 	 */
 	MainView mainView;
 
@@ -111,7 +111,7 @@ public class Controller {
 	}
 
 	/**
-	 * creats a sample maze. relevant if there is no txt file to read a maze
+	 * creates a sample maze. relevant if there is no txt file to read a maze
 	 * from.
 	 * 
 	 * @return
