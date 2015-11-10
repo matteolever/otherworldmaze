@@ -25,8 +25,7 @@ public class MazeController {
 	PlayerController player;
 
 	Timer timer;
-	
-	
+
 	private JLayeredPane container;
 
 	private static final String RIGHT = "RIGHT";
@@ -34,14 +33,13 @@ public class MazeController {
 	private static final String DOWN = "DOWN";
 	private static final String UP = "UP";
 	Controller controller;
-	
-	
-	private int initTime = 200; //TODOD set that somewhere else!
+
+	private int initTime = 200; // TODOD set that somewhere else!
 
 	public MazeController(MainView mainView, int[][] intGrid, Controller controller) {
 		mazeModel = new Maze(intGrid, initTime);
 		mazeView = new MazeView(this, intGrid);
-		
+
 		this.controller = controller;
 
 		init(mainView);
@@ -54,7 +52,7 @@ public class MazeController {
 		mazeView.setRequestFocusEnabled(true);
 
 		System.out.println("the maze view size is " + mazeView.getSize());
-		int width = (int)CellView.CELLSIZE.getWidth()*mazeModel.getGrid().length;
+		int width = (int) CellView.CELLSIZE.getWidth() * mazeModel.getGrid().length;
 
 		container = new JLayeredPane();
 		container.setBounds(0, 0, width, width);
@@ -122,22 +120,28 @@ public class MazeController {
 	public void wonGame() {
 		// TODO what happens when the Game is won?
 		System.out.println("THE GAME IS WON!");
-		Object[] options = {"Go Back", "Restart!"};
-		int choice = JOptionPane.showOptionDialog(mazeView,"♛ \tCongrats! You opened the exit door and won! \t♛\", \"You Won", "What do you want to do?",JOptionPane.CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE,null, options, options[1]);
-		if (choice == 0){
-			//Go back to menu
-		} else if (choice == 1){
-			timer.cancel();
+		timer.cancel();
+		showDialog(
+				"♛ \tCongrats! You opened the exit door and won! \t♛♛ \tCongrats! You opened the exit door and won! \t♛",
+				"You Won!");
+	}
+
+	public void lostGame() {
+		System.out.println("You lost!");
+		timer.cancel();
+		showDialog("\tOh no...the light ran out.", "You Lost!");
+	}
+
+	public void showDialog(String msg, String title) {
+		Object[] options = { "Go Back", "Restart!" };
+		int choice = JOptionPane.showOptionDialog(mazeView, msg, title + " What do you want to do?",
+				JOptionPane.CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
+		if (choice == 0) {
+			// Go back to menu
+			controller.startView();
+		} else if (choice == 1) {
 			controller.startMaze();
 		}
-	}
-	
-	public void lostGame(){
-		System.out.println("You lost!");
-		JOptionPane.showMessageDialog(mazeView, " \tOh no...the light ran out. \t", "You Won",
-				JOptionPane.PLAIN_MESSAGE);
-		timer.cancel();
-		controller.startMaze();
 	}
 
 	private void setUpTimer() {
@@ -146,11 +150,11 @@ public class MazeController {
 
 			@Override
 			public void run() {
-				//shrink halo
+				// shrink halo
 				boolean shrink = player.shrinkHalo();
-				if(!shrink)
+				if (!shrink)
 					lostGame();
-				
+
 			}
 		}, 0, 150);
 	}
@@ -164,7 +168,7 @@ public class MazeController {
 		// if wall = stop
 		// if door player checkKeys
 		// if true open door
-		
+
 		int type = cell.getCellType().getType();
 		if (type == CellEnum.EMPTY.getType())
 			return false;
@@ -178,7 +182,7 @@ public class MazeController {
 					.get(new Point(cell.getCoordinates()[0], cell.getCoordinates()[1]));
 			player.collectKey(key, cell.getCoordinates()[0], cell.getCoordinates()[1]);
 			cell.setType(CellEnum.EMPTY.getType());
-			
+
 			return false;
 
 		} else if (type == CellEnum.DOOR.getType()) {
@@ -189,7 +193,7 @@ public class MazeController {
 			if (mazeModel.isWon()) {
 				wonGame();
 			}
-			return true; //TODO player should go into the door
+			return true; // TODO player should go into the door
 		}
 		mazeView.repaint();
 		return true;
@@ -198,15 +202,13 @@ public class MazeController {
 	public MazeView getMazeView() {
 		return mazeView;
 	}
-	
-	public int getTime(){
+
+	public int getTime() {
 		return this.initTime;
 	}
 
 	public JLayeredPane getContainer() {
 		return container;
 	}
-	
-	
 
 }

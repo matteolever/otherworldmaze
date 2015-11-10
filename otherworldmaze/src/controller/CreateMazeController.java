@@ -59,4 +59,10 @@ public class CreateMazeController {
 
 	}
 
+	public CreateMazeView getCreateMazeView() {
+		return createMazeView;
+	}
+	
+	
+
 }
