@@ -108,7 +108,7 @@ public class CellView extends JPanel {
 		int h = getHeight();
 
 		g.setPaint(new Color(230, 230, 230));
-		g.drawRect(0, 0, w, h);
+	//	g.drawRect(0, 0, w, h);
 
 	}
 

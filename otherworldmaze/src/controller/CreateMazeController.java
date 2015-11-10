@@ -17,41 +17,56 @@ import view.MainView;
 public class CreateMazeController {
 	MainView mainView;
 	CreateMazeView createMazeView;
+	Controller controller;
 
-	public CreateMazeController(MainView mainView) {
+	public CreateMazeController(Controller controller) {
 		createMazeView = new CreateMazeView(this);
-		mainView.add(createMazeView);
-		mainView.view();
+		this.controller = controller;
 	}
 
-	public void saveMaze(int[][] intGrid) {
-
-		PrintWriter printerList;
-		PrintWriter printerMaze;
+	public void saveAndStartMaze(int[][] intGrid) {
 		String mazeName;
 
 		mazeName = JOptionPane.showInputDialog("Give your maze a name");
-
 		if (mazeName != null) {
-			try {
-				// Saves the maze name to the list file
-				printerList = new PrintWriter(new BufferedWriter(new FileWriter("mazelist.txt", true)));
-				printerList.println(mazeName);
-				printerList.close();
-
-				printerMaze = new PrintWriter(new BufferedWriter(new FileWriter(mazeName + ".txt", true)));
-
-				// Saves the maze as a text file
-				for (int row = 0; row < intGrid.length; row++) {
-					for (int col = 0; col < intGrid[0].length; col++) {
-						printerMaze.println(row + ":" + col + ":" + intGrid[row][col]);
-					}
-				}
-				printerMaze.close();
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}
+			saveMaze(mazeName, intGrid);
 		}
+		startTheMaze(mazeName);
+
+	}
+
+	public void saveMaze(String mazeName, int[][] intGrid) {
+		PrintWriter printerList;
+		PrintWriter printerMaze;
+
+		try {
+			// Saves the maze name to the list file
+			printerList = new PrintWriter(new BufferedWriter(new FileWriter("mazelist.txt", true)));
+			printerList.println(mazeName);
+			printerList.close();
+
+			printerMaze = new PrintWriter(new BufferedWriter(new FileWriter(mazeName + ".txt", true)));
+
+			// Saves the maze as a text file
+			for (int row = 0; row < intGrid.length; row++) {
+				for (int col = 0; col < intGrid[0].length; col++) {
+					printerMaze.println(row + ":" + col + ":" + intGrid[row][col]);
+				}
+			}
+			printerMaze.close();
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+
+	}
+
+	public void startTheMaze(String mazeName) {
+		SelectMazeController selectMazeController = new SelectMazeController(controller);
+		selectMazeController.loadMazeFile(mazeName);
+	}
+	
+	public void goBack(){
+		controller.startView();
 	}
 
 	public CreateMazeView getCreateMazeView() {

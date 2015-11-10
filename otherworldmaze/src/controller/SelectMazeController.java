@@ -1,9 +1,7 @@
 package controller;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,26 +9,20 @@ import java.util.Scanner;
 
 import javax.swing.JOptionPane;
 
-import view.MainView;
 import view.SelectMazeView;
 
 public class SelectMazeController {
 
-	private MainView mainView;
 	private SelectMazeView selectMazeView;
 	private List<String> mazeList;
 	Controller controller;
 
-	public SelectMazeController(MainView mainView, Controller controller){
+	public SelectMazeController(Controller controller){
 
 		this.controller = controller;
 		mazeList = new ArrayList<String>();
 		readMazeList();
-
-		this.mainView = mainView;
 		this.selectMazeView = new SelectMazeView(this);
-		mainView.add(this.selectMazeView);
-		mainView.view();
 	}
 
 	public void readMazeList(){
@@ -82,31 +74,8 @@ public class SelectMazeController {
 			// THIS WORKS BEAUTIFULLY
 			System.out.println("filename: "+file.getName());
 
-//			while (scanner1.hasNextLine()){
-//
-//				//TODO WHY IS THIS NOT RUN?
-//				System.out.println("BOOOOO");
-//
-//				String line = scanner1.nextLine();
-//
-//				System.out.println(line);
-//
-//				try {
-//					System.out.println(line.substring(0,1));
-//					System.out.println(line.substring(2,3));
-//
-//					numberOfRows = Integer.parseInt(line.substring(0,1));
-//					numberOfColumns = Integer.parseInt(line.substring(2,3));
-//									}
-//				catch (IndexOutOfBoundsException e){
-//					JOptionPane.showMessageDialog(null, "There is an error with the file.");
-//				}
-//				scanner1.close();
-//			}
-
 			// Places the integers into a grid
 			maze = new int[numberOfRows][numberOfColumns];
-
 
 			while (scanner2.hasNextLine()){
 
@@ -135,8 +104,9 @@ public class SelectMazeController {
 		System.out.println("Random cell in the maze: "+maze[3][3]);
 
 		// CREATING A NEW MAZE
-		this.mainView.remove(selectMazeView);
-		MazeController newMazeController = new MazeController(mainView, maze, controller);
+		controller.startMaze(maze);
+//		this.mainView.remove(selectMazeView);
+//		MazeController newMazeController = new MazeController(mainView, maze, controller);
 	}
 
 

@@ -54,7 +54,7 @@ public class StartView extends JPanel {
 	private MouseAdapter startButtonListener = new MouseAdapter() {
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			StartView.this.controller.startMaze();
+			StartView.this.controller.startMaze(null);
 		}
 	};
 

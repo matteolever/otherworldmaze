@@ -108,7 +108,7 @@ public class Maze {
 	public void openOneDoor(){
 		this.closedDoors -=1;
 	}
-
+	
 	public boolean isWon() {
 		boolean won = false;
 		if (this.closedDoors == 0){

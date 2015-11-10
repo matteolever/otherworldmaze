@@ -89,7 +89,7 @@ public class MazeView extends JPanel {
 		this.getActionMap().put(MOVE_RIGHT, moveRight);
 
 	}
-
+	
 	public void createEmptyGrid() {
 		for (int row = 0; row < rows; row++) {
 			for (int col = 0; col < cols; col++) {
@@ -122,10 +122,6 @@ public class MazeView extends JPanel {
 			}
 			System.out.println("");
 		}
-	}
-
-	public void addPlayer(PlayerView player) {
-		this.add(player);
 	}
 
 	public int[][] getIntGrid() {

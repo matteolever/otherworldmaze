@@ -14,7 +14,6 @@ import model.Key;
 import model.Maze;
 import view.CellView;
 import view.HaloView;
-import view.MainView;
 import view.MazeView;
 
 public class MazeController {
@@ -36,17 +35,17 @@ public class MazeController {
 
 	private int initTime = 200; // TODOD set that somewhere else!
 
-	public MazeController(MainView mainView, int[][] intGrid, Controller controller) {
+	public MazeController(int[][] intGrid, Controller controller) {
 		mazeModel = new Maze(intGrid, initTime);
 		mazeView = new MazeView(this, intGrid);
 
 		this.controller = controller;
 
-		init(mainView);
+		init();
 		startGame();
 	}
 
-	public void init(MainView mainView) {
+	public void init() {
 		mazeView.setFocusable(true);
 		mazeView.getInputMap();
 		mazeView.setRequestFocusEnabled(true);
@@ -62,15 +61,10 @@ public class MazeController {
 		mazeView.setVisible(true);
 
 		container.add(mazeView, new Integer(0), 0);
-
-		mainView.add(container);
 		container.setVisible(true);
 		container.revalidate();
-
-		mainView.view();
-
 	}
-
+	
 	public void addHaloToMaze(HaloView haloView) {
 		haloView.setBounds(0, 0, 500, 500);
 		haloView.setVisible(true);
@@ -122,7 +116,7 @@ public class MazeController {
 		System.out.println("THE GAME IS WON!");
 		timer.cancel();
 		showDialog(
-				"♛ \tCongrats! You opened the exit door and won! \t♛♛ \tCongrats! You opened the exit door and won! \t♛",
+				"♛ \tCongrats! You opened the exit door and won! \t♛",
 				"You Won!");
 	}
 
@@ -140,7 +134,7 @@ public class MazeController {
 			// Go back to menu
 			controller.startView();
 		} else if (choice == 1) {
-			controller.startMaze();
+			controller.startMaze(this.mazeModel.getGrid());
 		}
 	}
 
